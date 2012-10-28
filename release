@@ -1,0 +1,40 @@
+#!/bin/bash
+
+PRJ="VRL-Studio"
+DIR="tmp"
+
+if [ "$1" == "" ]
+then
+	echo ">> ERROR: no command specified!"
+	echo ">> possible commands are: ar, push."
+	exit 1
+fi
+
+case "$1" in
+	push)	echo ">> pushing archives to server"
+		if [ -d "$DIR" ]
+		then
+			scp tmp/*.tar.gz miho@mihosoft.eu:/git/releases/"$PRJ"
+			rm -rf "$DIR"
+		else
+			echo ">> ERROR: nothing to push!"
+		fi
+		;;
+	ar)
+		if [ "$2" == "" ]
+		then
+			echo ">> ERROR: tag not specified."
+			echo ">> Example: release ar v1.4.0"
+			exit 1
+		else
+			CWD="$(pwd)"
+			cd "$PRJ"
+			ant clean > /dev/null
+			cd "$CWD"
+			BASE="$PRJ"-"$2"-src	
+			echo ">> creating $BASE archive..."
+			mkdir -p "$DIR"	
+			git archive --format=tar --prefix="$BASE"/ "$2" "$PRJ" | gzip > "$DIR/$BASE".tar.gz
+		fi
+		;;
+esac

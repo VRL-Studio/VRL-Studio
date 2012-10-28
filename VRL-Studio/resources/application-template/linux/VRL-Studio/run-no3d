@@ -1,0 +1,19 @@
+#!/bin/bash
+
+CONF="-enable3d no -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix numerics-studio -plugin-checksum-test no"
+
+APPDIR="$(dirname "$0")/.application"
+
+cd "$APPDIR"
+
+LIBDIR32="lib/linux/x86:custom-lib/linux/x86"
+LIBDIR64="lib/linux/x64:custom-lib/linux/x64"
+LIBDIROSX="lib/osx:custom-lib/osx"
+LIBDIR="$LIBDIR32:$LIBDIROSX"
+
+MACOPTIONS="-Xbootclasspath/p:lib/j3dcore.jar:lib/j3dutils.jar:lib/osx/jogl.jar:lib/vecmath.jar:lib/osx/gluegen-rt.jar -Dsun.boot.library.path=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Libraries:$LIBDIR"
+
+java -Xms64m -Xmx1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
+
+#java $MACOPTIONS  -Xms64m -Xmx1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=4 -XX:ConcGCThreads=4 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSConcurrentMTEnabled -XX:CMSWaitDuration=200 -XX:+UseParNewGC -XX:MaxPermSize=256m -XX:GCTimeRatio=10 -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
+

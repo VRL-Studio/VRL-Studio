@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="VRL-Studio" default="default" basedir=".">
+    <description>Builds, tests, and runs the project VRL-Studio.</description>
+    <import file="nbproject/build-impl.xml"/>
+
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="VRL-Studio-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+
+
+<!--    <target name="-pre-compile">
+        
+        <taskdef name="timestamp"
+                 classname="eu.mihosoft.vrl.lang.SetTimeStampTask"
+                 classpath="${javac.classpath}"
+                 />
+        
+        <timestamp location="${basedir}/${src.dir}">
+            <fileset dir="${src.dir}" includes="**/*.java"/>
+        </timestamp>
+        
+    </target>
+    
+    <target name="-post-jar">
+        
+        <taskdef name="timestamp"
+                 classname="eu.mihosoft.vrl.lang.RemoveTimeStampTask"
+                 classpath="${javac.classpath}"
+                 />
+        
+        <timestamp location="${basedir}/${src.dir}">
+            <fileset dir="${src.dir}" includes="**/*.java"/>
+        </timestamp>
+        
+    </target>-->
+    
+    <path id="custom.ant.classpath">  
+        <pathelement path="${java.class.path}/"/>  
+        <pathelement path="${additional.path}"/>  
+        
+        <fileset dir="lib/">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <!-- COPY TASK -->
+    <taskdef name="copyWithPerms" classname="com.atlassian.ant.tasks.CopyWithPerms" classpathref="custom.ant.classpath"/>
+    <taskdef name="zipWithPerms" classname="com.atlassian.ant.tasks.ZipWithPerms" classpathref="custom.ant.classpath"/>
+    
+    <target name="-post-jar">
+        
+        <!--Init dist-final folder-->
+        <echo message="Init dist-final folder"/>
+        <delete dir="dist-final" />
+        <mkdir dir="dist-final" />
+        
+        <echo message="Creating Linux Application"/>
+        <!--Copy linux template to destination-->
+        <copy todir="dist-final/linux">
+            <fileset dir="resources/application-template/linux">
+                <include name="**/*"/>
+                <!--exclude runscripts (done later, preserving permissions)-->
+                <exclude name="VRL-Studio/run*"/>
+            </fileset>
+        </copy>
+        
+        <!--Copy linux run scripts to destination and preserve permissions-->
+        <copyWithPerms todir="dist-final/linux/VRL-Studio">
+            <fileset dir="resources/application-template/linux/VRL-Studio/">
+                <include name="run*"/>
+            </fileset>
+        </copyWithPerms>
+        
+        <!--Copy studio jar to linux template lib-->
+        <copy file="${dist.jar}" 
+        todir="dist-final/linux/VRL-Studio/.application"/>
+        
+         <!--Copy dependencies to linux app destination-->
+        <copy todir="dist-final/linux/VRL-Studio/.application/lib">
+            <fileset dir="${dist.dir}/lib">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+        
+        
+        <echo message="Creating Windows Application"/>
+        <!--Copy windows template to destination-->
+        <copy todir="dist-final/windows">
+            <fileset dir="resources/application-template/windows">
+                <include name="**/*"/>
+                <!--exclude runscripts (done later, preserving permissions)-->
+                <exclude name="VRL-Studio/run*.bat"/>
+            </fileset>
+        </copy>
+        
+        <!--Copy windows run scripts to destination and preserve permissions-->
+        <copyWithPerms todir="dist-final/windows/">
+            <fileset dir="resources/application-template/windows/">
+                <include name="VRL-Studio/run*.bat"/>
+            </fileset>
+        </copyWithPerms>
+        
+        <!--Copy studio jar to windows template lib-->
+        <copy file="${dist.jar}" 
+        todir="dist-final/windows/VRL-Studio/.application"/>
+        
+         <!--Copy dependencies to windows app destination-->
+        <copy todir="dist-final/windows/VRL-Studio/.application/lib">
+            <fileset dir="${dist.dir}/lib">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+       
+        
+        <echo message="Creating OS X Application"/>
+        <!--Copy osx template to destination-->
+        <copy todir="dist-final/osx">
+            <fileset dir="resources/application-template/osx">
+                <include name="**/*"/>
+                <!--exclude runscripts (done later, preserving permissions)-->
+                <exclude name="VRL-Studio.app/Contents/MacOS/*"/>
+            </fileset>
+        </copy>
+        
+        <!--Copy osx run scripts to destination and preserve permissions-->
+        <copyWithPerms todir="dist-final/osx/VRL-Studio.app/Contents/MacOS">
+            <fileset dir="resources/application-template/osx/VRL-Studio.app/Contents/MacOS">
+                <include name="**/*"/>
+            </fileset>
+        </copyWithPerms>
+        
+        <!-- BASH COMPATIBLE JAR/LIB LOCATION -->
+        
+        <!--Copy studio jar to osx template lib-->
+        <copy file="${dist.jar}" 
+        todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/"/>
+        
+         <!--Copy dependencies to osx app destination-->
+        <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/lib">
+            <fileset dir="${dist.dir}/lib">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+        
+        <!-- APPLICATIONSTUB COMPATIBLE JAR/LIB LOCATION -->
+        
+        <!--Copy studio jar to osx template lib-->
+        <copy file="${dist.jar}" 
+        todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/"/>
+        
+         <!--Copy dependencies to osx app destination-->
+        <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/lib">
+            <fileset dir="${dist.dir}/lib">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+        
+
+    </target>
+    
+    
+    <condition property="isMac">
+        <os family="mac" />
+    </condition>
+
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <condition property="isUnix">
+        <and>
+            <os family="unix" />
+            <not>
+                <os family="mac"/>
+            </not>
+        </and>
+    </condition>
+
+    <!-- operating system specific run targets -->
+    <target name="runMac" if="isMac">
+         <echo message="Running OS X version" />
+        <exec executable="open">
+            <arg file="dist-final/osx/VRL-Studio.app"/>
+        </exec>
+    </target>
+
+    <target name="runWindows" if="isWindows">
+        <echo message="Running Windows version" />
+        <exec executable="cmd" dir="dist-final/windows/VRL-Studio">
+            <arg value="/c"/>
+            <arg value="run.bat"/>
+        </exec>
+    </target>
+
+    <target name="runUnix" if="isUnix">
+        <echo message="Running Unix version:" />
+        <exec executable="bash">
+            <arg value="dist-final/linux/VRL-Studio/run"/>
+        </exec>
+    </target>
+    
+    <target name="run" depends="VRL-Studio-impl.jar, runMac, runWindows, runUnix"/>
+    
+</project>

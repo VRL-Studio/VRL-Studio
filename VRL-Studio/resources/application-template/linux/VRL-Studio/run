@@ -1,0 +1,164 @@
+#!/bin/bash
+
+######### EDIT IF NECESSARY #########
+
+PROPERTY_SUFFIX=numerics-studio
+
+CONF="-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix $PROPERTY_SUFFIX -plugin-checksum-test no"
+
+######### DO NOT EDIT #########
+
+OS=$(uname -a)
+
+CALL_PATH=$(pwd)
+
+APPDIR="$(dirname "$0")/.application"
+cd "$APPDIR"
+APPDIR="$(pwd)"
+
+if [ "$1" == "-install" ]
+then
+
+if [[ $OS == *Linux* ]]
+then
+  echo ">> detected linux, installing mime-type"
+  
+  #xdg-icon-resource install --size 512 resources/mime/vrl-studio.png vrl-studio
+  #xdg-icon-resource install --context mimetypes --size 512 resources/mime/vrl-studio.png application-x-vrlp
+  
+
+  cp resources/mime/vrl-studio-template.desktop resources/mime/vrl-studio.desktop
+  cp resources/mime/application-x-vrlp-template.xml resources/mime/application-x-vrlp.xml
+
+ 
+  EXEC=$(echo "$APPDIR/../run"| sed 's/\//\\\//g')
+  FILE_ICON=$(echo "$APPDIR/resources/mime/vrl-file-icon-512x512.png"| sed 's/\//\\\//g')
+  APP_ICON=$(echo "$APPDIR/resources/mime/vrl-app-icon.png"| sed 's/\//\\\//g')
+
+  sed -i "s/APPLICATION_NAME/$EXEC/g" resources/mime/vrl-studio.desktop
+  sed -i "s/APP_ICON_NAME/$APP_ICON/g" resources/mime/vrl-studio.desktop
+  sed -i "s/FILE_ICON_NAME/$FILE_ICON/g" resources/mime/application-x-vrlp.xml
+
+  xdg-mime install resources/mime/application-x-vrlp.xml
+
+  xdg-desktop-menu install resources/mime/vrl-studio.desktop
+  update-mime-database $HOME/.local/share/mime/
+  update-desktop-database $HOME/.local/share/applications
+
+  exit 0
+else
+  echo ">> not running on linux, cannot install mime-type"
+  exit 1
+fi
+
+fi
+
+if [ "$1" == "-uninstall" ]
+then
+
+if [[ $OS == *Linux* ]]
+then
+  echo ">> detected linux, uninstalling mime-type"
+
+  xdg-mime uninstall resources/mime/application-x-vrlp.xml
+  #xdg-icon-resource uninstall --size 512 vrl-studio
+  #xdg-icon-resource uninstall --context mimetypes --size 512 application-x-vrlp
+  xdg-desktop-menu uninstall resources/mime/vrl-studio.desktop
+  update-mime-database $HOME/.local/share/mime/
+  update-desktop-database $HOME/.local/share/applications
+
+  exit 0
+else
+  echo ">> not running on linux, cannot uninstall mime-type"
+
+  exit 1
+fi
+
+fi
+
+
+if [ "$1" == "-help" ]
+then
+
+cat << EOF
+
+** Help: **
+
+Basic Usage:	
+
+./run                      Starts VRL-Studio
+./run file.vrlp            Starts VRL-Studio and opens the project file.vrlp
+
+Installation (Linux only):
+
+./run -install             Registers the application with the Desktop and
+                           installs MIME Type information
+
+./run -uninstall           Unregisters the application from the Desktop and
+                           uninstalls MIME Type information
+
+EOF
+
+exit 0
+
+fi
+
+FILE=""
+
+if [ "$1" == "-file" ]
+then
+  if [[ "$2" = /* ]]
+  then
+    FILE="$2"
+    CONF=$CONF" -file"
+  else
+    FILE="$CALL_PATH/$2"
+    CONF=$CONF" -file"
+  fi
+elif [ "$1" == "" ]
+then
+  echo ">> starting with no param"
+elif [[ $1 != *.vrlp* ]]
+then
+  echo ">> unknown parameter: '$1'. Type ./run -help for more information."
+  exit 1
+fi
+
+
+LIBDIR32="lib/linux/x86:custom-lib/linux/x86"
+LIBDIR64="lib/linux/x64:custom-lib/linux/x64"
+LIBDIROSX="lib/osx:custom-lib/osx"
+
+if [[ $OS == *x86_64* ]]
+then
+  echo ">> detected x86 (64 bit) os"
+  LIBDIR="$LIBDIR64:$LIBDIROSX"
+  JAVAEXE="jre/x64/bin/java"
+elif [[ $OS == *86* ]]
+then
+  echo ">> detected x86 (32 bit) os"
+  LIBDIR="$LIBDIR32:$LIBDIROSX"
+  JAVAEXE="jre/x86/bin/java"
+else
+  echo ">> unsupported architecture!"
+  echo " --> executing installed java version"
+  JAVAEXE="java"
+fi
+
+if [ ! -e $JAVAEXE ]
+then
+  echo ">> integrated jre not found!"
+  echo " --> executing installed java version"
+  JAVAEXE="java"
+fi
+
+
+# optimized for jre 7 (19.04.2012)
+$JAVAEXE -Xms64m -Xmx1024m -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF "$FILE"
+
+# 2011
+#java -Xms64m -Xmx1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
+
+# experimental
+#java -Xms256m -Xmx1g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=4 -XX:ConcGCThreads=4 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSConcurrentMTEnabled -XX:CMSWaitDuration=200 -XX:+UseParNewGC -XX:MaxPermSize=256m -XX:GCTimeRatio=10 -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
+

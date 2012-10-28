@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>vrl-file-icon.icns</string>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>vrlp</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>VRL Project</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+		</dict>
+	</array>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleAllowMixedLocalizations</key>
+	<string>true</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>run.sh</string>
+	<key>CFBundleGetInfoString</key>
+	<string>HEAD (2009-2011 by Michael Hoffer)</string>
+	<key>CFBundleIconFile</key>
+	<string>vrl-icon-osx.icns</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>VRL-Studio</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>0.3</string>
+	<key>Java</key>
+	<dict>
+		<key>ClassPath</key>
+		<array>
+			<string>$JAVAROOT/VRL-Studio.jar</string>
+			<string>$JAVAROOT/lib/VRL.jar</string>
+			<string>$JAVAROOT/lib/java3d/j3dcore.jar</string>
+			<string>$JAVAROOT/lib/java3d/j3dutils.jar</string>
+			<string>$JAVAROOT/lib/java3d/vecmath.jar</string>
+			<string>$JAVAROOT/lib/osx/gluegen-rt.jar</string>
+			<string>$JAVAROOT/lib/osx/jogl.jar</string>
+		</array>
+		<key>JVMVersion</key>
+		<string>1.6+</string>
+		<key>Arguments</key>
+		<string>-enable3d yes -defaultProject default.vrlp -property-folder-suffix numerics-studio -plugin-checksum-test no</string>
+		<key>MainClass</key>
+		<string>eu.mihosoft.vrlstudio.main.Studio</string>
+		<key>Properties</key>
+		<dict>
+			<key>apple.laf.useScreenMenuBar</key>
+			<string>true</string>
+		</dict>
+		<key>SplashFile</key>
+		<string>$JAVAROOT/resources/studio-resources/splashscreen.png</string>
+		<key>VMOptions</key>
+		<string>-Djava.library.path=custom-lib/osx -Xbootclasspath/p:lib/java3d/j3dcore.jar:lib/java3d/j3dutils.jar:lib/osx/jogl.jar:lib/java3d/vecmath.jar:lib/osx/gluegen-rt.jar -Dsun.boot.library.path=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Libraries:lib/osx -Xms256m -Xmx1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=256m</string>
+		<key>WorkingDirectory</key>
+		<string>$APP_PACKAGE/Contents/Resources/Java</string>
+	</dict>
+</dict>
+</plist>

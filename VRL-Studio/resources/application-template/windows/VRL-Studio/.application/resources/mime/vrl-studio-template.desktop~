@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Encoding=UTF-8
+Name=VRL-Studio
+Comment=Visual Programming Environment
+Exec=APPLICATION_NAME -file %f
+MimeType=application/x-vrlp
+Icon=APP_ICON
+Categories=Application;Development;Java;IDE
+Version=1.0
+Type=Application
+Terminal=0

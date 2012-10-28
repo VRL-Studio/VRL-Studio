@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_24" class="java.beans.XMLDecoder"> 
+ <object class="eu.mihosoft.vrl.io.vrlx.XMLFile"> 
+  <void property="content"> 
+   <void method="add"> 
+    <object class="eu.mihosoft.vrl.io.vrlx.XMLFolder"> 
+     <void property="content"> 
+      <void method="add"> 
+       <object class="eu.mihosoft.vrl.io.vrlx.XMLFolder"> 
+        <void property="content"> 
+         <void method="add"> 
+          <object class="eu.mihosoft.vrl.io.vrlx.XMLFolder"> 
+           <void property="content"> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="content"> 
+               <object class="eu.mihosoft.vrl.io.vrlx.VSessionInitializer"/> 
+              </void> 
+              <void property="name"> 
+               <string>session-initializer</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="content"> 
+               <object class="eu.mihosoft.vrl.visual.Style"> 
+                <void property="name"> 
+                 <string>Default</string> 
+                </void> 
+                <void property="baseValues"> 
+                 <void property="values"> 
+                  <void id="Boolean0" method="get"> 
+                   <string>CanvasGrid:visibility</string> 
+                  </void> 
+                 </void> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="name"> 
+               <string>style</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="content"> 
+               <object class="eu.mihosoft.vrl.io.vrlx.AbstractWindows"> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractWindow"> 
+                  <void property="contentProvider"> 
+                   <object class="eu.mihosoft.vrl.io.vrlx.AbstractObjectRepresentation"> 
+                    <void method="add"> 
+                     <object class="eu.mihosoft.vrl.io.vrlx.AbstractMethodRepresentation"> 
+                      <void property="methodId"> 
+                       <int>0</int> 
+                      </void> 
+                      <void property="methodName"> 
+                       <string>paint</string> 
+                      </void> 
+                      <void property="parameterTypeNames"> 
+                       <void method="add"> 
+                        <string>java.awt.Color</string> 
+                       </void> 
+                       <void method="add"> 
+                        <string>java.lang.Integer</string> 
+                       </void> 
+                      </void> 
+                      <void property="parameterTypes"> 
+                       <array id="ClassArray0" class="java.lang.Class" length="2"> 
+                        <void index="0"> 
+                         <class>java.awt.Color</class> 
+                        </void> 
+                        <void index="1"> 
+                         <class>java.lang.Integer</class> 
+                        </void> 
+                       </array> 
+                      </void> 
+                      <void property="returnValueData"> 
+                       <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                        <void property="customData"> 
+                         <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                        </void> 
+                        <void property="valueOptions"> 
+                         <string>width=70;height=70</string> 
+                        </void> 
+                       </object> 
+                      </void> 
+                      <void property="valueData"> 
+                       <void method="add"> 
+                        <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                         <void property="customData"> 
+                          <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                         </void> 
+                         <void property="valueObjectData"> 
+                          <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;java.awt.Color&quot;&gt; 
+  &lt;int&gt;0&lt;/int&gt; 
+  &lt;int&gt;255&lt;/int&gt; 
+  &lt;int&gt;0&lt;/int&gt; 
+  &lt;int&gt;255&lt;/int&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+</string> 
+                         </void> 
+                         <void property="valueOptions"> 
+                          <string></string> 
+                         </void> 
+                        </object> 
+                       </void> 
+                       <void method="add"> 
+                        <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                         <void property="customData"> 
+                          <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                         </void> 
+                         <void property="valueObjectData"> 
+                          <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;int&gt;11&lt;/int&gt; 
+&lt;/java&gt; 
+</string> 
+                         </void> 
+                         <void property="valueOptions"> 
+                          <string>min=1;max=30;invokeOnChange=true</string> 
+                         </void> 
+                        </object> 
+                       </void> 
+                      </void> 
+                      <void property="visibility"> 
+                       <object idref="Boolean0"/> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="connectorIDTables"> 
+                     <object class="eu.mihosoft.vrl.visual.IDArrayList"> 
+                      <void method="add"> 
+                       <object class="eu.mihosoft.vrl.visual.IDTable"> 
+                        <void method="add"> 
+                         <int>0</int> 
+                        </void> 
+                        <void method="add"> 
+                         <int>1</int> 
+                        </void> 
+                        <void method="add"> 
+                         <int>2</int> 
+                        </void> 
+                       </object> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="objID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="objectData"> 
+                     <string>H4sIAAAAAAAAAFvzloG1uIhBKDgxtyAn1TM3MT01IDEzryS1iAECGJkYGCoKAB/uotgnAAAA</string> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="location"> 
+                   <object class="java.awt.Point"> 
+                    <int>876</int> 
+                    <int>82</int> 
+                   </object> 
+                  </void> 
+                  <void property="objID"> 
+                   <int>1</int> 
+                  </void> 
+                  <void property="title"> 
+                   <string>SampleImagePainter</string> 
+                  </void> 
+                  <void property="titleBarSize"> 
+                   <object class="java.awt.Dimension"> 
+                    <int>226</int> 
+                    <int>25</int> 
+                   </object> 
+                  </void> 
+                  <void property="visible"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                  <void property="windowFullSizedState"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractWindow"> 
+                  <void property="contentProvider"> 
+                   <object class="eu.mihosoft.vrl.io.vrlx.AbstractObjectRepresentation"> 
+                    <void method="add"> 
+                     <object class="eu.mihosoft.vrl.io.vrlx.AbstractMethodRepresentation"> 
+                      <void property="methodId"> 
+                       <int>0</int> 
+                      </void> 
+                      <void property="methodName"> 
+                       <string>add</string> 
+                      </void> 
+                      <void property="parameterTypeNames"> 
+                       <void method="add"> 
+                        <string>java.lang.Integer</string> 
+                       </void> 
+                       <void method="add"> 
+                        <string>java.lang.Integer</string> 
+                       </void> 
+                      </void> 
+                      <void property="parameterTypes"> 
+                       <array id="ClassArray1" class="java.lang.Class" length="2"> 
+                        <void index="0"> 
+                         <class>java.lang.Integer</class> 
+                        </void> 
+                        <void index="1"> 
+                         <class>java.lang.Integer</class> 
+                        </void> 
+                       </array> 
+                      </void> 
+                      <void property="returnValueData"> 
+                       <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                        <void property="customData"> 
+                         <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                        </void> 
+                        <void property="valueObjectData"> 
+                         <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;int&gt;9&lt;/int&gt; 
+&lt;/java&gt; 
+</string> 
+                        </void> 
+                        <void property="valueOptions"> 
+                         <string></string> 
+                        </void> 
+                       </object> 
+                      </void> 
+                      <void property="valueData"> 
+                       <void method="add"> 
+                        <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                         <void property="customData"> 
+                          <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                         </void> 
+                         <void property="valueObjectData"> 
+                          <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;int&gt;5&lt;/int&gt; 
+&lt;/java&gt; 
+</string> 
+                         </void> 
+                         <void property="valueOptions"> 
+                          <string></string> 
+                         </void> 
+                        </object> 
+                       </void> 
+                       <void method="add"> 
+                        <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                         <void property="customData"> 
+                          <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                         </void> 
+                         <void property="valueObjectData"> 
+                          <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;int&gt;4&lt;/int&gt; 
+&lt;/java&gt; 
+</string> 
+                         </void> 
+                         <void property="valueOptions"> 
+                          <string></string> 
+                         </void> 
+                        </object> 
+                       </void> 
+                      </void> 
+                      <void property="visibility"> 
+                       <object idref="Boolean0"/> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="connectorIDTables"> 
+                     <object class="eu.mihosoft.vrl.visual.IDArrayList"> 
+                      <void method="add"> 
+                       <object class="eu.mihosoft.vrl.visual.IDTable"> 
+                        <void method="add"> 
+                         <int>0</int> 
+                        </void> 
+                        <void method="add"> 
+                         <int>1</int> 
+                        </void> 
+                        <void method="add"> 
+                         <int>2</int> 
+                        </void> 
+                       </object> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="objID"> 
+                     <int>1</int> 
+                    </void> 
+                    <void property="objectData"> 
+                     <string>H4sIAAAAAAAAAFvzloG1uIiB2zElxTOvJDU9taiYAQIYmRgYKgoAwLF6hyAAAAA=</string> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="location"> 
+                   <object class="java.awt.Point"> 
+                    <int>151</int> 
+                    <int>14</int> 
+                   </object> 
+                  </void> 
+                  <void property="objID"> 
+                   <int>2</int> 
+                  </void> 
+                  <void property="title"> 
+                   <string>AddIntegers</string> 
+                  </void> 
+                  <void property="titleBarSize"> 
+                   <object class="java.awt.Dimension"> 
+                    <int>172</int> 
+                    <int>25</int> 
+                   </object> 
+                  </void> 
+                  <void property="visible"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                  <void property="windowFullSizedState"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractWindow"> 
+                  <void property="contentProvider"> 
+                   <object class="eu.mihosoft.vrl.io.vrlx.AbstractObjectRepresentation"> 
+                    <void method="add"> 
+                     <object class="eu.mihosoft.vrl.io.vrlx.AbstractMethodRepresentation"> 
+                      <void property="methodId"> 
+                       <int>0</int> 
+                      </void> 
+                      <void property="methodName"> 
+                       <string>add</string> 
+                      </void> 
+                      <void property="parameterTypeNames"> 
+                       <void method="add"> 
+                        <string>java.lang.Integer</string> 
+                       </void> 
+                       <void method="add"> 
+                        <string>java.lang.Integer</string> 
+                       </void> 
+                      </void> 
+                      <void property="parameterTypes"> 
+                       <array id="ClassArray2" class="java.lang.Class" length="2"> 
+                        <void index="0"> 
+                         <class>java.lang.Integer</class> 
+                        </void> 
+                        <void index="1"> 
+                         <class>java.lang.Integer</class> 
+                        </void> 
+                       </array> 
+                      </void> 
+                      <void property="returnValueData"> 
+                       <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                        <void property="customData"> 
+                         <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                        </void> 
+                        <void property="valueObjectData"> 
+                         <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;int&gt;11&lt;/int&gt; 
+&lt;/java&gt; 
+</string> 
+                        </void> 
+                        <void property="valueOptions"> 
+                         <string></string> 
+                        </void> 
+                       </object> 
+                      </void> 
+                      <void property="valueData"> 
+                       <void method="add"> 
+                        <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                         <void property="customData"> 
+                          <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                         </void> 
+                         <void property="valueObjectData"> 
+                          <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;int&gt;9&lt;/int&gt; 
+&lt;/java&gt; 
+</string> 
+                         </void> 
+                         <void property="valueOptions"> 
+                          <string></string> 
+                         </void> 
+                        </object> 
+                       </void> 
+                       <void method="add"> 
+                        <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                         <void property="customData"> 
+                          <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                         </void> 
+                         <void property="valueObjectData"> 
+                          <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;int&gt;2&lt;/int&gt; 
+&lt;/java&gt; 
+</string> 
+                         </void> 
+                         <void property="valueOptions"> 
+                          <string></string> 
+                         </void> 
+                        </object> 
+                       </void> 
+                      </void> 
+                      <void property="visibility"> 
+                       <object idref="Boolean0"/> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="connectorIDTables"> 
+                     <object class="eu.mihosoft.vrl.visual.IDArrayList"> 
+                      <void method="add"> 
+                       <object class="eu.mihosoft.vrl.visual.IDTable"> 
+                        <void method="add"> 
+                         <int>0</int> 
+                        </void> 
+                        <void method="add"> 
+                         <int>1</int> 
+                        </void> 
+                        <void method="add"> 
+                         <int>2</int> 
+                        </void> 
+                       </object> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="objID"> 
+                     <int>2</int> 
+                    </void> 
+                    <void property="objectData"> 
+                     <string>H4sIAAAAAAAAAFvzloG1uIiB2zElxTOvJDU9taiYAQIYmRgYKgoAwLF6hyAAAAA=</string> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="location"> 
+                   <object class="java.awt.Point"> 
+                    <int>377</int> 
+                    <int>84</int> 
+                   </object> 
+                  </void> 
+                  <void property="objID"> 
+                   <int>0</int> 
+                  </void> 
+                  <void property="title"> 
+                   <string>AddIntegers</string> 
+                  </void> 
+                  <void property="titleBarSize"> 
+                   <object class="java.awt.Dimension"> 
+                    <int>172</int> 
+                    <int>25</int> 
+                   </object> 
+                  </void> 
+                  <void property="visible"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                  <void property="windowFullSizedState"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractWindow"> 
+                  <void property="contentProvider"> 
+                   <object class="eu.mihosoft.vrl.io.vrlx.AbstractObjectRepresentation"> 
+                    <void method="add"> 
+                     <object class="eu.mihosoft.vrl.io.vrlx.AbstractMethodRepresentation"> 
+                      <void property="methodId"> 
+                       <int>0</int> 
+                      </void> 
+                      <void property="methodName"> 
+                       <string>green</string> 
+                      </void> 
+                      <void property="parameterTypes"> 
+                       <array id="ClassArray3" class="java.lang.Class" length="0"/> 
+                      </void> 
+                      <void property="returnValueData"> 
+                       <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                        <void property="customData"> 
+                         <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                        </void> 
+                        <void property="valueObjectData"> 
+                         <string>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt; 
+&lt;java version=&quot;1.6.0_24&quot; class=&quot;java.beans.XMLDecoder&quot;&gt; 
+ &lt;object class=&quot;java.awt.Color&quot;&gt; 
+  &lt;int&gt;0&lt;/int&gt; 
+  &lt;int&gt;255&lt;/int&gt; 
+  &lt;int&gt;0&lt;/int&gt; 
+  &lt;int&gt;255&lt;/int&gt; 
+ &lt;/object&gt; 
+&lt;/java&gt; 
+</string> 
+                        </void> 
+                        <void property="valueOptions"> 
+                         <string></string> 
+                        </void> 
+                       </object> 
+                      </void> 
+                      <void property="visibility"> 
+                       <object idref="Boolean0"/> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="connectorIDTables"> 
+                     <object class="eu.mihosoft.vrl.visual.IDArrayList"> 
+                      <void method="add"> 
+                       <object class="eu.mihosoft.vrl.visual.IDTable"> 
+                        <void method="add"> 
+                         <int>0</int> 
+                        </void> 
+                       </object> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="objID"> 
+                     <int>3</int> 
+                    </void> 
+                    <void property="objectData"> 
+                     <string>H4sIAAAAAAAAAFvzloG1uIiB2zk/J78oODG3ICeVAQIYmRgYKgoAbHF6PSAAAAA=</string> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="location"> 
+                   <object class="java.awt.Point"> 
+                    <int>617</int> 
+                    <int>11</int> 
+                   </object> 
+                  </void> 
+                  <void property="objID"> 
+                   <int>4</int> 
+                  </void> 
+                  <void property="title"> 
+                   <string>ColorSample</string> 
+                  </void> 
+                  <void property="titleBarSize"> 
+                   <object class="java.awt.Dimension"> 
+                    <int>175</int> 
+                    <int>25</int> 
+                   </object> 
+                  </void> 
+                  <void property="visible"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                  <void property="windowFullSizedState"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractWindow"> 
+                  <void property="contentProvider"> 
+                   <object class="eu.mihosoft.vrl.io.vrlx.AbstractObjectRepresentation"> 
+                    <void method="add"> 
+                     <object class="eu.mihosoft.vrl.io.vrlx.AbstractMethodRepresentation"> 
+                      <void property="methodId"> 
+                       <int>0</int> 
+                      </void> 
+                      <void property="methodName"> 
+                       <string>start</string> 
+                      </void> 
+                      <void property="parameterTypeNames"> 
+                       <void method="add"> 
+                        <string>eu.mihosoft.vrl.types.CanvasRequest</string> 
+                       </void> 
+                      </void> 
+                      <void property="parameterTypes"> 
+                       <array id="ClassArray4" class="java.lang.Class" length="1"> 
+                        <void index="0"> 
+                         <class>eu.mihosoft.vrl.types.CanvasRequest</class> 
+                        </void> 
+                       </array> 
+                      </void> 
+                      <void property="returnValueData"> 
+                       <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                        <void property="customData"> 
+                         <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                        </void> 
+                        <void property="valueOptions"> 
+                         <string></string> 
+                        </void> 
+                       </object> 
+                      </void> 
+                      <void property="valueData"> 
+                       <void method="add"> 
+                        <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                         <void property="customData"> 
+                          <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                         </void> 
+                         <void property="valueOptions"> 
+                          <string></string> 
+                         </void> 
+                        </object> 
+                       </void> 
+                      </void> 
+                      <void property="visibility"> 
+                       <object idref="Boolean0"/> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="connectorIDTables"> 
+                     <object class="eu.mihosoft.vrl.visual.IDArrayList"> 
+                      <void method="add"> 
+                       <object class="eu.mihosoft.vrl.visual.IDTable"> 
+                        <void method="add"> 
+                         <int>0</int> 
+                        </void> 
+                        <void method="add"> 
+                         <int>1</int> 
+                        </void> 
+                       </object> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="objID"> 
+                     <int>4</int> 
+                    </void> 
+                    <void property="objectData"> 
+                     <string>H4sIAAAAAAAAAFvzloG1uIhBPbVULzczI784P61Er6woRy8nMS9dryyzuDQxRy+4JLGoxD8pKzW5
+hAECGJkYGCoKAAwb4ec8AAAA</string> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="location"> 
+                   <object class="java.awt.Point"> 
+                    <int>1</int> 
+                    <int>27</int> 
+                   </object> 
+                  </void> 
+                  <void property="objID"> 
+                   <int>3</int> 
+                  </void> 
+                  <void property="title"> 
+                   <string>Start</string> 
+                  </void> 
+                  <void property="titleBarSize"> 
+                   <object class="java.awt.Dimension"> 
+                    <int>107</int> 
+                    <int>25</int> 
+                   </object> 
+                  </void> 
+                  <void property="visible"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                  <void property="windowFullSizedState"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractWindow"> 
+                  <void property="contentProvider"> 
+                   <object class="eu.mihosoft.vrl.io.vrlx.AbstractObjectRepresentation"> 
+                    <void method="add"> 
+                     <object class="eu.mihosoft.vrl.io.vrlx.AbstractMethodRepresentation"> 
+                      <void property="methodId"> 
+                       <int>0</int> 
+                      </void> 
+                      <void property="methodName"> 
+                       <string>stop</string> 
+                      </void> 
+                      <void property="parameterTypes"> 
+                       <array id="ClassArray5" class="java.lang.Class" length="0"/> 
+                      </void> 
+                      <void property="returnValueData"> 
+                       <object class="eu.mihosoft.vrl.io.vrlx.AbstractParameter"> 
+                        <void property="customData"> 
+                         <object class="eu.mihosoft.vrl.reflection.CustomParamData"/> 
+                        </void> 
+                        <void property="valueOptions"> 
+                         <string></string> 
+                        </void> 
+                       </object> 
+                      </void> 
+                      <void property="visibility"> 
+                       <object idref="Boolean0"/> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="connectorIDTables"> 
+                     <object class="eu.mihosoft.vrl.visual.IDArrayList"> 
+                      <void method="add"> 
+                       <object class="eu.mihosoft.vrl.visual.IDTable"> 
+                        <void method="add"> 
+                         <int>0</int> 
+                        </void> 
+                       </object> 
+                      </void> 
+                     </object> 
+                    </void> 
+                    <void property="objID"> 
+                     <int>5</int> 
+                    </void> 
+                    <void property="objectData"> 
+                     <string>H4sIAAAAAAAAAFvzloG1uIhBLbVULzczI784P61Er6woRy8nMS9dryyzuDQxRy+4JL/APykrNbmE
+AQIYmRgYKgoAWjq36zsAAAA=</string> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="location"> 
+                   <object class="java.awt.Point"> 
+                    <int>1179</int> 
+                    <int>34</int> 
+                   </object> 
+                  </void> 
+                  <void property="objID"> 
+                   <int>5</int> 
+                  </void> 
+                  <void property="title"> 
+                   <string>Stop</string> 
+                  </void> 
+                  <void property="titleBarSize"> 
+                   <object class="java.awt.Dimension"> 
+                    <int>107</int> 
+                    <int>25</int> 
+                   </object> 
+                  </void> 
+                  <void property="visible"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                  <void property="windowFullSizedState"> 
+                   <object idref="Boolean0"/> 
+                  </void> 
+                 </object> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="name"> 
+               <string>windows</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="content"> 
+               <object class="eu.mihosoft.vrl.visual.WindowGroups"/> 
+              </void> 
+              <void property="name"> 
+               <string>window-groups</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="name"> 
+               <string>session-code</string> 
+              </void> 
+             </object> 
+            </void> 
+           </void> 
+           <void property="name"> 
+            <string>visual</string> 
+           </void> 
+          </object> 
+         </void> 
+         <void method="add"> 
+          <object class="eu.mihosoft.vrl.io.vrlx.XMLFolder"> 
+           <void property="content"> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="name"> 
+               <string>class-loader</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="content"> 
+               <object class="eu.mihosoft.vrl.io.vrlx.AbstractCodes"> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractCode"> 
+                  <void property="code"> 
+                   <string>@ComponentInfo(name=&quot;Sample Image Painter&quot;)
+class SampleImagePainter implements Serializable {
+    private static final long serialVersionUID=1;
+
+    public BufferedImage paint(Color c,
+        @ParamInfo(name=&quot;thickness&quot;, style=&quot;slider&quot;, options=&quot;min=1;max=30;invokeOnChange=true&quot;) Integer thickness){
+
+        BufferedImage image =
+                      new BufferedImage(120,120,BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2 = image.createGraphics();
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(thickness));
+        g2.drawLine(0,0,image.getWidth(),image.getHeight());
+        g2.drawLine(0,image.getHeight(),image.getWidth(),0);
+        g2.dispose();
+        return image;
+    }
+}</string> 
+                  </void> 
+                  <void property="language"> 
+                   <string>groovy</string> 
+                  </void> 
+                  <void property="name"> 
+                   <string>SampleImagePainter</string> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractCode"> 
+                  <void property="code"> 
+                   <string>@ComponentInfo(name=&quot;Add Integers&quot;)
+class AddIntegers implements Serializable {
+
+    private static final long serialVersionUID=1;
+
+    public Integer add(Integer a, Integer b){
+        return a+b;
+    }
+}</string> 
+                  </void> 
+                  <void property="language"> 
+                   <string>groovy</string> 
+                  </void> 
+                  <void property="name"> 
+                   <string>AddIntegers</string> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractCode"> 
+                  <void property="code"> 
+                   <string>@ComponentInfo(name=&quot;Color Sample&quot;)
+class ColorSample implements Serializable {
+
+    private static final long serialVersionUID=1;
+
+    public Color green(){
+        return Color.green;
+    }
+}</string> 
+                  </void> 
+                  <void property="language"> 
+                   <string>groovy</string> 
+                  </void> 
+                  <void property="name"> 
+                   <string>ColorSample</string> 
+                  </void> 
+                 </object> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="name"> 
+               <string>code</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="content"> 
+               <object class="eu.mihosoft.vrl.io.vrlx.AbstractDataConnections"> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractDataConnection"> 
+                  <void property="paramReceiver"> 
+                   <int>1</int> 
+                  </void> 
+                  <void property="receiverMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>add</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>2</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray2"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="senderMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>add</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>1</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray1"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractDataConnection"> 
+                  <void property="paramReceiver"> 
+                   <int>2</int> 
+                  </void> 
+                  <void property="receiverMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>paint</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray0"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="senderMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>add</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>2</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray2"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractDataConnection"> 
+                  <void property="paramReceiver"> 
+                   <int>1</int> 
+                  </void> 
+                  <void property="receiverMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>paint</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray0"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="senderMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>green</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>3</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray3"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                 </object> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="name"> 
+               <string>data-connections</string> 
+              </void> 
+             </object> 
+            </void> 
+            <void method="add"> 
+             <object class="eu.mihosoft.vrl.io.vrlx.XMLEntry"> 
+              <void property="content"> 
+               <object class="eu.mihosoft.vrl.io.vrlx.AbstractControlFlowConnections"> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractControlFlowConnection"> 
+                  <void property="receiverMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>add</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>1</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray1"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="senderMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>start</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>4</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray4"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractControlFlowConnection"> 
+                  <void property="receiverMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>stop</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>5</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray5"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="senderMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>paint</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray0"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractControlFlowConnection"> 
+                  <void property="receiverMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>paint</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray0"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="senderMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>green</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>3</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray3"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractControlFlowConnection"> 
+                  <void property="receiverMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>green</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>3</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray3"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="senderMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>add</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>2</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray2"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                 </object> 
+                </void> 
+                <void method="add"> 
+                 <object class="eu.mihosoft.vrl.io.vrlx.AbstractControlFlowConnection"> 
+                  <void property="receiverMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>add</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>2</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray2"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                  <void property="senderMethod"> 
+                   <object class="eu.mihosoft.vrl.reflection.MethodIdentifier"> 
+                    <void property="methodID"> 
+                     <int>0</int> 
+                    </void> 
+                    <void property="methodName"> 
+                     <string>add</string> 
+                    </void> 
+                    <void property="objectID"> 
+                     <int>1</int> 
+                    </void> 
+                    <void property="parameterTypes"> 
+                     <object idref="ClassArray1"/> 
+                    </void> 
+                    <void property="visualID"> 
+                     <int>0</int> 
+                    </void> 
+                   </object> 
+                  </void> 
+                 </object> 
+                </void> 
+               </object> 
+              </void> 
+              <void property="name"> 
+               <string>control-flow-connections</string> 
+              </void> 
+             </object> 
+            </void> 
+           </void> 
+           <void property="name"> 
+            <string>reflection</string> 
+           </void> 
+          </object> 
+         </void> 
+        </void> 
+        <void property="name"> 
+         <string>base</string> 
+        </void> 
+       </object> 
+      </void> 
+     </void> 
+     <void property="name"> 
+      <string>vrlx</string> 
+     </void> 
+    </object> 
+   </void> 
+  </void> 
+  <void property="pluginDependencies"> 
+   <void method="add"> 
+    <object class="eu.mihosoft.vrl.system.AbstractPluginDependency"> 
+     <void property="max"> 
+      <string>x</string> 
+     </void> 
+     <void property="min"> 
+      <string>0.3.9.0</string> 
+     </void> 
+     <void property="name"> 
+      <string>VRL</string> 
+     </void> 
+    </object> 
+   </void> 
+  </void> 
+  <void property="versionInfo"> 
+   <object class="eu.mihosoft.vrl.io.vrlx.FileVersionInfo"> 
+    <void property="description"> 
+     <string>created by VRL version 0.3.9.0-HEAD, build: </string> 
+    </void> 
+    <void property="version"> 
+     <string>0.3.9.0</string> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 
