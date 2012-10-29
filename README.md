@@ -20,7 +20,7 @@ VRL-Studio is an innovative Integrated Development Environment (IDE) based on th
 
 # How to Run
 
-You can either run VRL-Studio from NetBeans (see 1.) or run the application bundle manually (2.)
+You can either run VRL-Studio from NetBeans (see 1.) or run the application bundle manually (see 2.)
 
 1. You can run VRL-Studio from NetBeans just like any other Java application project
 2. After building, the `VRL-Studio/dist-final/` folder contains application bundles for Linux, Mac and Windows.
