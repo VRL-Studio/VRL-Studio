@@ -61,9 +61,9 @@ public class Constants {
     // version number
     public static final String VERSION_BASE = "0.4.4.1";
     // "HEAD" or "unstable" etc.
-    public static final String VERSION_SUFFIX = "HEAD";
+    public static final String VERSION_SUFFIX = "-HEAD";
     // final version string: 
-    public static final String VERSION = VERSION_BASE + "-" + VERSION_SUFFIX;
+    public static final String VERSION = VERSION_BASE + VERSION_SUFFIX;
     public static final String COPYRIGHT = "2007-"
             + /*<VRL_COMPILE_DATE_YEAR>*/ "2012"/*</VRL_COMPILE_DATE_YEAR>*/
             + " by Michael Hoffer"

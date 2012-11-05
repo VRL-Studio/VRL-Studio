@@ -2507,7 +2507,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 + Message.generateHTMLSpace(5) + "</b></p><br>"
                 + "<p><font size=4>" + Constants.VERSION + "</p><br><br>"
                 + "<p><font size=4> (using VRL "
-                + eu.mihosoft.vrl.system.Constants.VERSION + ")"
+                + VRL.getVersionIdentifier() + ")"
                 + "</p><br><br><br>"
                 + "<p><font size=3>" + Constants.COPYRIGHT + "</p>"
                 + "</div>"
