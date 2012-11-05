@@ -49,7 +49,6 @@
  * A Framework for Declarative GUI Programming on the Java Platform.
  * Computing and Visualization in Science, 2011, in press.
  */
-
 package eu.mihosoft.vrlstudio.main;
 
 /**
@@ -59,16 +58,20 @@ package eu.mihosoft.vrlstudio.main;
 public class Constants {
 
     public static String APP_NAME = "VRL-Studio";
-    public static String VERSION = "0.4.4-HEAD";
-    public static String COPYRIGHT = "2007-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2012"/*</VRL_COMPILE_DATE_YEAR>*/
-            +" by Michael Hoffer"
-            + "<br>&<br>2009-" 
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2012"/*</VRL_COMPILE_DATE_YEAR>*/
+    // version number
+    public static final String VERSION_BASE = "0.4.4.1";
+    // "HEAD" or "unstable" etc.
+    public static final String VERSION_SUFFIX = "";
+    // final version string: 
+    public static final String VERSION = VERSION_BASE + "-" + VERSION_SUFFIX;
+    public static final String COPYRIGHT = "2007-"
+            + /*<VRL_COMPILE_DATE_YEAR>*/ "2012"/*</VRL_COMPILE_DATE_YEAR>*/
+            + " by Michael Hoffer"
+            + "<br>&<br>2009-"
+            + /*<VRL_COMPILE_DATE_YEAR>*/ "2012"/*</VRL_COMPILE_DATE_YEAR>*/
             + " Steinbeis Forschungszentrum (STZ Ölbronn)";
-    public static String COPYRIGHT_SIMPLE = "2007-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2012"/*</VRL_COMPILE_DATE_YEAR>*/
-            +" by Michael Hoffer";
-    
+    public static final String COPYRIGHT_SIMPLE = "2007-"
+            + /*<VRL_COMPILE_DATE_YEAR>*/ "2012"/*</VRL_COMPILE_DATE_YEAR>*/
+            + " by Michael Hoffer";
     public static final String RESOURCES_DIR = "resources/studio-resources/";
 }
