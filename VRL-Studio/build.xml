@@ -263,7 +263,7 @@
             <else></else>
         </if>
         
-                <if>
+        <if>
             <isset property="jre.location.windows.x86"/>
             <then>
                 <echo message="JRE for Windows-x86 defined: copy to application-bundle" />
@@ -349,6 +349,39 @@
             </then>
             <else></else>
         </if>
+        
+        <if>
+            <equals arg1="${zip-bundles.enabled}" arg2="true"/>
+            <then>
+                <exec executable="zip" dir="dist-final/linux" >
+                    <arg line="-r ../VRL-Studio-Linux.zip ." />
+                </exec>
+        
+                <exec executable="zip" dir="dist-final/windows" >
+                    <arg line="-r ../VRL-Studio-Windows.zip ." />
+                </exec>
+        
+                <exec executable="zip" dir="dist-final/osx" >
+                    <arg line="-r ../VRL-Studio-OSX.zip ." />
+                </exec>
+            </then>
+            <else></else>
+        </if>
+        
+<!--        <zip destfile="dist-final/VRL-Studio-Linux.zip"
+             basedir="dist-final/linux"
+             update="true"
+        />
+        
+        <zip destfile="dist-final/VRL-Studio-Windows.zip"
+             basedir="dist-final/windows"
+             update="true"
+        />
+        
+            <zip destfile="dist-final/VRL-Studio-OSX.zip"
+                 basedir="dist-final/osx"
+                 update="true"
+            />-->
 
     </target>
     
