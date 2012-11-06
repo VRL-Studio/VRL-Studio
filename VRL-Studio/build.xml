@@ -100,6 +100,12 @@
         
     </target>-->
     
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="lib/ant-contrib/ant-contrib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+    
     <path id="custom.ant.classpath">  
         <pathelement path="${java.class.path}/"/>  
         <pathelement path="${additional.path}"/>  
@@ -108,6 +114,8 @@
             <include name="**/*.jar"/>
         </fileset>
     </path>
+    
+    <property file="build.properties"/>
     
     <!-- COPY TASK -->
     <taskdef name="copyWithPerms" classname="com.atlassian.ant.tasks.CopyWithPerms" classpathref="custom.ant.classpath"/>
@@ -139,9 +147,9 @@
         
         <!--Copy studio jar to linux template lib-->
         <copy file="${dist.jar}" 
-        todir="dist-final/linux/VRL-Studio/.application"/>
+              todir="dist-final/linux/VRL-Studio/.application"/>
         
-         <!--Copy dependencies to linux app destination-->
+        <!--Copy dependencies to linux app destination-->
         <copy todir="dist-final/linux/VRL-Studio/.application/lib">
             <fileset dir="${dist.dir}/lib">
                 <include name="**/*"/>
@@ -168,9 +176,9 @@
         
         <!--Copy studio jar to windows template lib-->
         <copy file="${dist.jar}" 
-        todir="dist-final/windows/VRL-Studio/.application"/>
+              todir="dist-final/windows/VRL-Studio/.application"/>
         
-         <!--Copy dependencies to windows app destination-->
+        <!--Copy dependencies to windows app destination-->
         <copy todir="dist-final/windows/VRL-Studio/.application/lib">
             <fileset dir="${dist.dir}/lib">
                 <include name="**/*"/>
@@ -199,9 +207,9 @@
         
         <!--Copy studio jar to osx template lib-->
         <copy file="${dist.jar}" 
-        todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/"/>
+              todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/"/>
         
-         <!--Copy dependencies to osx app destination-->
+        <!--Copy dependencies to osx app destination-->
         <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/lib">
             <fileset dir="${dist.dir}/lib">
                 <include name="**/*"/>
@@ -212,15 +220,135 @@
         
         <!--Copy studio jar to osx template lib-->
         <copy file="${dist.jar}" 
-        todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/"/>
+              todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/"/>
         
-         <!--Copy dependencies to osx app destination-->
+        <!--Copy dependencies to osx app destination-->
         <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/lib">
             <fileset dir="${dist.dir}/lib">
                 <include name="**/*"/>
             </fileset>
         </copy>
         
+        
+        <!-- ******** DEPLOYMENT ******** -->
+
+        
+        <condition property="copySplashScreen">
+            <isset property="splashscreen.location"/>
+        </condition>
+        
+        <if>
+            <isset property="jre.location.linux.x86"/>
+            <then>
+                <echo message="JRE for Linux-x86 defined: copy to application-bundle" />
+                <copyWithPerms todir="dist-final/linux/VRL-Studio/.application/jre/x86">
+                    <fileset dir="${jre.location.linux.x86}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copyWithPerms>
+            </then>
+            <else></else>
+        </if>
+        
+        <if>
+            <isset property="jre.location.linux.x64"/>
+            <then>
+                <echo message="JRE for Linux-x64 defined: copy to application-bundle" />
+                <copyWithPerms todir="dist-final/linux/VRL-Studio/.application/jre/x64">
+                    <fileset dir="${jre.location.linux.x64}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copyWithPerms>
+            </then>
+            <else></else>
+        </if>
+        
+                <if>
+            <isset property="jre.location.windows.x86"/>
+            <then>
+                <echo message="JRE for Windows-x86 defined: copy to application-bundle" />
+                <copyWithPerms todir="dist-final/windows/VRL-Studio/.application/jre/x86">
+                    <fileset dir="${jre.location.windows.x86}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copyWithPerms>
+            </then>
+            <else></else>
+        </if>
+        
+        <if>
+            <isset property="jre.location.windows.x64"/>
+            <then>
+                <echo message="JRE for Windows-x64 defined: copy to application-bundle" />
+                <copyWithPerms todir="dist-final/windows/VRL-Studio/.application/jre/x64">
+                    <fileset dir="${jre.location.windows.x64}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copyWithPerms>
+            </then>
+            <else></else>
+        </if>
+        
+        <if>
+            <isset property="help.location"/>
+            <then>
+                <echo message="Help defined: copy to application-bundle" />
+                <copy todir="dist-final/linux/VRL-Studio/.application/resources/studio-resources/help">
+                    <fileset dir="${help.location}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copy>
+                <copy todir="dist-final/windows/VRL-Studio/.application/resources/studio-resources/help">
+                    <fileset dir="${help.location}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copy>
+                <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/resources/studio-resources/help">
+                    <fileset dir="${help.location}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copy>
+                
+            </then>
+            <else></else>
+        </if>
+        
+        <if>
+            <isset property="property-folder.location"/>
+            <then>
+                <echo message="Property folder defined: copy to application-bundle" />
+                <copy todir="dist-final/linux/VRL-Studio/.application/resources/studio-resources/property-folder-template">
+                    <fileset dir="${property-folder.location}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copy>
+                <copy todir="dist-final/windows/VRL-Studio/.application/resources/studio-resources/property-folder-template">
+                    <fileset dir="${property-folder.location}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copy>
+                <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/resources/studio-resources/property-folder-template">
+                    <fileset dir="${property-folder.location}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copy>
+                
+            </then>
+            <else></else>
+        </if>
+        
+        <if>
+            <isset property="splashscreen.location"/>
+            <then>
+                <echo message="Splashscreen defined: copy to application-bundle" />
+
+                <copy overwrite="true" file="${splashscreen.location}" tofile="dist-final/linux/VRL-Studio/.application/resources/studio-resources/splashscreen.png"/>
+                <copy overwrite="true" file="${splashscreen.location}" tofile="dist-final/windows/VRL-Studio/.application/resources/studio-resources/splashscreen.png"/>
+                <copy overwrite="true" file="${splashscreen.location}" tofile="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/resources/studio-resources/splashscreen.png"/>
+
+            </then>
+            <else></else>
+        </if>
 
     </target>
     
@@ -244,7 +372,7 @@
 
     <!-- operating system specific run targets -->
     <target name="runMac" if="isMac">
-         <echo message="Running OS X version" />
+        <echo message="Running OS X version" />
         <exec executable="open">
             <arg file="dist-final/osx/VRL-Studio.app"/>
         </exec>
