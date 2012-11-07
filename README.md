@@ -5,7 +5,10 @@ Webpage: http://vrl-studio.mihosoft.eu
 
 Innovative IDE based on VRL (Visual Reflection Library)
 
-VRL-Studio is an innovative Integrated Development Environment (IDE) based on the Java Platform that combines both visual and text-based programming. In contrast to many other Development Environments VRL-Studio Projects are fully functional programs that are developed at run-time. This makes it an ideal environment for rapid prototyping, teaching and experimentation.
+VRL-Studio is an innovative Integrated Development Environment (IDE) based on the Java Platform that combines both
+visual and text-based programming. In contrast to many other Development Environments VRL-Studio Projects are fully
+functional programs that are developed at run-time. This makes it an ideal environment for rapid prototyping, teaching
+and experimentation.
 
 # Dependencies
 
@@ -29,12 +32,13 @@ You can either run VRL-Studio from NetBeans (see 1.) or run the application bund
 
 # How To Deploy
 
-VRL-Studio bundles are created automatically when building it. The `build.properties` file contains additional configuration
-options.
+VRL-Studio bundles are created automatically when building it. The `build.properties` file contains additional 
+configuration options.
 
 ### Bundled JRE
 
-The following options can be enabled to create bundles that contain a full JRE installation (supported on Linux and Windows):
+The following options can be enabled to create bundles that contain a full JRE installation (supported on Linux and
+Windows):
 
     jre.location.linux.x86=/path/to/linux/jre/x86/
     jre.location.linux.x64=/path/to/jre/x64/
@@ -49,11 +53,12 @@ The official VRL-Studio bundles conain offline help pages. To include the help i
 
 ### Splashscreen
 
+When adding custom splashscreens please make sure you to carefully read the **Attribution Requirements** in the
+[LICENSE](https://github.com/miho/VRL-Studio/blob/master/VRL-Studio/LICENSE) file.
 A custom splashscreen can be defined via:
 
     splashscreen.location=/path/to/splashscreen.png
 
-> **NOTE** Please read the [LICENSE](https://github.com/miho/VRL-Studio/blob/master/VRL-Studio/LICENSE) file, especially the **Attribution Requirements**
 
 ### Zip Bundles
 
