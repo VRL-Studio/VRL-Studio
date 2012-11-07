@@ -47,7 +47,7 @@ The official VRL-Studio bundles conain offline help pages. To include the help i
 
 ### Splashscreen
 
-A custom splashscreen can be defined via the option (please read the **LICENSE** file, especially the **Attribution Requirements**):
+A custom splashscreen can be defined via the option (please read the [LICENSE](https://github.com/miho/VRL-Studio/blob/master/VRL-Studio/LICENSE) file, especially the **Attribution Requirements**):
 
     splashscreen.location=/path/to/splashscreen.png
 
