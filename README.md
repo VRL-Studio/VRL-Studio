@@ -43,7 +43,7 @@ The final bundles are located in the `VRL-Studio/dist-final` folder.
 
 ## Configuration Options
 
-The `build.properties` file contains additional configuration options.
+The `build.properties` file in the project folder contains additional configuration options.
 
 ### Bundled JRE
 
