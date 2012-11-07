@@ -30,11 +30,29 @@ You can either run VRL-Studio from NetBeans (see 1.) or run the application bund
 VRL-Studio bundles are created automatically when building it. The `build.properties` file contains additional configuration
 options.
 
-## Bundled JRE
+### Bundled JRE
 
 The following options can be enabled to create bundles that contain a full JRE installation (supported on Linux and Windows):
 
-    jre.location.linux.x86=/home/miho/VRL-Deployment/bundle-dependencies/linux/jre/x86/
-    jre.location.linux.x64=/home/miho/VRL-Deployment/bundle-dependencies/linux/jre/x64/
-    jre.location.windows.x86=/home/miho/VRL-Deployment/bundle-dependencies/windows/jre/x86/
-    jre.location.windows.x64=/home/miho/VRL-Deployment/bundle-dependencies/windows/jre/x64/
+    jre.location.linux.x86=/path/to/linux/jre/x86/
+    jre.location.linux.x64=/path/to/jre/x64/
+    jre.location.windows.x86=/path/to/jre/x86/
+    jre.location.windows.x64=/path/to/jre/x64/
+
+### VRL-Studio Help
+
+The official VRL-Studio bundles conain offline help pages. To include the help in a bundle, use the following option:
+
+    help.location=/path/to/help/
+
+### Splashscreen
+
+A custom splashscreen can be defined via the option (please read the **LICENSE** file, especially the **Attribution Requirements**):
+
+    splashscreen.location=/path/to/splashscreen.png
+
+### Zip Bundles
+
+To automatically create zip bundles use the following option (only supported on Unix):
+
+zip-bundles.enabled=true
