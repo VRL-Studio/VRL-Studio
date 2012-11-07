@@ -10,30 +10,40 @@ visual and text-based programming. In contrast to many other Development Environ
 functional programs that are developed at run-time. This makes it an ideal environment for rapid prototyping, teaching
 and experimentation.
 
-# Dependencies
+## Dependencies
 
 - Java >= 1.6 
 - NetBeans >= 7.01
 - [VRL](https://github.com/miho/VRL)
 
-# How To Build
+## How To Build
 
 - Open the *VRL* project with NetBeans and build it
 - Open the *VRL-Studio* project with NetBeans and build it
 
-# How To Run
+##How To Run
 
 You can either run VRL-Studio from NetBeans (see 1.) or run the application bundle manually (see 2.)
 
 1. You can run VRL-Studio from NetBeans just like any other Java application project
 2. After building, the `VRL-Studio/dist-final/` folder contains application bundles for Linux, Mac and Windows.
 
-<br><hr></hr><br>
+<hr></hr>
 
 # How To Deploy
 
-VRL-Studio bundles are created automatically when building it. The `build.properties` file contains additional 
-configuration options.
+VRL-Studio bundles are created automatically when building it.
+
+> **NOTE** Before deploying custom bundles please make sure you carefully read the **Attribution Requirements** in the
+[LICENSE](https://github.com/miho/VRL-Studio/blob/master/VRL-Studio/LICENSE) file.
+
+### Bundle Location
+
+The final bundles are located in the `VRL-Studio/dist-final` folder.
+
+## Configuration Options
+
+The `build.properties` file contains additional configuration options.
 
 ### Bundled JRE
 
@@ -52,9 +62,6 @@ The official VRL-Studio bundles conain offline help pages. To include the help i
     help.location=/path/to/help/
 
 ### Splashscreen
-
-> **NOTE** When adding custom splashscreens please make sure you carefully read the **Attribution Requirements** in the
-[LICENSE](https://github.com/miho/VRL-Studio/blob/master/VRL-Studio/LICENSE) file.
 
 A custom splashscreen can be defined via:
 
