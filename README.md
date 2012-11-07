@@ -25,6 +25,8 @@ You can either run VRL-Studio from NetBeans (see 1.) or run the application bund
 1. You can run VRL-Studio from NetBeans just like any other Java application project
 2. After building, the `VRL-Studio/dist-final/` folder contains application bundles for Linux, Mac and Windows.
 
+<br><hr></hr><br>
+
 # How To Deploy
 
 VRL-Studio bundles are created automatically when building it. The `build.properties` file contains additional configuration
@@ -47,12 +49,14 @@ The official VRL-Studio bundles conain offline help pages. To include the help i
 
 ### Splashscreen
 
-A custom splashscreen can be defined via the option (please read the [LICENSE](https://github.com/miho/VRL-Studio/blob/master/VRL-Studio/LICENSE) file, especially the **Attribution Requirements**):
+A custom splashscreen can be defined via:
 
     splashscreen.location=/path/to/splashscreen.png
+
+> **NOTE** Please read the [LICENSE](https://github.com/miho/VRL-Studio/blob/master/VRL-Studio/LICENSE) file, especially the **Attribution Requirements**
 
 ### Zip Bundles
 
 To automatically create zip bundles use the following option (only supported on Unix):
 
-zip-bundles.enabled=true
+    zip-bundles.enabled=true
