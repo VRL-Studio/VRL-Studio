@@ -28,7 +28,7 @@ You can either run VRL-Studio from NetBeans (see 1.) or run the application bund
 1. You can run VRL-Studio from NetBeans just like any other Java application project
 2. After building, the `VRL-Studio/dist-final/` folder contains application bundles for Linux, Mac and Windows.
 
-<hr></hr>
+<br><hr></hr>
 
 # How To Deploy
 
