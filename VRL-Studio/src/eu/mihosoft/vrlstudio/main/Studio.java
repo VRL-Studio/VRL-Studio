@@ -559,6 +559,8 @@ public class Studio extends javax.swing.JFrame {
         creatingYourFirstProject = new javax.swing.JMenuItem();
         definingAWorkflow = new javax.swing.JMenuItem();
         versionManagement = new javax.swing.JMenuItem();
+        usingTheShellItem = new javax.swing.JMenuItem();
+        DebuggingItem = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         pluginHelpIndexItem = new javax.swing.JMenuItem();
         infoMenu = new javax.swing.JMenu();
@@ -983,6 +985,22 @@ public class Studio extends javax.swing.JFrame {
             }
         });
         helpMenu.add(versionManagement);
+
+        usingTheShellItem.setText("Using The Shell");
+        usingTheShellItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usingTheShellItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(usingTheShellItem);
+
+        DebuggingItem.setText("Debugging");
+        DebuggingItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DebuggingItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(DebuggingItem);
         helpMenu.add(jSeparator11);
 
         pluginHelpIndexItem.setText("Plugin Help Index");
@@ -1980,6 +1998,18 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         }
     }//GEN-LAST:event_manageComponentsItemActionPerformed
 
+    private void usingTheShellItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usingTheShellItemActionPerformed
+        //
+        VSysUtil.openURI(new File(
+                "resources/studio-resources/help/using-the-shell.html").toURI());
+    }//GEN-LAST:event_usingTheShellItemActionPerformed
+
+    private void DebuggingItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DebuggingItemActionPerformed
+        //
+        VSysUtil.openURI(new File(
+                "resources/studio-resources/help/debugging.html").toURI());
+    }//GEN-LAST:event_DebuggingItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2162,6 +2192,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem DebuggingItem;
     private javax.swing.JMenu DefaultProjectMenu;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem aboutVRLItem;
@@ -2237,6 +2268,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenuItem systemGCMenuItem;
     private javax.swing.JMenu toolMenu;
     private javax.swing.JMenu uninstallPluginMenu;
+    private javax.swing.JMenuItem usingTheShellItem;
     private javax.swing.JMenuItem versionManagement;
     private javax.swing.JMenuItem versionManagementMenuItem;
     private javax.swing.JMenu viewMenu;
