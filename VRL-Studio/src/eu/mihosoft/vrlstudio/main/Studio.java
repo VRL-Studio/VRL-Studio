@@ -1610,8 +1610,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                 getCurrentCanvas().getMessageBox().addMessage(
                                         "Installed Plugin:",
                                         ">> the plugin "
-                                        + f.getName() + " has been installed. "
-                                        + "Restart VRL-Studio to use the plugin.",
+                                        + f.getName() + " has been installed.",
                                         MessageType.INFO);
                             }
 
@@ -1657,8 +1656,12 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 }
             }; // end runnable
 
+            getCurrentCanvas().getMessageBox().addMessage(
+                    "Installed Plugins:",
+                    "Restart VRL-Studio to use the plugins.",
+                    MessageType.INFO);
+            
             Thread thread = new Thread(r);
-
             thread.start();
         }
     }//GEN-LAST:event_installPluginMenuItemActionPerformed
