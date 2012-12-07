@@ -57,7 +57,7 @@ Windows):
 
 ### VRL-Studio Help
 
-The official VRL-Studio bundles conain offline help pages. To include the help in a bundle, use the following option:
+The official VRL-Studio bundles contain offline help pages. To include the help in a bundle, use the following option:
 
     help.location=/path/to/help/
 
