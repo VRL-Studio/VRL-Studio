@@ -67,6 +67,12 @@ A custom splashscreen can be defined via:
 
     splashscreen.location=/path/to/splashscreen.png
 
+### Property Folder
+
+To include custom configuration defaults, plugins etc. a property folder can be specified that will be used as template
+folder when starting VRL-Studio for the first time. It can be included via:
+
+    property-folder.location=/path/to/property-folder-template/
 
 ### Zip Bundles
 
