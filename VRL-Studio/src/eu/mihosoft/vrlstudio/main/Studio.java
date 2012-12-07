@@ -49,7 +49,6 @@
  * A Framework for Declarative GUI Programming on the Java Platform.
  * Computing and Visualization in Science, 2011, in press.
  */
-
 package eu.mihosoft.vrlstudio.main;
 
 import eu.mihosoft.vrl.dialogs.*;
@@ -219,9 +218,7 @@ public class Studio extends javax.swing.JFrame {
             }
         });
 
-        projectController =
-                new VProjectController(canvasScrollPane.getViewport(),
-                new LoadCanvasConfigurator(this));
+        projectController = createProjectController();
 
         projectController.initRecentProjectsManager(loadRecentSessionsMenu);
         projectController.initRecentSessionsManager(openRecentComponentsMenu);
@@ -371,6 +368,11 @@ public class Studio extends javax.swing.JFrame {
         deleteAllVersionsMenuItem.setVisible(false);
     }
 
+    private VProjectController createProjectController() {
+        return new VProjectController(canvasScrollPane.getViewport(),
+                new LoadCanvasConfigurator(this));
+    }
+
     /**
      * @return the createVersionOnSave
      */
@@ -503,6 +505,8 @@ public class Studio extends javax.swing.JFrame {
         saveSessionItem = new javax.swing.JMenuItem();
         saveSessionWithMsgItem = new javax.swing.JMenuItem();
         saveAsItem = new javax.swing.JMenuItem();
+        exportProjectItem = new javax.swing.JMenuItem();
+        jSeparator13 = new javax.swing.JPopupMenu.Separator();
         DefaultProjectMenu = new javax.swing.JMenu();
         saveAsDefaultItem = new javax.swing.JMenuItem();
         resetDefaultProjectItem = new javax.swing.JMenuItem();
@@ -651,6 +655,16 @@ public class Studio extends javax.swing.JFrame {
             }
         });
         fileMenu.add(saveAsItem);
+
+        exportProjectItem.setText("Export Project");
+        exportProjectItem.setToolTipText("Exports the current project with all plugin dependencies.");
+        exportProjectItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportProjectItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(exportProjectItem);
+        fileMenu.add(jSeparator13);
 
         DefaultProjectMenu.setText("Default Project");
 
@@ -2010,6 +2024,65 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 "resources/studio-resources/help/debugging.html").toURI());
     }//GEN-LAST:event_DebuggingItemActionPerformed
 
+    private void exportProjectItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportProjectItemActionPerformed
+        //
+        if (!projectController.isProjectOpened()) {
+            VDialog.showMessageDialog(getCurrentCanvas(), "No Project opened",
+                    "Open a project.");
+            return;
+        }
+
+        boolean export = VDialog.showConfirmDialog(getCurrentCanvas(),
+                "Export Project?",
+                "<html>"
+                + "<div align=\"center\">"
+                + "Shall the current project be exported?<br><br>"
+                + "All plugins that are used by the project will be included.<br><br>"
+                + "<b>Note:</b><br><vr>"
+                + "Please make sure that the plugin licenses allow the distribution of plugins.<br>"
+                + "If you are unsure please contact the plugin developers!"
+                + "</div>"
+                + "</html>",
+                VDialog.DialogType.YES_NO) == VDialog.AnswerType.YES;
+        
+        if (!export) {
+            return;
+        }
+
+        FileDialogManager manager = new FileDialogManager();
+
+        class DummySaveAs implements FileSaver {
+
+            public File dest;
+
+            @Override
+            public void saveFile(Object o, File file, String ext)
+                    throws IOException {
+                // we won't save anything
+                dest = file;
+            }
+
+            @Override
+            public String getDefaultExtension() {
+                return "vrlp";
+            }
+        }
+
+        DummySaveAs saver = new DummySaveAs();
+
+        manager.saveFile(this, projectController, saver,
+                new ProjectFileFilter());
+
+        if (saver.dest != null) {
+            try {
+                projectController.export(saver.dest, true);
+            } catch (IOException ex) {
+                Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_exportProjectItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2207,6 +2280,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenuItem deleteAllVersionsMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JCheckBoxMenuItem enableShadowItem;
+    private javax.swing.JMenuItem exportProjectItem;
     private javax.swing.JMenuItem exportProjectasLibraryMenuItem;
     private javax.swing.JMenuItem exportSessionItem;
     private javax.swing.JMenu fileMenu;
@@ -2226,6 +2300,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
+    private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

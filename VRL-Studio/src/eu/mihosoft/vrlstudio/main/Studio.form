@@ -91,6 +91,17 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveAsItemActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="exportProjectItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export Project"/>
+                <Property name="toolTipText" type="java.lang.String" value="Exports the current project with all plugin dependencies."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportProjectItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator13">
+            </MenuItem>
             <Menu class="javax.swing.JMenu" name="DefaultProjectMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Default Project"/>
