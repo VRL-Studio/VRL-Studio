@@ -51,6 +51,7 @@
  */
 package eu.mihosoft.vrlstudio.main;
 
+import eu.mihosoft.vrl.visual.LoggingController;
 import eu.mihosoft.vrl.dialogs.*;
 import eu.mihosoft.vrl.io.*;
 import eu.mihosoft.vrl.reflection.CodeBlockGenerator;
@@ -76,6 +77,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 import java.awt.Toolkit;
 import java.awt.event.*;
 import java.beans.XMLDecoder;
@@ -306,7 +309,11 @@ public class Studio extends javax.swing.JFrame {
         logView.setEditable(false);
         logScrollPane.getViewport().add(logView);
 
-        loggingController = new LoggingController(logView);
+        ConfigurationFile config = IOUtil.newConfigurationFile(
+                new File(VRL.getPropertyFolderManager().getEtcFolder(),
+                Studio.STUDIO_CONFIG));
+
+        loggingController = new LoggingController(logView, config);
 
         // exclude bottompane (log and shell) from event blocking
         VSwingUtil.addContainerToEventFilter(bottomPane);
@@ -366,6 +373,7 @@ public class Studio extends javax.swing.JFrame {
 
         // we need to restrict access to versions due to plagiarism
         deleteAllVersionsMenuItem.setVisible(false);
+
     }
 
     private VProjectController createProjectController() {
@@ -451,6 +459,13 @@ public class Studio extends javax.swing.JFrame {
 
         // shell
         initShell(canvas);
+
+        // EXPERIMENTAL FEATURE! LOTS OF PERFORMANCE ISSUES!
+//        if (loggingController != null) {
+//            LogBackground logBackground = new LogBackground(canvas);
+//            loggingController.setLogBackground(logBackground);
+//            canvas.add(logBackground);
+//        }
     }
 
     public VisualCanvas getCurrentCanvas() {
@@ -549,6 +564,8 @@ public class Studio extends javax.swing.JFrame {
         showGridItem = new javax.swing.JCheckBoxMenuItem();
         enableShadowItem = new javax.swing.JCheckBoxMenuItem();
         fullScreenModeItem = new javax.swing.JCheckBoxMenuItem();
+        jSeparator14 = new javax.swing.JPopupMenu.Separator();
+        showLogInWindowItem = new javax.swing.JMenuItem();
         pluginMenu = new javax.swing.JMenu();
         installPluginMenuItem = new javax.swing.JMenuItem();
         uninstallPluginMenu = new javax.swing.JMenu();
@@ -915,6 +932,15 @@ public class Studio extends javax.swing.JFrame {
             }
         });
         viewMenu.add(fullScreenModeItem);
+        viewMenu.add(jSeparator14);
+
+        showLogInWindowItem.setText("Show Log In Window");
+        showLogInWindowItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showLogInWindowItemActionPerformed(evt);
+            }
+        });
+        viewMenu.add(showLogInWindowItem);
 
         studioMenuBar.add(viewMenu);
 
@@ -1660,7 +1686,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                     "Installed Plugins:",
                     "Restart VRL-Studio to use the plugins.",
                     MessageType.INFO);
-            
+
             Thread thread = new Thread(r);
             thread.start();
         }
@@ -2047,7 +2073,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 + "</div>"
                 + "</html>",
                 VDialog.DialogType.YES_NO) == VDialog.AnswerType.YES;
-        
+
         if (!export) {
             return;
         }
@@ -2085,6 +2111,28 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         }
 
     }//GEN-LAST:event_exportProjectItemActionPerformed
+
+    private void showLogInWindowItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showLogInWindowItemActionPerformed
+        //
+
+        if (VSwingUtil.getTopmostParent(bottomPane) != this) {
+            return;
+        }
+        
+        final JFrame frame = new JFrame("VRL-Studio - Log/Shell");
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                splitPane.setBottomComponent(bottomPane);
+            }
+        });
+
+        frame.setVisible(true);
+        frame.getContentPane().add(bottomPane);
+    }//GEN-LAST:event_showLogInWindowItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2304,6 +2352,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
+    private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -2335,6 +2384,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JScrollPane shellScrollPane;
     private javax.swing.JCheckBoxMenuItem showGridItem;
     private javax.swing.JMenu showGroupMenu;
+    private javax.swing.JMenuItem showLogInWindowItem;
     private javax.swing.JCheckBoxMenuItem showMemoryUsageMenuItem;
     private javax.swing.JMenuItem showNextGroupMenuItem;
     private javax.swing.JMenuItem showPreviousGroupMenuItem;

@@ -52,6 +52,7 @@
 
 package eu.mihosoft.vrlstudio.main;
 
+import eu.mihosoft.vrl.visual.LoggingController;
 import eu.mihosoft.vrl.io.ConfigurationFile;
 import eu.mihosoft.vrl.io.IOUtil;
 import eu.mihosoft.vrl.system.PluginCacheController;
