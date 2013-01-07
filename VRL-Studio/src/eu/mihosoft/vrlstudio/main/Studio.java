@@ -506,6 +506,7 @@ public class Studio extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         splitPane = new javax.swing.JSplitPane();
         canvasScrollPane = new javax.swing.JScrollPane();
         bottomPane = new javax.swing.JTabbedPane();
@@ -588,6 +589,7 @@ public class Studio extends javax.swing.JFrame {
         aboutVRLStudioItem = new javax.swing.JMenuItem();
         aboutVRLItem = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
+        showChangelogItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
@@ -595,6 +597,8 @@ public class Studio extends javax.swing.JFrame {
 
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("VRL-Studio");
@@ -1071,6 +1075,14 @@ public class Studio extends javax.swing.JFrame {
         });
         infoMenu.add(aboutVRLItem);
         infoMenu.add(jSeparator12);
+
+        showChangelogItem.setText("VRL Changelog");
+        showChangelogItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showChangelogItemActionPerformed(evt);
+            }
+        });
+        infoMenu.add(showChangelogItem);
 
         aboutMenuItem.setText("Copyright Notice & Version Info");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -2134,6 +2146,12 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         frame.getContentPane().add(bottomPane);
     }//GEN-LAST:event_showLogInWindowItemActionPerformed
 
+    private void showChangelogItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChangelogItemActionPerformed
+        //
+        
+        ChangelogDialog.showDialog();
+    }//GEN-LAST:event_showChangelogItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2345,6 +2363,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JSeparator jSeparator1;
@@ -2382,6 +2401,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenuItem saveSessionWithMsgItem;
     private javax.swing.JMenuItem selectPluginsMenuItem;
     private javax.swing.JScrollPane shellScrollPane;
+    private javax.swing.JMenuItem showChangelogItem;
     private javax.swing.JCheckBoxMenuItem showGridItem;
     private javax.swing.JMenu showGroupMenu;
     private javax.swing.JMenuItem showLogInWindowItem;
