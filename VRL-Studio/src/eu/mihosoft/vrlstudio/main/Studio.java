@@ -65,7 +65,6 @@ import eu.mihosoft.vrl.visual.MessageType;
 import eu.mihosoft.vrl.visual.SplashScreenGenerator;
 //import eu.mihosoft.vrl.io.PluginController;
 import eu.mihosoft.vrl.lang.ShellView;
-import eu.mihosoft.vrl.lang.VLangUtils;
 import eu.mihosoft.vrl.lang.VRLShell;
 import eu.mihosoft.vrl.lang.groovy.GroovyCodeEditorComponent;
 import eu.mihosoft.vrl.lang.groovy.GroovyCompiler;
@@ -74,15 +73,10 @@ import eu.mihosoft.vrl.system.*;
 import eu.mihosoft.vrl.visual.*;
 import eu.mihosoft.vrlstudio.io.WindowBounds;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
 import java.awt.Toolkit;
 import java.awt.event.*;
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
 import java.io.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -380,6 +374,15 @@ public class Studio extends javax.swing.JFrame {
         return new VProjectController(canvasScrollPane.getViewport(),
                 new LoadCanvasConfigurator(this));
     }
+    
+    /**
+     * Returns the VRL changelog as string.
+     * @return the VRL changelog as string
+     */
+    public static String getChangelog() {
+        return IOUtil.readResourceTextFile(
+                "/eu/mihosoft/vrlstudio/resources/changelog/changelog.txt");
+    }
 
     /**
      * @return the createVersionOnSave
@@ -590,6 +593,8 @@ public class Studio extends javax.swing.JFrame {
         aboutVRLItem = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         showChangelogItem = new javax.swing.JMenuItem();
+        showStudioChangelogItem = new javax.swing.JMenuItem();
+        jSeparator15 = new javax.swing.JPopupMenu.Separator();
         aboutMenuItem = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
@@ -1083,6 +1088,15 @@ public class Studio extends javax.swing.JFrame {
             }
         });
         infoMenu.add(showChangelogItem);
+
+        showStudioChangelogItem.setText("VRL-Studio Changelog");
+        showStudioChangelogItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showStudioChangelogItemActionPerformed(evt);
+            }
+        });
+        infoMenu.add(showStudioChangelogItem);
+        infoMenu.add(jSeparator15);
 
         aboutMenuItem.setText("Copyright Notice & Version Info");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -2148,9 +2162,14 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
     private void showChangelogItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChangelogItemActionPerformed
         //
+        eu.mihosoft.vrl.system.ChangelogDialog.showDialog();
         
-        ChangelogDialog.showDialog();
     }//GEN-LAST:event_showChangelogItemActionPerformed
+
+    private void showStudioChangelogItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStudioChangelogItemActionPerformed
+        //
+        ChangelogDialog.showDialog();
+    }//GEN-LAST:event_showStudioChangelogItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2372,6 +2391,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JPopupMenu.Separator jSeparator15;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
@@ -2409,6 +2429,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenuItem showNextGroupMenuItem;
     private javax.swing.JMenuItem showPreviousGroupMenuItem;
     private javax.swing.JCheckBoxMenuItem showRepaintAreasMenuItem;
+    private javax.swing.JMenuItem showStudioChangelogItem;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JCheckBoxMenuItem startPresentationMenuItem;
     private javax.swing.JMenuBar studioMenuBar;
