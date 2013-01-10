@@ -65,13 +65,13 @@ public class Constants {
     // final version string: 
     public static final String VERSION = VERSION_BASE + VERSION_SUFFIX;
     public static final String COPYRIGHT = "2007-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/ "2012"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/ "2013"/*</VRL_COMPILE_DATE_YEAR>*/
             + " by Michael Hoffer"
             + "<br>&<br>2009-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/ "2012"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/ "2013"/*</VRL_COMPILE_DATE_YEAR>*/
             + " Steinbeis Forschungszentrum (STZ Ölbronn)";
     public static final String COPYRIGHT_SIMPLE = "2007-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/ "2012"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/ "2013"/*</VRL_COMPILE_DATE_YEAR>*/
             + " by Michael Hoffer";
     public static final String RESOURCES_DIR = "resources/studio-resources/";
 }
