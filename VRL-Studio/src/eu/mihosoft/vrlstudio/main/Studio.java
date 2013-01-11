@@ -92,6 +92,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultEditorKit;
 
+
 /**
  *
  * @author Michael Hoffer <info@michaelhoffer.de>
@@ -121,6 +122,7 @@ public class Studio extends javax.swing.JFrame {
      */
     private boolean createVersionOnSave = true;
     PreferenceWindow window;
+    private ConfigurationFile studioConfig;
 
     /**
      * Creates new form Studio
@@ -367,16 +369,24 @@ public class Studio extends javax.swing.JFrame {
 
         // we need to restrict access to versions due to plagiarism
         deleteAllVersionsMenuItem.setVisible(false);
+    }
 
+    private void autoUpdate(ConfigurationFile config) {
+        
+        if (Boolean.valueOf(config.getProperty(
+                PreferenceWindow.CHECK_FOR_UPDATES_ON_STARTUP_KEY))) {
+            checkForUpdates();
+        }
     }
 
     private VProjectController createProjectController() {
         return new VProjectController(canvasScrollPane.getViewport(),
                 new LoadCanvasConfigurator(this));
     }
-    
+
     /**
      * Returns the VRL changelog as string.
+     *
      * @return the VRL changelog as string
      */
     public static String getChangelog() {
@@ -1183,7 +1193,8 @@ public class Studio extends javax.swing.JFrame {
             projectController.saveProject(false);
             VersionManagement.closeDialog(getCurrentCanvas());
         } catch (IOException ex) {
-            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Studio.class.getName()).
+                    log(Level.SEVERE, null, ex);
         }
 
 
@@ -1191,6 +1202,41 @@ public class Studio extends javax.swing.JFrame {
 
     private void updateMenuItems() {
         showMemoryUsageMenuItem.setSelected(false);
+    }
+
+    void checkForUpdates() {
+
+        PluginIdentifier identifier =
+                new PluginIdentifier("VRL-Studio",
+                new VersionInfo(Constants.VERSION_BASE));
+
+        VRLUpdater updater = new VRLUpdater(identifier);
+
+        updater.checkForUpdates(new VRLUpdateActionBase() {
+            @Override
+            public void installAction(
+                    VRLUpdater updater,
+                    RepositoryEntry update, File updateFile) {
+                try {
+                    File targetFile =
+                            new File(
+                            System.getProperty("user.home")
+                            + "/Downloads/" + updateFile.getName());
+                    IOUtil.copyFile(updateFile, targetFile);
+                    VMessage.info("Update downloaded:",
+                            ">> VRL-Studio " + update.getVersion()
+                            + " has been downloaded to: "
+                            + targetFile.getAbsolutePath());
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Studio.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Studio.class.getName()).
+                            log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
     }
 
 //    private void updateStyleMenu(final Canvas canvas) {
@@ -2144,7 +2190,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         if (VSwingUtil.getTopmostParent(bottomPane) != this) {
             return;
         }
-        
+
         final JFrame frame = new JFrame("VRL-Studio - Log/Shell");
 
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -2163,7 +2209,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private void showChangelogItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showChangelogItemActionPerformed
         //
         eu.mihosoft.vrl.system.ChangelogDialog.showDialog();
-        
+
     }//GEN-LAST:event_showChangelogItemActionPerformed
 
     private void showStudioChangelogItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStudioChangelogItemActionPerformed
@@ -2257,6 +2303,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                         }
 
                         Studio frame = new Studio();
+                        frame.studioConfig = config;
 
                         // if on linux or windows, set icon
                         if (!VSysUtil.isMacOSX()) {
@@ -2277,11 +2324,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
                         evaluator.setDebugOptions(args);
 
-
-
                         frame.setVisible(true);
-
-
 
                         // check whether to restore position
                         boolean restore = config.containsProperty(
@@ -2343,11 +2386,14 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                             }
 
                             frame.studioInitialized = true;
+                            
+                            frame.autoUpdate(config);
                         }
 
                         frame.activateAllEvents();
 
                         SplashScreenGenerator.setProgress(100);
+                       
 
                     }
                 });
@@ -2582,6 +2628,8 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                 }
 
                                 studioInitialized = true;
+                                
+                                Studio.this.autoUpdate(studioConfig);
                             }
                         });
 
@@ -2858,7 +2906,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         debugMenu.setVisible(true);
     }
 }
-
 class LoadCanvasConfigurator implements CanvasConfigurator {
 
     private Studio studio;
