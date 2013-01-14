@@ -31,21 +31,21 @@ import java.util.logging.Logger;
  * @author Michael Hoffer <info@michaelhoffer.de>
  */
 class StudioUpdateAction extends VRLUpdateActionBase {
-    
+
     private UpdateNotifierApplet updateApplet;
     private VRLUpdater currentUpdater;
     private Download currentDownload;
     private RepositoryEntry currentUpdate;
     private URL currentURL;
-    
+
     public StudioUpdateAction() {
         this.updateApplet = new UpdateNotifierApplet(getCurrentCanvas());
-        
+
         updateApplet.setActionListener(new CanvasActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (updateApplet.isActive()) {
-                    
+
                     StudioUpdateAction.super.updateAvailable(
                             StudioUpdateAction.this.currentUpdater,
                             currentDownload,
@@ -54,19 +54,21 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                 }
             }
         });
-        
+
         VRL.getCurrentProjectController().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (ae.getActionCommand().equals(VProjectController.ON_CANVAS_OPEN)) {
                     if (updateApplet.isActive()) {
-                        VRL.getCurrentProjectController().getCurrentCanvas()
-                                .getDock().addDockApplet(updateApplet);
+                        VisualCanvas canvas = VRL.getCurrentProjectController().
+                                getCurrentCanvas();
+                        canvas.getDock().addDockAppletAfter(
+                                canvas.getMessageBoxApplet(), updateApplet);
                     }
                 }
             }
         });
-        
+
         VRL.getCurrentProjectController().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -76,38 +78,39 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                 }
             }
         });
-        
-        
+
+
     }
-    
+
     @Override
     public void checkForUpdates(VRLUpdater updater, Download d, URL location) {
         //
     }
-    
+
     private VisualCanvas getCurrentCanvas() {
         return VRL.getCurrentProjectController().getCurrentCanvas();
     }
-    
+
     @Override
     public void updateAvailable(final VRLUpdater updater, Download d,
             URL location, final RepositoryEntry update) {
-        
+
         VisualCanvas canvas = getCurrentCanvas();
-        
+
         canvas.getDock().removeDockApplet(updateApplet);
-        canvas.getDock().addDockApplet(updateApplet);
-        
-        
-        
+        canvas.getDock().
+                addDockAppletAfter(canvas.getMessageBoxApplet(), updateApplet);
+
         updateApplet.showApplet();
         updateApplet.setActive(true);
+
+
         currentUpdater = updater;
         currentDownload = d;
         currentUpdate = update;
         currentURL = location;
     }
-    
+
     @Override
     public void installAction(
             VRLUpdater updater,

@@ -93,6 +93,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultEditorKit;
 
+
 /**
  *
  * @author Michael Hoffer <info@michaelhoffer.de>
@@ -123,6 +124,8 @@ public class Studio extends javax.swing.JFrame {
     private boolean createVersionOnSave = true;
     PreferenceWindow window;
     private ConfigurationFile studioConfig;
+    private VRLUpdater updater;
+    private StudioUpdateAction updateStudioAction;
 
     /**
      * Creates new form Studio
@@ -367,8 +370,12 @@ public class Studio extends javax.swing.JFrame {
             VSwingUtil.forceNimbusLAF(this);
         }
 
+
         // we need to restrict access to versions due to plagiarism
         deleteAllVersionsMenuItem.setVisible(false);
+
+
+        initUpdater();
     }
 
     private void autoUpdate(ConfigurationFile config) {
@@ -1204,16 +1211,24 @@ public class Studio extends javax.swing.JFrame {
         showMemoryUsageMenuItem.setSelected(false);
     }
 
-    void checkForUpdates() {
-
+    private void initUpdater() {
         PluginIdentifier identifier =
                 new PluginIdentifier("VRL-Studio",
                 new VersionInfo(Constants.VERSION_BASE));
 
-        final StudioUpdateAction updateAction = new StudioUpdateAction();
-        VRLUpdater updater = new VRLUpdater(identifier);
+        updater = new VRLUpdater(identifier);
+        
+        updateStudioAction = new StudioUpdateAction();
+    }
 
-        updater.checkForUpdates(updateAction);
+    void checkForUpdates() {
+
+        if (updater.isDownloadingRepository()
+                || updater.isDownloadingUpdate()) {
+            return;
+        }
+       
+        updater.checkForUpdates(updateStudioAction);
 
     }
 
@@ -2884,7 +2899,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         debugMenu.setVisible(true);
     }
 }
-
 class LoadCanvasConfigurator implements CanvasConfigurator {
 
     private Studio studio;
