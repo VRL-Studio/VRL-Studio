@@ -84,6 +84,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,7 +92,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultEditorKit;
-
 
 /**
  *
@@ -372,7 +372,7 @@ public class Studio extends javax.swing.JFrame {
     }
 
     private void autoUpdate(ConfigurationFile config) {
-        
+
         if (Boolean.valueOf(config.getProperty(
                 PreferenceWindow.CHECK_FOR_UPDATES_ON_STARTUP_KEY))) {
             checkForUpdates();
@@ -1210,32 +1210,10 @@ public class Studio extends javax.swing.JFrame {
                 new PluginIdentifier("VRL-Studio",
                 new VersionInfo(Constants.VERSION_BASE));
 
+        final StudioUpdateAction updateAction = new StudioUpdateAction();
         VRLUpdater updater = new VRLUpdater(identifier);
 
-        updater.checkForUpdates(new VRLUpdateActionBase() {
-            @Override
-            public void installAction(
-                    VRLUpdater updater,
-                    RepositoryEntry update, File updateFile) {
-                try {
-                    File targetFile =
-                            new File(
-                            System.getProperty("user.home")
-                            + "/Downloads/" + updateFile.getName());
-                    IOUtil.copyFile(updateFile, targetFile);
-                    VMessage.info("Update downloaded:",
-                            ">> VRL-Studio " + update.getVersion()
-                            + " has been downloaded to: "
-                            + targetFile.getAbsolutePath());
-                } catch (FileNotFoundException ex) {
-                    Logger.getLogger(Studio.class.getName()).
-                            log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(Studio.class.getName()).
-                            log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+        updater.checkForUpdates(updateAction);
 
     }
 
@@ -2386,14 +2364,14 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                             }
 
                             frame.studioInitialized = true;
-                            
+
                             frame.autoUpdate(config);
                         }
 
                         frame.activateAllEvents();
 
                         SplashScreenGenerator.setProgress(100);
-                       
+
 
                     }
                 });
@@ -2628,7 +2606,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                 }
 
                                 studioInitialized = true;
-                                
+
                                 Studio.this.autoUpdate(studioConfig);
                             }
                         });
@@ -2906,6 +2884,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         debugMenu.setVisible(true);
     }
 }
+
 class LoadCanvasConfigurator implements CanvasConfigurator {
 
     private Studio studio;
