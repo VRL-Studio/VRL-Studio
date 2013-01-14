@@ -379,11 +379,17 @@ public class Studio extends javax.swing.JFrame {
     }
 
     private void autoUpdate(ConfigurationFile config) {
-
-        if (Boolean.valueOf(config.getProperty(
-                PreferenceWindow.CHECK_FOR_UPDATES_ON_STARTUP_KEY))) {
+        
+        boolean containsAutoUpdateKey = config.containsProperty(
+                PreferenceWindow.CHECK_FOR_UPDATES_ON_STARTUP_KEY);
+        
+        boolean autoUpdateEnabled = Boolean.valueOf(config.getProperty(
+                PreferenceWindow.CHECK_FOR_UPDATES_ON_STARTUP_KEY));
+        
+        if (!containsAutoUpdateKey || autoUpdateEnabled) {
             checkForUpdates();
         }
+            
     }
 
     private VProjectController createProjectController() {

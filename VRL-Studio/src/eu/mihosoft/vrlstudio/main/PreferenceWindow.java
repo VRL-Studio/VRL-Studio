@@ -313,6 +313,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Auto-Update"));
 
+        checkForUpdatesOnStartupItem.setSelected(true);
         checkForUpdatesOnStartupItem.setText("Check for updates on startup");
         checkForUpdatesOnStartupItem.setToolTipText("Defines whether to restore the last position of the main window");
         checkForUpdatesOnStartupItem.addActionListener(new java.awt.event.ActionListener() {
@@ -680,7 +681,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
         );
 
         pack();
