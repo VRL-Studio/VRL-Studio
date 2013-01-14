@@ -9,20 +9,19 @@ import eu.mihosoft.vrl.io.IOUtil;
 import eu.mihosoft.vrl.io.VProjectController;
 import eu.mihosoft.vrl.reflection.VisualCanvas;
 import eu.mihosoft.vrl.system.RepositoryEntry;
-import eu.mihosoft.vrl.system.VMessage;
 import eu.mihosoft.vrl.system.VRL;
 import eu.mihosoft.vrl.system.VRLUpdateActionBase;
 import eu.mihosoft.vrl.system.VRLUpdater;
-import eu.mihosoft.vrl.visual.Canvas;
+import eu.mihosoft.vrl.system.VSysUtil;
 import eu.mihosoft.vrl.visual.CanvasActionListener;
 import eu.mihosoft.vrl.visual.UpdateNotifierApplet;
 import eu.mihosoft.vrl.visual.VDialog;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,16 +31,16 @@ import java.util.logging.Logger;
  * @author Michael Hoffer <info@michaelhoffer.de>
  */
 class StudioUpdateAction extends VRLUpdateActionBase {
-
+    
     private UpdateNotifierApplet updateApplet;
     private VRLUpdater currentUpdater;
     private Download currentDownload;
     private RepositoryEntry currentUpdate;
     private URL currentURL;
-
+    
     public StudioUpdateAction() {
         this.updateApplet = new UpdateNotifierApplet(getCurrentCanvas());
-
+        
         updateApplet.setActionListener(new CanvasActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -50,7 +49,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                     // only allow update if currently no update is in progrss
                     if (!currentUpdater.isDownloadingRepository()
                             && !currentUpdater.isDownloadingUpdate()) {
-
+                        
                         StudioUpdateAction.super.updateAvailable(
                                 StudioUpdateAction.this.currentUpdater,
                                 currentDownload,
@@ -60,7 +59,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                 }
             }
         });
-
+        
         VRL.getCurrentProjectController().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -74,7 +73,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                 }
             }
         });
-
+        
         VRL.getCurrentProjectController().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -84,39 +83,39 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                 }
             }
         });
-
-
+        
+        
     }
-
+    
     @Override
     public void checkForUpdates(VRLUpdater updater, Download d, URL location) {
         //
     }
-
+    
     private VisualCanvas getCurrentCanvas() {
         return VRL.getCurrentProjectController().getCurrentCanvas();
     }
-
+    
     @Override
     public void updateAvailable(final VRLUpdater updater, Download d,
             URL location, final RepositoryEntry update) {
-
+        
         VisualCanvas canvas = getCurrentCanvas();
-
+        
         canvas.getDock().removeDockApplet(updateApplet);
         canvas.getDock().
                 addDockAppletAfter(canvas.getMessageBoxApplet(), updateApplet);
-
+        
         updateApplet.showApplet();
         updateApplet.setActive(true);
-
-
+        
+        
         currentUpdater = updater;
         currentDownload = d;
         currentUpdate = update;
         currentURL = location;
     }
-
+    
     @Override
     public void installAction(
             VRLUpdater updater,
@@ -131,15 +130,24 @@ class StudioUpdateAction extends VRLUpdateActionBase {
 //                    ">> VRL-Studio " + update.getVersion()
 //                    + " has been downloaded to: "
 //                    + targetFile.getAbsolutePath());
-            
-            VDialog.showMessageDialog(getCurrentCanvas(),"Update Downloaded", 
+
+            VDialog.showMessageDialog(getCurrentCanvas(), "Update Downloaded",
                     "<html><div align=\"center\">"
-                    + "VRL-Studio " + update.getVersion()
-                    + " has been downloaded to:<br><br>"
-                    + "<b>" +targetFile.getAbsolutePath() + "</b><br><br>"
+                    + "<b>VRL-Studio v" + update.getVersion()
+                    + " has been downloaded to:</b><br><br>"
+                    + "" + targetFile.getAbsolutePath() + "<br><br>"
                     + "<b>How To Use The New Version?</b><br><br>"
                     + "<b>Unpack</b> the file shown above and <b>run</b> the new version of <b>VRL-Studio</b>!"
                     + "</div></html>");
+            
+            if (VSysUtil.isWindows()) {
+                Process p = new ProcessBuilder("explorer.exe", "/select," + targetFile.getAbsolutePath()).start();
+            } else if (VSysUtil.isMacOSX()) {
+                Process p = new ProcessBuilder("open", "-R", targetFile.getAbsolutePath()).start();
+            } else if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(targetFile);
+            }
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Studio.class.getName()).
