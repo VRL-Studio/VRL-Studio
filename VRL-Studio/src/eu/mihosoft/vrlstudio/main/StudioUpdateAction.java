@@ -137,6 +137,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                     + " has been downloaded to:</b><br><br>"
                     + "" + targetFile.getAbsolutePath() + "<br><br>"
                     + "<b>How To Use The New Version?</b><br><br>"
+                    + "VRL-Studio will be closed now.<br><br>"
                     + "<b>Unpack</b> the file shown above and <b>run</b> the new version of <b>VRL-Studio</b>!"
                     + "</div></html>");
             
@@ -158,6 +159,17 @@ class StudioUpdateAction extends VRLUpdateActionBase {
         } finally {
             getCurrentCanvas().getDock().removeDockApplet(updateApplet);
             updateApplet.setActive(false);
+            
+            Studio.THIS.quitApplication();
+        }
+    }
+    
+    @Override
+    public void updateDownloadStateChanged(Download d) {
+        updateApplet.setProgress((int)d.getProgress());
+        
+        if (d.getStatus() == Download.COMPLETE) {
+            updateApplet.setProgress(0);
         }
     }
 }

@@ -2783,7 +2783,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 + "</html>");
     }
 
-    private void quitApplication() {
+    void quitApplication() {
 
 //        if (projectController.getProject() != null
 //                && projectController.getCurrentCanvas() != null
