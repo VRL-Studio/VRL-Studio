@@ -71,6 +71,7 @@ import eu.mihosoft.vrl.lang.groovy.GroovyCompiler;
 import eu.mihosoft.vrl.reflection.ComponentManagement;
 import eu.mihosoft.vrl.system.*;
 import eu.mihosoft.vrl.visual.*;
+import eu.mihosoft.vrlstudio.io.StudioBundleUpdater;
 import eu.mihosoft.vrlstudio.io.WindowBounds;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -126,6 +127,8 @@ public class Studio extends javax.swing.JFrame {
     private ConfigurationFile studioConfig;
     private VRLUpdater updater;
     private StudioUpdateAction updateStudioAction;
+    
+    public static File APP_FOLDER;
 
     /**
      * Creates new form Studio
@@ -2220,8 +2223,41 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
      * @param args the command line arguments
      */
     public static void main(final String args[]) {
+        
+        APP_FOLDER = new File("").getAbsoluteFile();
+        
+        if (VSysUtil.isLinux()) {
+            APP_FOLDER = APP_FOLDER.getParentFile();
+        }
 
         VSwingUtil.fixSwingBugsInJDK7(); // ensure no comparison bug occures
+        
+        // updater mode
+        
+        System.out.println("AppFolder: " + APP_FOLDER.getAbsolutePath());
+        
+        if (args.length>0) {
+            if (args[0].equals("-updater")) {
+                
+                // filter args
+                List<String> updateArgsList = new ArrayList<String>();
+                
+                for(String a : args) {
+                    if (!a.equals("-updater")) {
+                        updateArgsList.add(a);
+                    }
+                }
+                
+                String[] updateArgs = new String[updateArgsList.size()];
+                
+                updateArgs= updateArgsList.toArray(updateArgs);
+                StudioBundleUpdater.main(updateArgs);
+                
+                return;
+            }
+        }
+        
+        // normal mode
 
         final SplashScreenGenerator generator = new SplashScreenGenerator();
         generator.setCopyrightText(Constants.COPYRIGHT_SIMPLE);

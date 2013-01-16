@@ -16,6 +16,7 @@ import eu.mihosoft.vrl.system.VSysUtil;
 import eu.mihosoft.vrl.visual.CanvasActionListener;
 import eu.mihosoft.vrl.visual.UpdateNotifierApplet;
 import eu.mihosoft.vrl.visual.VDialog;
+import eu.mihosoft.vrlstudio.io.StudioBundleUpdater;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -120,8 +121,9 @@ class StudioUpdateAction extends VRLUpdateActionBase {
     public void installAction(
             VRLUpdater updater,
             RepositoryEntry update, File updateFile) {
+         File targetFile = null;
         try {
-            File targetFile =
+            targetFile =
                     new File(
                     System.getProperty("user.home")
                     + "/Downloads/" + updateFile.getName());
@@ -131,24 +133,20 @@ class StudioUpdateAction extends VRLUpdateActionBase {
 //                    + " has been downloaded to: "
 //                    + targetFile.getAbsolutePath());
 
-            VDialog.showMessageDialog(getCurrentCanvas(), "Update Downloaded",
-                    "<html><div align=\"center\">"
-                    + "<b>VRL-Studio v" + update.getVersion()
-                    + " has been downloaded to:</b><br><br>"
-                    + "" + targetFile.getAbsolutePath() + "<br><br>"
-                    + "<b>How To Use The New Version?</b><br><br>"
-                    + "VRL-Studio will be closed now.<br><br>"
-                    + "<b>Unpack</b> the file shown above and <b>run</b> the new version of <b>VRL-Studio</b>!"
-                    + "</div></html>");
+//            VDialog.showMessageDialog(getCurrentCanvas(), "Update Downloaded",
+//                    "<html><div align=\"center\">"
+//                    + "<b>VRL-Studio v" + update.getVersion()
+//                    + " has been downloaded to:</b><br><br>"
+//                    + "" + targetFile.getAbsolutePath() + "<br><br>"
+//                    + "<b>How To Use The New Version?</b><br><br>"
+//                    + "VRL-Studio will be closed now.<br><br>"
+//                    + "<b>Unpack</b> the file shown above and <b>run</b> the new version of <b>VRL-Studio</b>!"
+//                    + "</div></html>");
             
-            if (VSysUtil.isWindows()) {
-                Process p = new ProcessBuilder("explorer.exe", "/select," + targetFile.getAbsolutePath()).start();
-            } else if (VSysUtil.isMacOSX()) {
-                Process p = new ProcessBuilder("open", "-R", targetFile.getAbsolutePath()).start();
-            } else if (Desktop.isDesktopSupported()) {
-                Desktop desktop = Desktop.getDesktop();
-                desktop.open(targetFile);
-            }
+//            VSysUtil.openFileInDefaultFileBrowser(targetFile);
+            
+            StudioBundleUpdater.runStudioUpdate(targetFile);
+            
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Studio.class.getName()).
@@ -159,6 +157,8 @@ class StudioUpdateAction extends VRLUpdateActionBase {
         } finally {
             getCurrentCanvas().getDock().removeDockApplet(updateApplet);
             updateApplet.setActive(false);
+            
+            
             
             Studio.THIS.quitApplication();
         }
