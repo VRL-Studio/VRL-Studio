@@ -148,6 +148,7 @@
                 <include name="**/*"/>
                 <!--exclude runscripts (done later, preserving permissions)-->
                 <exclude name="VRL-Studio/run*"/>
+                <exclude name="VRL-Studio/.application/updater/run*"/>
             </fileset>
         </copy>
         
@@ -155,6 +156,7 @@
         <copyWithPerms todir="dist-final/linux/VRL-Studio">
             <fileset dir="resources/application-template/linux/VRL-Studio/">
                 <include name="run*"/>
+                <include name=".application/updater/run*"/>
             </fileset>
         </copyWithPerms>
         
