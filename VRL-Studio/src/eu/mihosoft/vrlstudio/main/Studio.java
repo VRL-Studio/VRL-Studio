@@ -482,7 +482,7 @@ public class Studio extends javax.swing.JFrame {
 
     public final void initCanvas(VisualCanvas canvas) {
 
-//        canvas.add(new JButton("old"));
+        canvas.add(new JButton("old"));
 
         if (presentationView != null) {
             presentationView.dispose(); // important
@@ -2253,6 +2253,8 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         if (VSysUtil.isLinux()) {
             APP_FOLDER = APP_FOLDER.getParentFile();
+        } else if (VSysUtil.isMacOSX()) {
+            APP_FOLDER = APP_FOLDER.getParentFile().getParentFile().getParentFile();
         }
 
         VSwingUtil.fixSwingBugsInJDK7(); // ensure no comparison bug occures

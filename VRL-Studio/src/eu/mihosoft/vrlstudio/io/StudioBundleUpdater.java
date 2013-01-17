@@ -95,36 +95,36 @@ public class StudioBundleUpdater {
                         log(Level.SEVERE, null, ex);
             }
         }
-        
+
         // if no delta-update, delete VRL-Studio folder
-        IOUtil.deleteDirectory(options.getTargetFolder());
+//        IOUtil.deleteDirectory(options.getTargetFolder());
 
         if (!copyUpdateToFinalBundle()) {
             return;
         }
 
         // delete contents of updates folder
-        for (File f : options.getUpdateFolder().listFiles()) {
-            IOUtil.deleteTmpFilesOnExit(f);
-        }
+//        for (File f : options.getUpdateFolder().listFiles()) {
+//            IOUtil.deleteTmpFilesOnExit(f);
+//        }
 
         runNewStudio();
     }
 
     private static File createUpdateBundle(File input) {
 
-        System.out.println(" --> creating update-bundle-folder");
+        Studio.logger.info(" --> creating update-bundle-folder");
         File tmpFolder = null;
         try {
             tmpFolder = IOUtil.createTempDir(VRL.getPropertyFolderManager().getUpdatesFolder());
         } catch (IOException ex) {
             Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println(" --> StudioBundleUpdater: cannot create tmp dir for update bundle");
+            Studio.logger.severe(" --> StudioBundleUpdater: cannot create tmp dir for update bundle");
             return null;
         }
 
         try {
-            System.out.println(" --> unzip: " + input + " -> " + tmpFolder);
+            Studio.logger.info(" --> unzip: " + input + " -> " + tmpFolder);
             IOUtil.copyFile(input, new File(tmpFolder + "/" + input.getName()));
 
             Process p = Runtime.getRuntime().exec("unzip " + input.getName(), null, tmpFolder);
@@ -140,39 +140,54 @@ public class StudioBundleUpdater {
 
         } catch (IOException ex) {
             Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println(" --> StudioBundleUpdater: cannot unpack update bundle");
+            Studio.logger.severe(" --> StudioBundleUpdater: cannot unpack update bundle");
             return null;
         }
 
-        System.out.println(" --> update-bundle-folder: " + tmpFolder);
+        Studio.logger.info(" --> update-bundle-folder: " + tmpFolder);
 
         return tmpFolder;
     }
 
     public static boolean runStudioUpdate(File source) {
 
-        System.out.println(">> running studio update");
+        Studio.logger.info(">> running studio update");
 
         File target = Studio.APP_FOLDER;
 
         File bundleFolder = createUpdateBundle(source);
 
         if (bundleFolder == null) {
-            System.err.println(" --> no update-bundle");
+            Studio.logger.severe(" --> no update-bundle");
             return false;
         }
 
 
         if (!VSysUtil.isWindows()) {
+
+            String runPath = "/VRL-Studio/.application/updater/run-update";
+            String inPath = "/VRL-Studio";
+
+            if (VSysUtil.isMacOSX()) {
+                runPath = "/VRL-Studio.app/Contents/Resources/.application/updater/run-update";
+                inPath = "/VRL-Studio.app";
+            }
+
+            Studio.logger.info(">> updater run path: " + runPath);
+            Studio.logger.info(">> updater in path: " + inPath);
+
+            String command = "nohup "
+                    + bundleFolder.getAbsolutePath() + runPath + " "
+                    + "-i " + bundleFolder + inPath + " "
+                    + "-o " + target.getAbsolutePath() + " "
+                    + "-pid " + VSysUtil.getPID() + " "
+                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath();
+
+            Studio.logger.info(">> final command: " + command);
+
             try {
                 System.out.println(" --> running Unix install");
-                Process p = Runtime.getRuntime().exec("nohup "
-                        + bundleFolder.getAbsolutePath()
-                        + "/VRL-Studio/.application/updater/run-update "
-                        + "-i " + bundleFolder + "/VRL-Studio "
-                        + "-o " + target.getAbsolutePath() + " "
-                        + "-pid " + VSysUtil.getPID() + " "
-                        + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath());
+                Process p = Runtime.getRuntime().exec(command);
 
 //                BufferedReader input = new BufferedReader(
 //                        new InputStreamReader(p.getErrorStream()));
@@ -186,7 +201,7 @@ public class StudioBundleUpdater {
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
                         log(Level.SEVERE, null, ex);
-                System.err.println(">> cannot run update-bundle: "
+                Studio.logger.severe(">> cannot run update-bundle: "
                         + bundleFolder);
                 return false;
             }
@@ -203,12 +218,29 @@ public class StudioBundleUpdater {
 
         File bundleFolder = options.getTargetFolder();
 
-        if (!VSysUtil.isWindows()) {
+        if (VSysUtil.isLinux()) {
+
             try {
                 System.out.println(" --> running Unix install");
                 Process p = Runtime.getRuntime().exec("nohup "
                         + bundleFolder.getAbsolutePath()
                         + "/run", null, bundleFolder.getAbsoluteFile());
+
+            } catch (IOException ex) {
+                Logger.getLogger(StudioBundleUpdater.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                logger.severe(">> cannot run studio-bundle: "
+                        + bundleFolder);
+
+                return false;
+            }
+        } else if (VSysUtil.isMacOSX()) {
+
+            logger.info(">> osx: " + bundleFolder.getAbsolutePath());
+            try {
+                System.out.println(" --> running Mac install");
+                Process p = Runtime.getRuntime().exec("open "
+                        + bundleFolder.getAbsolutePath());
 
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
