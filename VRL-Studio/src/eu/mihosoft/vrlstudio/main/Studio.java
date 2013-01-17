@@ -83,18 +83,18 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultEditorKit;
-
 
 /**
  *
@@ -128,8 +128,9 @@ public class Studio extends javax.swing.JFrame {
     private ConfigurationFile studioConfig;
     private VRLUpdater updater;
     private StudioUpdateAction updateStudioAction;
-    
     public static File APP_FOLDER;
+    public static Logger logger;
+    public static Handler fileHandler;
 
     /**
      * Creates new form Studio
@@ -382,18 +383,34 @@ public class Studio extends javax.swing.JFrame {
         initUpdater();
     }
 
+    private static void initLogger() {
+
+        System.out.println(">> init Studio.class logger");
+        logger = Logger.getLogger(Studio.class.getName());
+        try {
+            fileHandler = new FileHandler("VRL-Studio.log", 1024 * 1024 * 1 /*MB*/, 5);
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+        } catch (IOException ex) {
+            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     private void autoUpdate(ConfigurationFile config) {
-        
+
         boolean containsAutoUpdateKey = config.containsProperty(
                 PreferenceWindow.CHECK_FOR_UPDATES_ON_STARTUP_KEY);
-        
+
         boolean autoUpdateEnabled = Boolean.valueOf(config.getProperty(
                 PreferenceWindow.CHECK_FOR_UPDATES_ON_STARTUP_KEY));
-        
+
         if (!containsAutoUpdateKey || autoUpdateEnabled) {
             checkForUpdates();
         }
-            
+
     }
 
     private VProjectController createProjectController() {
@@ -464,8 +481,8 @@ public class Studio extends javax.swing.JFrame {
     }
 
     public final void initCanvas(VisualCanvas canvas) {
-        
-        canvas.add(new JButton("old"));
+
+//        canvas.add(new JButton("old"));
 
         if (presentationView != null) {
             presentationView.dispose(); // important
@@ -1232,7 +1249,7 @@ public class Studio extends javax.swing.JFrame {
 //        } catch (MalformedURLException ex) {
 //            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
+
         updateStudioAction = new StudioUpdateAction();
     }
 
@@ -1242,7 +1259,7 @@ public class Studio extends javax.swing.JFrame {
                 || updater.isDownloadingUpdate()) {
             return;
         }
-       
+
         updater.checkForUpdates(updateStudioAction);
 
     }
@@ -2229,40 +2246,42 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
      * @param args the command line arguments
      */
     public static void main(final String args[]) {
-        
+
+        initLogger();
+
         APP_FOLDER = new File("").getAbsoluteFile();
-        
+
         if (VSysUtil.isLinux()) {
             APP_FOLDER = APP_FOLDER.getParentFile();
         }
 
         VSwingUtil.fixSwingBugsInJDK7(); // ensure no comparison bug occures
-        
+
         // updater mode
-        
-        System.out.println("AppFolder: " + APP_FOLDER.getAbsolutePath());
-        
-        if (args.length>0) {
+
+        logger.info("AppFolder: " + APP_FOLDER.getAbsolutePath());
+
+        if (args.length > 0) {
             if (args[0].equals("-updater")) {
-                
+
                 // filter args
                 List<String> updateArgsList = new ArrayList<String>();
-                
-                for(String a : args) {
+
+                for (String a : args) {
                     if (!a.equals("-updater")) {
                         updateArgsList.add(a);
                     }
                 }
-                
+
                 String[] updateArgs = new String[updateArgsList.size()];
-                
-                updateArgs= updateArgsList.toArray(updateArgs);
+
+                updateArgs = updateArgsList.toArray(updateArgs);
                 StudioBundleUpdater.main(updateArgs);
-                
+
                 return;
             }
         }
-        
+
         // normal mode
 
         final SplashScreenGenerator generator = new SplashScreenGenerator();
@@ -2947,6 +2966,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         debugMenu.setVisible(true);
     }
 }
+
 class LoadCanvasConfigurator implements CanvasConfigurator {
 
     private Studio studio;

@@ -122,11 +122,18 @@ class StudioUpdateAction extends VRLUpdateActionBase {
             RepositoryEntry update, File updateFile) {
          File targetFile = null;
         try {
+//            targetFile =
+//                    new File(
+//                    System.getProperty("user.home")
+//                    + "/Downloads/" + updateFile.getName());
+//            IOUtil.copyFile(updateFile, targetFile);
+            
             targetFile =
                     new File(
-                    System.getProperty("user.home")
-                    + "/Downloads/" + updateFile.getName());
+                    VRL.getPropertyFolderManager().getUpdatesFolder()
+                    + "/"+updateFile.getName());
             IOUtil.copyFile(updateFile, targetFile);
+            
 //            VMessage.info("Update downloaded:",
 //                    ">> VRL-Studio " + update.getVersion()
 //                    + " has been downloaded to: "
