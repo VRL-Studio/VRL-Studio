@@ -2241,7 +2241,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         //
         ChangelogDialog.showDialog();
     }//GEN-LAST:event_showStudioChangelogItemActionPerformed
-
+ 
     /**
      * @param args the command line arguments
      */

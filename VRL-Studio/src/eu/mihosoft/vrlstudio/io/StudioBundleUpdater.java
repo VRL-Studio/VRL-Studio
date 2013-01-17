@@ -43,7 +43,7 @@ public class StudioBundleUpdater {
 
     public static void main(String[] args) {
         initLogger();
-        
+
         logger.info(">> updater running:");
         options = new CmdOptions();
         CmdLineParser parser = new CmdLineParser(options);
@@ -54,8 +54,6 @@ public class StudioBundleUpdater {
             printUsage(parser);
             return;
         }
-
-        writeFile("1");
 
         boolean wrongOptions = false;
 
@@ -73,8 +71,16 @@ public class StudioBundleUpdater {
             wrongOptions = true;
         }
 
+        if (!options.getUpdateFolder().isDirectory()) {
+            String msg = "-update-folder: specified value is no directory: " + options.getUpdateFolder();
+            logger.log(Level.SEVERE, msg);
+            printUsage(parser);
+            wrongOptions = true;
+        }
+
         if (wrongOptions) {
-            writeFile("wrong-options");
+            logger.log(Level.SEVERE, "UPDATER CALLED WITH WRONG OPTIONS");
+            return;
         }
 
         System.out.println(">> updater waiting...");
@@ -89,25 +95,20 @@ public class StudioBundleUpdater {
                         log(Level.SEVERE, null, ex);
             }
         }
+        
+        // if no delta-update, delete VRL-Studio folder
+        IOUtil.deleteDirectory(options.getTargetFolder());
+
         if (!copyUpdateToFinalBundle()) {
-            writeFile("cant-copy");
             return;
         }
 
-        runNewStudio();
-    }
-
-    private static void writeFile(String s) {
-        writeFile(s, "test");
-    }
-
-    private static void writeFile(String s, String s2) {
-        TextSaver saver = new TextSaver();
-        try {
-            saver.saveFile(s2, new File("/home/miho/tmp/vrl/test-" + s + ".txt"), ".txt");
-        } catch (IOException ex) {
-            Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
+        // delete contents of updates folder
+        for (File f : options.getUpdateFolder().listFiles()) {
+            IOUtil.deleteTmpFilesOnExit(f);
         }
+
+        runNewStudio();
     }
 
     private static File createUpdateBundle(File input) {
@@ -161,7 +162,6 @@ public class StudioBundleUpdater {
             return false;
         }
 
-        writeFile("running-update");
 
         if (!VSysUtil.isWindows()) {
             try {
@@ -171,7 +171,8 @@ public class StudioBundleUpdater {
                         + "/VRL-Studio/.application/updater/run-update "
                         + "-i " + bundleFolder + "/VRL-Studio "
                         + "-o " + target.getAbsolutePath() + " "
-                        + "-pid " + VSysUtil.getPID());
+                        + "-pid " + VSysUtil.getPID() + " "
+                        + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath());
 
 //                BufferedReader input = new BufferedReader(
 //                        new InputStreamReader(p.getErrorStream()));
@@ -187,7 +188,6 @@ public class StudioBundleUpdater {
                         log(Level.SEVERE, null, ex);
                 System.err.println(">> cannot run update-bundle: "
                         + bundleFolder);
-                writeFile("cannot-run-update-bundle");
                 return false;
             }
         } else {
@@ -252,17 +252,17 @@ public class StudioBundleUpdater {
 //                } catch (InterruptedException ex) {
 //                    Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
 //                }
-                
+
                 BufferedReader input = new BufferedReader(
                         new InputStreamReader(p.getInputStream()));
 
                 String line = null;
 
                 while ((line = input.readLine()) != null) {
-                   logger.info(" --> updater: " + line);
+                    logger.info(" --> updater: " + line);
                 }
-                
-                
+
+
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
                 logger.severe("cannot copy update bundle");
