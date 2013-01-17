@@ -208,6 +208,7 @@
                 <include name="**/*"/>
                 <!--exclude runscripts (done later, preserving permissions)-->
                 <exclude name="VRL-Studio.app/Contents/MacOS/*"/>
+                <exclude name="VRL-Studio.app/Contents/Resources/.application/updater/run-update"/>
             </fileset>
         </copy>
         
@@ -230,6 +231,12 @@
                 <include name="**/*"/>
             </fileset>
         </copy>
+        <echo>test</echo>
+        <copyWithPerms todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/updater">
+            <fileset dir="resources/application-template/osx/VRL-Studio.app/Contents/Resources/.application/updater">
+                <include name="**/*"/>
+            </fileset>
+        </copyWithPerms>
         
         <!-- APPLICATIONSTUB COMPATIBLE JAR/LIB LOCATION -->
         
