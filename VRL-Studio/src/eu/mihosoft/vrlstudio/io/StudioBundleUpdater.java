@@ -97,16 +97,16 @@ public class StudioBundleUpdater {
         }
 
         // if no delta-update, delete VRL-Studio folder
-//        IOUtil.deleteDirectory(options.getTargetFolder());
+        IOUtil.deleteDirectory(options.getTargetFolder());
 
         if (!copyUpdateToFinalBundle()) {
             return;
         }
 
         // delete contents of updates folder
-//        for (File f : options.getUpdateFolder().listFiles()) {
-//            IOUtil.deleteTmpFilesOnExit(f);
-//        }
+        for (File f : options.getUpdateFolder().listFiles()) {
+            IOUtil.deleteTmpFilesOnExit(f);
+        }
 
         runNewStudio();
     }

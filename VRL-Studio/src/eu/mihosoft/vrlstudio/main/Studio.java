@@ -482,7 +482,7 @@ public class Studio extends javax.swing.JFrame {
 
     public final void initCanvas(VisualCanvas canvas) {
 
-        canvas.add(new JButton("old"));
+//        canvas.add(new JButton("old"));
 
         if (presentationView != null) {
             presentationView.dispose(); // important
