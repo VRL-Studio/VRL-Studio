@@ -464,6 +464,8 @@ public class Studio extends javax.swing.JFrame {
     }
 
     public final void initCanvas(VisualCanvas canvas) {
+        
+        canvas.add(new JButton("old"));
 
         if (presentationView != null) {
             presentationView.dispose(); // important
@@ -1225,11 +1227,11 @@ public class Studio extends javax.swing.JFrame {
                 new VersionInfo(Constants.VERSION_BASE));
 
         updater = new VRLUpdater(identifier);
-        try {
-            updater.setUpdateURL(new URL("http://localhost:80/linux/repository.xml"));
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            updater.setUpdateURL(new URL("http://localhost:80/linux/repository.xml"));
+//        } catch (MalformedURLException ex) {
+//            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
         updateStudioAction = new StudioUpdateAction();
     }
