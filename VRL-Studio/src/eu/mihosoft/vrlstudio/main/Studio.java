@@ -83,6 +83,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -1212,8 +1213,6 @@ public class Studio extends javax.swing.JFrame {
             Logger.getLogger(Studio.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
-
-
     }//GEN-LAST:event_saveSessionItemActionPerformed
 
     private void updateMenuItems() {
@@ -1226,6 +1225,11 @@ public class Studio extends javax.swing.JFrame {
                 new VersionInfo(Constants.VERSION_BASE));
 
         updater = new VRLUpdater(identifier);
+        try {
+            updater.setUpdateURL(new URL("http://localhost:80/linux/repository.xml"));
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         updateStudioAction = new StudioUpdateAction();
     }

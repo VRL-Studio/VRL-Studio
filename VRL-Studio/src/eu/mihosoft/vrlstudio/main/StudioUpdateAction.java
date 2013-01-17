@@ -110,7 +110,6 @@ class StudioUpdateAction extends VRLUpdateActionBase {
         updateApplet.showApplet();
         updateApplet.setActive(true);
         
-        
         currentUpdater = updater;
         currentDownload = d;
         currentUpdate = update;
@@ -168,8 +167,19 @@ class StudioUpdateAction extends VRLUpdateActionBase {
     public void updateDownloadStateChanged(Download d) {
         updateApplet.setProgress((int)d.getProgress());
         
+        if (d.getStatus() == Download.ERROR) {
+            updateApplet.setActive(false);
+            VDialog.showMessageDialog(getCurrentCanvas(), "Cannot Update",
+                    "<html><div align=\"center\">"
+                    + "<b>Update cannot be downloaded. Try again later.</b>"
+                    + "</div></html>");
+            d.cancel();
+            
+        }
+        
         if (d.getStatus() == Download.COMPLETE) {
             updateApplet.setProgress(0);
         }
+
     }
 }
