@@ -27,17 +27,42 @@ import org.kohsuke.args4j.CmdLineParser;
 public class StudioBundleUpdater {
 
     private static CmdOptions options;
-    private static Logger logger = Logger.getLogger(StudioBundleUpdater.class.getName());
+    private static Logger logger = 
+            Logger.getLogger(StudioBundleUpdater.class.getName());
+    private static Process studioUpdaterProcess;
+//    private static File exitFile;
+    
+    public boolean isUpdaterProcessRunning() {
+        
+        // process is null and hasn't started yet
+        if (studioUpdaterProcess == null) {
+            return false;
+        }
+        
+        try {
+            // we try to get exit value
+            // if this is possible we know that the process has been terminated
+            studioUpdaterProcess.exitValue();
+            
+            return false;
+        } catch (IllegalThreadStateException ex) {
+            // the process hasn't been terminated. thus, we return true
+            return true;
+        }
+    }
 
     private static void initLogger() {
         try {
-            FileHandler fileHandler = new FileHandler("VRL-Studio-Updater.log", 1024 * 1024 * 1 /*MB*/, 5);
+            FileHandler fileHandler = new FileHandler("VRL-Studio-Updater.log",
+                    1024 * 1024 * 1 /*MB*/, 5);
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
         } catch (IOException ex) {
-            Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudioBundleUpdater.class.getName()).
+                    log(Level.SEVERE, null, ex);
         } catch (SecurityException ex) {
-            Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudioBundleUpdater.class.getName()).
+                    log(Level.SEVERE, null, ex);
         }
     }
 
@@ -58,21 +83,24 @@ public class StudioBundleUpdater {
         boolean wrongOptions = false;
 
         if (!options.getSourceFolder().isDirectory()) {
-            String msg = "-i: specified value is no directory: " + options.getSourceFolder();
+            String msg = "-i: specified value is no directory: " 
+                    + options.getSourceFolder();
             logger.log(Level.SEVERE, msg);
             printUsage(parser);
             wrongOptions = true;
         }
 
         if (!options.getTargetFolder().isDirectory()) {
-            String msg = "-o: specified value is no directory: " + options.getTargetFolder();
+            String msg = "-o: specified value is no directory: " 
+                    + options.getTargetFolder();
             logger.log(Level.SEVERE, msg);
             printUsage(parser);
             wrongOptions = true;
         }
 
         if (!options.getUpdateFolder().isDirectory()) {
-            String msg = "-update-folder: specified value is no directory: " + options.getUpdateFolder();
+            String msg = "-update-folder: specified value is no directory: " 
+                    + options.getUpdateFolder();
             logger.log(Level.SEVERE, msg);
             printUsage(parser);
             wrongOptions = true;
@@ -84,6 +112,8 @@ public class StudioBundleUpdater {
         }
 
         System.out.println(">> updater waiting...");
+        
+//        exitFile = new File(options.getUpdateFolder(),"exit-updater");
 
         while (VSysUtil.isRunning(options.getPid())) {
             logger.log(Level.INFO, ">> because of strange Windows file locking we have to wait :( \n"
@@ -94,6 +124,13 @@ public class StudioBundleUpdater {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
                         log(Level.SEVERE, null, ex);
             }
+            
+//            // stop update
+//            if (exitFile.exists()) {
+//                logger.log(Level.INFO, ">> stopping update (requested by host process)");
+//                IOUtil.deleteDirectory(exitFile);
+//                return;
+//            }
         }
 
         // if no delta-update, delete VRL-Studio folder
@@ -187,7 +224,7 @@ public class StudioBundleUpdater {
 
             try {
                 System.out.println(" --> running Unix install");
-                Process p = Runtime.getRuntime().exec(command);
+                studioUpdaterProcess = Runtime.getRuntime().exec(command);
 
 //                BufferedReader input = new BufferedReader(
 //                        new InputStreamReader(p.getErrorStream()));
@@ -211,7 +248,7 @@ public class StudioBundleUpdater {
 
         return true;
     }
-
+    
     private static boolean runNewStudio() {
 
         logger.info(">> running new studio");
