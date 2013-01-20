@@ -427,7 +427,7 @@ public class StudioBundleUpdater {
         } else {
             try {
                 IOUtil.copyDirectory(options.getSourceFolder(),
-                        options.getTargetFolder().getAbsoluteFile().getParentFile());
+                        options.getTargetFolder().getAbsoluteFile());
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, null, ex);
             }
