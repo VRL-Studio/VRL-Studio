@@ -296,7 +296,8 @@ public class StudioBundleUpdater {
 
             try {
                 System.out.println(" --> running Unix install");
-                studioUpdaterProcess = Runtime.getRuntime().exec(command);
+                studioUpdaterProcess = Runtime.getRuntime().exec(
+                        command, null, new File(bundleFolder,"VRL-Studio"));
 
 //                BufferedReader input = new BufferedReader(
 //                        new InputStreamReader(p.getErrorStream()));
