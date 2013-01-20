@@ -5,6 +5,7 @@
 package eu.mihosoft.vrlstudio.io;
 
 import eu.mihosoft.vrl.io.IOUtil;
+import eu.mihosoft.vrl.io.SynchronizedFileAccess;
 import eu.mihosoft.vrl.io.TextSaver;
 import eu.mihosoft.vrl.system.VRL;
 import eu.mihosoft.vrl.system.VSysUtil;
@@ -27,23 +28,23 @@ import org.kohsuke.args4j.CmdLineParser;
 public class StudioBundleUpdater {
 
     private static CmdOptions options;
-    private static Logger logger = 
+    private static Logger logger =
             Logger.getLogger(StudioBundleUpdater.class.getName());
     private static Process studioUpdaterProcess;
 //    private static File exitFile;
-    
+
     public boolean isUpdaterProcessRunning() {
-        
+
         // process is null and hasn't started yet
         if (studioUpdaterProcess == null) {
             return false;
         }
-        
+
         try {
             // we try to get exit value
             // if this is possible we know that the process has been terminated
             studioUpdaterProcess.exitValue();
-            
+
             return false;
         } catch (IllegalThreadStateException ex) {
             // the process hasn't been terminated. thus, we return true
@@ -54,7 +55,9 @@ public class StudioBundleUpdater {
     private static void initLogger() {
         try {
             FileHandler fileHandler = new FileHandler("VRL-Studio-Updater.log",
-                    1024 * 1024 * 1 /*MB*/, 5);
+                    1024 * 1024 * 1 /*
+                     * MB
+                     */, 5);
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
         } catch (IOException ex) {
@@ -75,6 +78,7 @@ public class StudioBundleUpdater {
         try {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
+            logger.log(Level.SEVERE, null, e);
             System.err.println(e.getMessage());
             printUsage(parser);
             return;
@@ -83,7 +87,7 @@ public class StudioBundleUpdater {
         boolean wrongOptions = false;
 
         if (!options.getSourceFolder().isDirectory()) {
-            String msg = "-i: specified value is no directory: " 
+            String msg = "-i: specified value is no directory: "
                     + options.getSourceFolder();
             logger.log(Level.SEVERE, msg);
             printUsage(parser);
@@ -91,7 +95,7 @@ public class StudioBundleUpdater {
         }
 
         if (!options.getTargetFolder().isDirectory()) {
-            String msg = "-o: specified value is no directory: " 
+            String msg = "-o: specified value is no directory: "
                     + options.getTargetFolder();
             logger.log(Level.SEVERE, msg);
             printUsage(parser);
@@ -99,8 +103,16 @@ public class StudioBundleUpdater {
         }
 
         if (!options.getUpdateFolder().isDirectory()) {
-            String msg = "-update-folder: specified value is no directory: " 
+            String msg = "-update-folder: specified value is no directory: "
                     + options.getUpdateFolder();
+            logger.log(Level.SEVERE, msg);
+            printUsage(parser);
+            wrongOptions = true;
+        }
+
+        if (!options.getPropertyFolder().isDirectory()) {
+            String msg = "-property-folder: specified value is no directory: "
+                    + options.getPropertyFolder();
             logger.log(Level.SEVERE, msg);
             printUsage(parser);
             wrongOptions = true;
@@ -112,11 +124,12 @@ public class StudioBundleUpdater {
         }
 
         System.out.println(">> updater waiting...");
-        
+
 //        exitFile = new File(options.getUpdateFolder(),"exit-updater");
 
-        while (VSysUtil.isRunning(options.getPid())) {
-            logger.log(Level.INFO, ">> because of strange Windows file locking we have to wait :( \n"
+        while (parentProcessStillRunning()) {
+            logger.log(Level.INFO, ">> watching pid: " + options.getPid()
+                    + " because of strange Windows file locking we have to wait :( \n"
                     + "   (we are lazy and use the same code on unix as well)");
             try {
                 Thread.sleep(1000);
@@ -124,7 +137,7 @@ public class StudioBundleUpdater {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
                         log(Level.SEVERE, null, ex);
             }
-            
+
 //            // stop update
 //            if (exitFile.exists()) {
 //                logger.log(Level.INFO, ">> stopping update (requested by host process)");
@@ -137,6 +150,7 @@ public class StudioBundleUpdater {
         IOUtil.deleteDirectory(options.getTargetFolder());
 
         if (!copyUpdateToFinalBundle()) {
+            logger.log(Level.SEVERE, ">> cannot copy update to final bundle");
             return;
         }
 
@@ -146,6 +160,15 @@ public class StudioBundleUpdater {
         }
 
         runNewStudio();
+    }
+
+    private static boolean parentProcessStillRunning() {
+        if (!VSysUtil.isWindows()) {
+            return VSysUtil.isRunning(options.getPid());
+        } else {
+            File lockFile = new File(options.getPropertyFolder(), ".lock");
+            return SynchronizedFileAccess.isLocked(lockFile);
+        }
     }
 
     private static File createUpdateBundle(File input) {
@@ -160,25 +183,36 @@ public class StudioBundleUpdater {
             return null;
         }
 
-        try {
-            Studio.logger.info(" --> unzip: " + input + " -> " + tmpFolder);
-            IOUtil.copyFile(input, new File(tmpFolder + "/" + input.getName()));
+        if (!VSysUtil.isWindows()) {
+            try {
+                Studio.logger.info(" --> unzip: " + input + " -> " + tmpFolder);
+                IOUtil.copyFile(input, new File(tmpFolder + "/" + input.getName()));
 
-            Process p = Runtime.getRuntime().exec("unzip " + input.getName(), null, tmpFolder);
+                Process p = Runtime.getRuntime().exec("unzip " + input.getName(), null, tmpFolder);
 
-            BufferedReader inputS = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()));
+                BufferedReader inputS = new BufferedReader(
+                        new InputStreamReader(p.getInputStream()));
 
-            String line = null;
+                String line = null;
 
-            while ((line = inputS.readLine()) != null) {
-                //System.err.println(" --> unzip: " + line);
+                while ((line = inputS.readLine()) != null) {
+                    //System.err.println(" --> unzip: " + line);
+                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
+                Studio.logger.severe(" --> StudioBundleUpdater: cannot unpack update bundle");
+                return null;
             }
-
-        } catch (IOException ex) {
-            Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
-            Studio.logger.severe(" --> StudioBundleUpdater: cannot unpack update bundle");
-            return null;
+        } else {
+            try {
+                Studio.logger.info(" --> unzip: " + input + " -> " + tmpFolder);
+                IOUtil.copyFile(input, new File(tmpFolder + "/" + input.getName()));
+                IOUtil.unzip(input, tmpFolder);
+            } catch (IOException ex) {
+                Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
+                Studio.logger.severe(" --> StudioBundleUpdater: cannot unpack update bundle");
+            }
         }
 
         Studio.logger.info(" --> update-bundle-folder: " + tmpFolder);
@@ -218,7 +252,8 @@ public class StudioBundleUpdater {
                     + "-i " + bundleFolder + inPath + " "
                     + "-o " + target.getAbsolutePath() + " "
                     + "-pid " + VSysUtil.getPID() + " "
-                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath();
+                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
+                    + "-property-folder " + VRL.getPropertyFolderManager().getPropertyFolder();
 
             Studio.logger.info(">> final command: " + command);
 
@@ -243,12 +278,47 @@ public class StudioBundleUpdater {
                 return false;
             }
         } else {
-            System.out.println(" --> running Windows install: not implemented");
+            String runPath = "/VRL-Studio/.application/updater/run-update.bat";
+            String inPath = "/VRL-Studio";
+
+            Studio.logger.info(">> updater run path: " + runPath);
+            Studio.logger.info(">> updater in path: " + inPath);
+
+            String command = "cmd /C start "
+                    + bundleFolder.getAbsolutePath() + runPath + " "
+                    + "-i " + bundleFolder + inPath + " "
+                    + "-o " + target.getAbsolutePath() + " "
+                    + "-pid " + VSysUtil.getPID() + " "
+                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
+                    + "-property-folder " + VRL.getPropertyFolderManager().getPropertyFolder();
+            
+            Studio.logger.info(">> final command: " + command);
+
+            try {
+                System.out.println(" --> running Unix install");
+                studioUpdaterProcess = Runtime.getRuntime().exec(command);
+
+//                BufferedReader input = new BufferedReader(
+//                        new InputStreamReader(p.getErrorStream()));
+//
+//                String line = null;
+//
+//                while ((line = input.readLine()) != null) {
+//                    System.err.println(" --> updater: " + line);
+//                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(StudioBundleUpdater.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                Studio.logger.severe(">> cannot run update-bundle: "
+                        + bundleFolder);
+                return false;
+            }
         }
 
         return true;
     }
-    
+
     private static boolean runNewStudio() {
 
         logger.info(">> running new studio");
@@ -288,7 +358,24 @@ public class StudioBundleUpdater {
                 return false;
             }
         } else {
-            System.out.println(" --> running Windows install: not implemented");
+            logger.info(">> windows: " + bundleFolder.getAbsolutePath());
+            try {
+                System.out.println(" --> running Windows install");
+                String cmd = "cmd /C start "
+                        + bundleFolder.getAbsolutePath()
+                        + "\run.bat";
+                logger.info(">> windows: " +cmd);
+                Process p = Runtime.getRuntime().exec(
+                        cmd, null, bundleFolder.getAbsoluteFile());
+
+            } catch (IOException ex) {
+                Logger.getLogger(StudioBundleUpdater.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                logger.severe(">> cannot run studio-bundle: "
+                        + bundleFolder);
+
+                return false;
+            }
         }
 
         return true;
@@ -338,7 +425,12 @@ public class StudioBundleUpdater {
                 return false;
             }
         } else {
-            //
+            try {
+                IOUtil.copyDirectory(options.getSourceFolder(),
+                        options.getTargetFolder().getAbsoluteFile().getParentFile());
+            } catch (IOException ex) {
+                logger.log(Level.SEVERE, null, ex);
+            }
         }
 
         logger.info(" --> cp: " + options.getSourceFolder() + " -> " + options.getTargetFolder());

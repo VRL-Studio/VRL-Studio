@@ -19,6 +19,8 @@ public class CmdOptions {
     private File sourceFolder;
     @Option(name = "-update-folder", usage = "update folder (will be deleted)", required = true)
     private File updateFolder;
+    @Option(name = "-property-folder", usage = "property folder (.vrl folder of parent process)", required = true)
+    private File propertyFolder;
     @Option(name = "-pid", usage = "parent process id", required = true)
     private int pid;
 
@@ -76,5 +78,19 @@ public class CmdOptions {
      */
     public void setUpdateFolder(File updateFolder) {
         this.updateFolder = updateFolder;
+    }
+
+    /**
+     * @return the propertyFolder
+     */
+    public File getPropertyFolder() {
+        return propertyFolder;
+    }
+
+    /**
+     * @param propertyFolder the propertyFolder to set
+     */
+    public void setPropertyFolder(File propertyFolder) {
+        this.propertyFolder = propertyFolder;
     }
 }

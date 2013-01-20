@@ -2251,7 +2251,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         APP_FOLDER = new File("").getAbsoluteFile();
 
-        if (VSysUtil.isLinux()) {
+        if (VSysUtil.isLinux() || VSysUtil.isWindows()) {
             APP_FOLDER = APP_FOLDER.getParentFile();
         } else if (VSysUtil.isMacOSX()) {
             APP_FOLDER = APP_FOLDER.getParentFile().getParentFile().getParentFile();
