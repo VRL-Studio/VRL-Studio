@@ -15,8 +15,10 @@ import eu.mihosoft.vrl.system.VRLUpdater;
 import eu.mihosoft.vrl.system.VSysUtil;
 import eu.mihosoft.vrl.visual.CanvasActionListener;
 import eu.mihosoft.vrl.visual.Message;
+import eu.mihosoft.vrl.visual.ProceedRequest;
 import eu.mihosoft.vrl.visual.UpdateNotifierApplet;
 import eu.mihosoft.vrl.visual.VDialog;
+import eu.mihosoft.vrl.visual.VSwingUtil;
 import eu.mihosoft.vrlstudio.io.StudioBundleUpdater;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -123,41 +125,65 @@ class StudioUpdateAction extends VRLUpdateActionBase {
             RepositoryEntry update, File updateFile) {
         File targetFile = null;
         try {
-//            targetFile =
-//                    new File(
-//                    System.getProperty("user.home")
-//                    + "/Downloads/" + updateFile.getName());
-//            IOUtil.copyFile(updateFile, targetFile);
 
-            targetFile =
-                    new File(
-                    VRL.getPropertyFolderManager().getUpdatesFolder()
-                    + "/" + updateFile.getName());
+            // check whether we can write to the app folder (for update)
+            boolean weHavePrivileges = Studio.APP_FOLDER.canWrite();
+
+            if (weHavePrivileges) {
+
+                targetFile =
+                        new File(
+                        VRL.getPropertyFolderManager().getUpdatesFolder()
+                        + "/" + updateFile.getName());
+            } else {
+                targetFile =
+                        new File(
+                        System.getProperty("user.home")
+                        + "/Downloads/" + updateFile.getName());
+            }
+
             IOUtil.copyFile(updateFile, targetFile);
+
+            if (weHavePrivileges) {
+                
+                VSwingUtil.invokeAndWait(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        try {
+                            VRL.getCurrentProjectController().closeProject(true, "Update VRL-Studio");
+                        } catch (IOException ex) {
+                            Logger.getLogger(StudioUpdateAction.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
+                
+                boolean closed = !VRL.getCurrentProjectController().isProjectOpened();
+                
+                System.out.println("project closed: " + closed);
+
+                if (closed) {
+                    StudioBundleUpdater.runStudioUpdate(targetFile);
+                    Studio.THIS.quitApplication();
+                }
+            } else {
 
 //            VMessage.info("Update downloaded:",
 //                    ">> VRL-Studio " + update.getVersion()
 //                    + " has been downloaded to: "
 //                    + targetFile.getAbsolutePath());
 
-//            VDialog.showMessageDialog(getCurrentCanvas(), "Update Downloaded",
-//                    "<html><div align=\"center\">"
-//                    + "<b>VRL-Studio v" + update.getVersion()
-//                    + " has been downloaded to:</b><br><br>"
-//                    + "" + targetFile.getAbsolutePath() + "<br><br>"
-//                    + "<b>How To Use The New Version?</b><br><br>"
-//                    + "VRL-Studio will be closed now.<br><br>"
-//                    + "<b>Unpack</b> the file shown above and <b>run</b> the new version of <b>VRL-Studio</b>!"
-//                    + "</div></html>");
+                VDialog.showMessageDialog(getCurrentCanvas(), "Update Downloaded",
+                        "<html><div align=\"center\">"
+                        + "<b>VRL-Studio v" + update.getVersion()
+                        + " has been downloaded to:</b><br><br>"
+                        + "" + targetFile.getAbsolutePath() + "<br><br>"
+                        + "<b>How To Use The New Version?</b><br><br>"
+                        + "VRL-Studio will be closed now.<br><br>"
+                        + "<b>Unpack</b> the file shown above and <b>run</b> the new version of <b>VRL-Studio</b>!"
+                        + "</div></html>");
 
-//            VSysUtil.openFileInDefaultFileBrowser(targetFile);
-
-
-            boolean closed = VRL.getCurrentProjectController().closeProject(true, "Update VRL-Studio");
-
-            if (closed) {
-                StudioBundleUpdater.runStudioUpdate(targetFile);
-                Studio.THIS.quitApplication();
+                VSysUtil.openFileInDefaultFileBrowser(targetFile);
             }
 
         } catch (FileNotFoundException ex) {
