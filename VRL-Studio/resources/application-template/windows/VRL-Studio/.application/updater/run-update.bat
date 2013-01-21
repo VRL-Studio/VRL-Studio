@@ -2,9 +2,14 @@
 set CONF=-updater %*
 
 REM set APPDIR="%CD%\.application"
-set APPDIR="%CD%\..\" REM .application folder
+set APPDIR="%CD%" REM .application folder
 
+REM the folder must be set by the calling process,
+REM e.g. by calling runtime.exec(this-cmd,appfolders)
 cd "%APPDIR%"
+
+echo APPDIR: %APPDIR%
+pause
 
 
 set LIBDIR32=%pwd%lib\windows\x86;custom-lib\windows\x86

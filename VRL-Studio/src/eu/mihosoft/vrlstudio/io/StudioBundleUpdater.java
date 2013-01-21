@@ -278,26 +278,36 @@ public class StudioBundleUpdater {
                 return false;
             }
         } else {
-            String runPath = "/VRL-Studio/.application/updater/run-update.bat";
-            String inPath = "/VRL-Studio";
+//            String runPath = "\\VRL-Studio\\.application\\updater\\run-update.bat";
+            String runPath = "updater\\run-update.bat";
+            String inPath = "\\VRL-Studio";
 
             Studio.logger.info(">> updater run path: " + runPath);
             Studio.logger.info(">> updater in path: " + inPath);
 
-            String command = "cmd /C start "
-                    + bundleFolder.getAbsolutePath() + runPath + " "
+//            String command = "cmd /C start "
+//                    + bundleFolder.getAbsolutePath() + runPath + " "
+//                    + "-i " + bundleFolder + inPath + " "
+//                    + "-o " + target.getAbsolutePath() + " "
+//                    + "-pid " + VSysUtil.getPID() + " "
+//                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
+//                    + "-property-folder " + VRL.getPropertyFolderManager().getPropertyFolder();
+            
+             String command = "cmd /C start "
+                    + runPath + " "
                     + "-i " + bundleFolder + inPath + " "
                     + "-o " + target.getAbsolutePath() + " "
                     + "-pid " + VSysUtil.getPID() + " "
                     + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
                     + "-property-folder " + VRL.getPropertyFolderManager().getPropertyFolder();
-            
+
             Studio.logger.info(">> final command: " + command);
 
             try {
                 System.out.println(" --> running Unix install");
                 studioUpdaterProcess = Runtime.getRuntime().exec(
-                        command, null, new File(bundleFolder,"VRL-Studio"));
+                        command, null, new File(bundleFolder,
+                        "VRL-Studio\\.application"));
 
 //                BufferedReader input = new BufferedReader(
 //                        new InputStreamReader(p.getErrorStream()));
@@ -309,10 +319,11 @@ public class StudioBundleUpdater {
 //                }
 
             } catch (IOException ex) {
-                Logger.getLogger(StudioBundleUpdater.class.getName()).
-                        log(Level.SEVERE, null, ex);
+
                 Studio.logger.severe(">> cannot run update-bundle: "
                         + bundleFolder);
+
+                Studio.logger.log(Level.SEVERE, null, ex);
                 return false;
             }
         }
@@ -362,12 +373,11 @@ public class StudioBundleUpdater {
             logger.info(">> windows: " + bundleFolder.getAbsolutePath());
             try {
                 System.out.println(" --> running Windows install");
-                String cmd = "cmd /C start "
-                        + bundleFolder.getAbsolutePath()
-                        + "\run.bat";
-                logger.info(">> windows: " +cmd);
+                String cmd = "cmd /C start run.bat";
+                logger.info(">> windows: " + cmd);
                 Process p = Runtime.getRuntime().exec(
-                        cmd, null, bundleFolder.getAbsoluteFile());
+                        cmd, null, 
+                        bundleFolder.getAbsoluteFile());
 
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
