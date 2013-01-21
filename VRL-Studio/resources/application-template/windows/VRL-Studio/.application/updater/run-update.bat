@@ -8,9 +8,6 @@ REM the folder must be set by the calling process,
 REM e.g. by calling runtime.exec(this-cmd,appfolders)
 cd "%APPDIR%"
 
-echo APPDIR: %APPDIR%
-pause
-
 
 set LIBDIR32=%pwd%lib\windows\x86;custom-lib\windows\x86
 set LIBDIR64=%pwd%lib\windows\x64;custom-lib\windows\x64
