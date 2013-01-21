@@ -41,6 +41,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
     private Download currentDownload;
     private RepositoryEntry currentUpdate;
     private URL currentURL;
+    private boolean projectClosed = false;
 
     public StudioUpdateAction() {
         this.updateApplet = new UpdateNotifierApplet(getCurrentCanvas());
@@ -151,20 +152,23 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                     @Override
                     public void run() {
                         try {
-                            VRL.getCurrentProjectController().closeProject(true, "Update VRL-Studio");
+                            projectClosed = VRL.getCurrentProjectController().closeProject(true, "Update VRL-Studio");
                         } catch (IOException ex) {
                             Logger.getLogger(StudioUpdateAction.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 });
-                
-                boolean closed = !VRL.getCurrentProjectController().isProjectOpened();
-                
-                System.out.println("project closed: " + closed);
 
-                if (closed) {
+                if (projectClosed) {
+                    VSwingUtil.invokeAndWait(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            getCurrentCanvas().getEffectPane().startSpin();
+                        }
+                    });
                     StudioBundleUpdater.runStudioUpdate(targetFile);
-                    Studio.THIS.quitApplication();
+                    VRL.exit(0);
                 }
             } else {
 
