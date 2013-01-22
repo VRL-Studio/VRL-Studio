@@ -47,7 +47,7 @@ fi
 
 
 # optimized for jre 7 (19.04.2012)
-$JAVAEXE -Xms64m -Xmx1024m -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen-update.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
+$JAVAEXE -Xms64m -Xmx128m -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen-update.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
 
 # 2011
 #java -Xms64m -Xmx1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
