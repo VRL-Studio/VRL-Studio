@@ -145,6 +145,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
         System.out.println(">> free diskspace on " + root.getAbsolutePath() + ": " + freeSpace / 1024 / 1024 + " MB");
         System.out.println(">> update size: " + updateSize / 1024 / 1024 + " MB");
 
+        // we request 3 times more space than the update size
         if (freeSpace < 3 * IOUtil.getFileSize(updateFile)) {
             VDialog.showMessageDialog(getCurrentCanvas(),
                     "VRL-Studio Update Failed",
