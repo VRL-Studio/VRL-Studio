@@ -247,7 +247,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
     public void stopVerification(Download d, boolean verificationSuccessful) {
         getCurrentCanvas().getEffectPane().stopSpin();
         if (verificationSuccessful) {
-            updateApplet.setToolTipText("Verification Sucessful");
+            updateApplet.setToolTipText("Verification Successful");
         } else {
             updateApplet.setToolTipText("Verification Failed!");
         }

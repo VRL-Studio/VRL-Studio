@@ -1254,7 +1254,7 @@ public class Studio extends javax.swing.JFrame {
 
         updateStudioAction = new StudioUpdateAction();
     }
-
+        
     void checkForUpdates() {
 
         if (updater.isDownloadingRepository()
