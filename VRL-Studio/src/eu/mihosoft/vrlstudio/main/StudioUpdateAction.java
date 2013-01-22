@@ -124,6 +124,17 @@ class StudioUpdateAction extends VRLUpdateActionBase {
     public void installAction(
             VRLUpdater updater,
             RepositoryEntry update, File updateFile) {
+
+        // verify download
+        if (updater.isVerificationEnabled()
+                && !updater.isVerificationSuccessful()) {
+            VDialog.showMessageDialog(getCurrentCanvas(), "Update Failed", 
+                    "<html><div align=\"center\">"
+                    + "The update verification failed! Please try again later!"
+                    + "</div></html>");
+            return;
+        }
+
         File targetFile = null;
         try {
 
@@ -146,9 +157,8 @@ class StudioUpdateAction extends VRLUpdateActionBase {
             IOUtil.copyFile(updateFile, targetFile);
 
             if (weHavePrivileges) {
-                
-                VSwingUtil.invokeAndWait(new Runnable() {
 
+                VSwingUtil.invokeAndWait(new Runnable() {
                     @Override
                     public void run() {
                         try {
@@ -161,7 +171,6 @@ class StudioUpdateAction extends VRLUpdateActionBase {
 
                 if (projectClosed) {
                     VSwingUtil.invokeAndWait(new Runnable() {
-
                         @Override
                         public void run() {
                             getCurrentCanvas().getEffectPane().startSpin();
@@ -205,6 +214,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
     @Override
     public void updateDownloadStateChanged(Download d) {
         updateApplet.setProgress((int) d.getProgress());
+        updateApplet.setToolTipText("Downloading - " + (int) d.getProgress());
 
         if (d.getStatus() == Download.ERROR) {
             updateApplet.setActive(false);
@@ -218,6 +228,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
 
         if (d.getStatus() == Download.COMPLETE) {
             updateApplet.setProgress(0);
+            updateApplet.setToolTipText("Download Complete");
         }
 
     }

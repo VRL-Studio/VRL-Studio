@@ -1244,6 +1244,8 @@ public class Studio extends javax.swing.JFrame {
                 new VersionInfo(Constants.VERSION_BASE));
 
         updater = new VRLUpdater(identifier);
+        updater.setVerificationEnabled(true);
+        
 //        try {
 //            updater.setUpdateURL(new URL("http://localhost:80/linux/repository.xml"));
 //        } catch (MalformedURLException ex) {
