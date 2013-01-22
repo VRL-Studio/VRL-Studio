@@ -128,10 +128,12 @@ class StudioUpdateAction extends VRLUpdateActionBase {
         // verify download
         if (updater.isVerificationEnabled()
                 && !updater.isVerificationSuccessful()) {
-            VDialog.showMessageDialog(getCurrentCanvas(), "Update Failed", 
+            VDialog.showMessageDialog(getCurrentCanvas(), "VRL-Studio Update Failed",
                     "<html><div align=\"center\">"
                     + "The update verification failed! Please try again later!"
                     + "</div></html>");
+
+            IOUtil.deleteDirectory(updateFile);
             return;
         }
 
@@ -162,9 +164,11 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                     @Override
                     public void run() {
                         try {
-                            projectClosed = VRL.getCurrentProjectController().closeProject(true, "Update VRL-Studio");
+                            projectClosed = VRL.getCurrentProjectController().
+                                    closeProject(true, "Update VRL-Studio");
                         } catch (IOException ex) {
-                            Logger.getLogger(StudioUpdateAction.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(StudioUpdateAction.class.getName()).
+                                    log(Level.SEVERE, null, ex);
                         }
                     }
                 });
@@ -214,7 +218,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
     @Override
     public void updateDownloadStateChanged(Download d) {
         updateApplet.setProgress((int) d.getProgress());
-        updateApplet.setToolTipText("Downloading - " + (int) d.getProgress());
+        updateApplet.setToolTipText("Downloading - " + (int) d.getProgress() + "%");
 
         if (d.getStatus() == Download.ERROR) {
             updateApplet.setActive(false);
@@ -231,5 +235,21 @@ class StudioUpdateAction extends VRLUpdateActionBase {
             updateApplet.setToolTipText("Download Complete");
         }
 
+    }
+
+    @Override
+    public void startVerification(Download d) {
+        getCurrentCanvas().getEffectPane().startSpin();
+        updateApplet.setToolTipText("Verifying Download...");
+    }
+
+    @Override
+    public void stopVerification(Download d, boolean verificationSuccessful) {
+        getCurrentCanvas().getEffectPane().stopSpin();
+        if (verificationSuccessful) {
+            updateApplet.setToolTipText("Verification Sucessful");
+        } else {
+            updateApplet.setToolTipText("Verification Failed!");
+        }
     }
 }
