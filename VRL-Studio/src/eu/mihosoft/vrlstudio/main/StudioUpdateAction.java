@@ -137,6 +137,27 @@ class StudioUpdateAction extends VRLUpdateActionBase {
             return;
         }
 
+        // verify free disk space
+        File root = IOUtil.getRootParent(Studio.APP_FOLDER);
+        long freeSpace = IOUtil.getRootParent(Studio.APP_FOLDER).getUsableSpace();
+        long updateSize = IOUtil.getFileSize(updateFile);
+        
+        System.out.println(">> free diskspace on " + root.getAbsolutePath() + ": " + freeSpace / 1024 / 1024 + " MB");
+        System.out.println(">> update size: " + updateSize / 1024 / 1024 + " MB");
+
+        if (freeSpace < 3 * IOUtil.getFileSize(updateFile)) {
+            VDialog.showMessageDialog(getCurrentCanvas(),
+                    "VRL-Studio Update Failed",
+                    "<html><div align=\"center\">"
+                    + "Not enough space on "
+                    + root.getAbsolutePath()
+                    + ".<br>"
+                    + "Delete unused files and try again."
+                    + "</div></html>");
+            IOUtil.deleteDirectory(updateFile);
+            return;
+        }
+
         File targetFile = null;
         try {
 
