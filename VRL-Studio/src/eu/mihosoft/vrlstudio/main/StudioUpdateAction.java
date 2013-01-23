@@ -44,8 +44,13 @@ class StudioUpdateAction extends VRLUpdateActionBase {
     private boolean projectClosed = false;
 
     public StudioUpdateAction() {
+
+
+        // create the update notification icon
         this.updateApplet = new UpdateNotifierApplet(getCurrentCanvas());
 
+        // register action: if user clicks on the icon available updates
+        // will be installed
         updateApplet.setActionListener(new CanvasActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -65,6 +70,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
             }
         });
 
+        // if we open a new canvas we add the update icon to it
         VRL.getCurrentProjectController().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -79,6 +85,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
             }
         });
 
+        // ... and remove it from the old canvas
         VRL.getCurrentProjectController().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -138,12 +145,14 @@ class StudioUpdateAction extends VRLUpdateActionBase {
         }
 
         // verify free disk space
-        File root = IOUtil.getRootParent(Studio.APP_FOLDER);
-        long freeSpace = IOUtil.getRootParent(Studio.APP_FOLDER).getUsableSpace();
+        File appfolder = IOUtil.getRootParent(Studio.APP_FOLDER);
+        long freeSpace = IOUtil.getFreeSpaceOnPartition(appfolder);
         long updateSize = IOUtil.getFileSize(updateFile);
-        
-        System.out.println(">> free diskspace on " + root.getAbsolutePath() + ": " + freeSpace / 1024 / 1024 + " MB");
-        System.out.println(">> update size: " + updateSize / 1024 / 1024 + " MB");
+
+        System.out.println(">> free diskspace on " + appfolder.getAbsolutePath()
+                + ": " + freeSpace / 1024 / 1024 + " MB");
+        System.out.println(">> update size: "
+                + updateSize / 1024 / 1024 + " MB");
 
         // we request 3 times more space than the update size
         if (freeSpace < 3 * IOUtil.getFileSize(updateFile)) {
@@ -151,7 +160,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                     "VRL-Studio Update Failed",
                     "<html><div align=\"center\">"
                     + "Not enough space on "
-                    + root.getAbsolutePath()
+                    + appfolder.getAbsolutePath()
                     + ".<br>"
                     + "Delete unused files and try again."
                     + "</div></html>");
@@ -180,6 +189,8 @@ class StudioUpdateAction extends VRLUpdateActionBase {
 
             IOUtil.copyFile(updateFile, targetFile);
 
+            // if we can write to the VRL-Studio folder we can run the automatic
+            // install process
             if (weHavePrivileges) {
 
                 VSwingUtil.invokeAndWait(new Runnable() {
@@ -207,19 +218,24 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                 }
             } else {
 
+                // if we cannot write to the update folder we download the
+                // update and ask the user to manually unpack/start the folder
+
 //            VMessage.info("Update downloaded:",
 //                    ">> VRL-Studio " + update.getVersion()
 //                    + " has been downloaded to: "
 //                    + targetFile.getAbsolutePath());
 
-                VDialog.showMessageDialog(getCurrentCanvas(), "Update Downloaded",
+                VDialog.showMessageDialog(getCurrentCanvas(),
+                        "Update Downloaded",
                         "<html><div align=\"center\">"
                         + "<b>VRL-Studio v" + update.getVersion()
                         + " has been downloaded to:</b><br><br>"
                         + "" + targetFile.getAbsolutePath() + "<br><br>"
                         + "<b>How To Use The New Version?</b><br><br>"
                         + "VRL-Studio will be closed now.<br><br>"
-                        + "<b>Unpack</b> the file shown above and <b>run</b> the new version of <b>VRL-Studio</b>!"
+                        + "<b>Unpack</b> the file shown above and <b>run</b> "
+                        + "the new version of <b>VRL-Studio</b>!"
                         + "</div></html>");
 
                 VSysUtil.openFileInDefaultFileBrowser(targetFile);
