@@ -128,6 +128,7 @@ public class Studio extends javax.swing.JFrame {
     private ConfigurationFile studioConfig;
     private VRLUpdater updater;
     private StudioUpdateAction updateStudioAction;
+    private static boolean updated;
     public static File APP_FOLDER;
     public static Logger logger;
     public static Handler fileHandler;
@@ -478,6 +479,13 @@ public class Studio extends javax.swing.JFrame {
         } else if (answer == 2) {
             // nothing to do
         }
+    }
+
+    private void showUpdatedDialog() {
+
+        VDialog.showMessageDialog(getCurrentCanvas(),
+                "VRL-Studio Updated!",
+                "VRL-Studio has been successfully updated!");
     }
 
     public final void initCanvas(VisualCanvas canvas) {
@@ -1245,7 +1253,7 @@ public class Studio extends javax.swing.JFrame {
 
         updater = new VRLUpdater(identifier);
         updater.setVerificationEnabled(true);
-        
+
 //        try {
 //            updater.setUpdateURL(new URL("http://localhost:80/linux/repository.xml"));
 //        } catch (MalformedURLException ex) {
@@ -1254,7 +1262,7 @@ public class Studio extends javax.swing.JFrame {
 
         updateStudioAction = new StudioUpdateAction();
     }
-        
+
     void checkForUpdates() {
 
         if (updater.isDownloadingRepository()
@@ -2243,7 +2251,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         //
         ChangelogDialog.showDialog();
     }//GEN-LAST:event_showStudioChangelogItemActionPerformed
- 
+
     /**
      * @param args the command line arguments
      */
@@ -2266,7 +2274,15 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         logger.info("AppFolder: " + APP_FOLDER.getAbsolutePath());
 
         if (args.length > 0) {
-            if (args[0].equals("-updater")) {
+
+            for (String a : args) {
+                if (a.equals("-updated")) {
+                    updated = true;
+                    System.out.println(">> successfully updated!");
+                }
+            }
+
+            if ("-updater".equals(args[0])) {
 
                 // filter args
                 List<String> updateArgsList = new ArrayList<String>();
@@ -2444,6 +2460,10 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
                         if (!VSysUtil.isMacOSX()) {
                             evaluator.setDefaultFile(args);
+
+                            if (Studio.updated) {
+                                frame.showUpdatedDialog();
+                            }
 
                             if (!evaluator.loadFile(args) && Studio.showStartDialog) {
                                 frame.showStartDialog(frame.getCurrentCanvas());
@@ -2686,6 +2706,10 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                 }
 
                                 System.out.println("OS X specific: init done");
+
+                                if (Studio.updated) {
+                                    Studio.this.showUpdatedDialog();
+                                }
 
                                 if (!studioInitialized && Studio.showStartDialog) {
                                     showStartDialog(getCurrentCanvas());

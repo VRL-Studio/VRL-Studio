@@ -154,12 +154,14 @@ public class StudioBundleUpdater {
             return;
         }
 
-        // delete contents of updates folder
-        for (File f : options.getUpdateFolder().listFiles()) {
-            IOUtil.deleteTmpFilesOnExit(f);
-        }
+        if (runNewStudio()) {
 
-        runNewStudio();
+            // delete contents of updates folder
+            for (File f : options.getUpdateFolder().listFiles()) {
+                IOUtil.deleteTmpFilesOnExit(f);
+            }
+
+        }
     }
 
     private static boolean parentProcessStillRunning() {
@@ -292,8 +294,8 @@ public class StudioBundleUpdater {
 //                    + "-pid " + VSysUtil.getPID() + " "
 //                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
 //                    + "-property-folder " + VRL.getPropertyFolderManager().getPropertyFolder();
-            
-             String command = "cmd /C start "
+
+            String command = "cmd /C start "
                     + runPath + " "
                     + "-i " + bundleFolder + inPath + " "
                     + "-o " + target.getAbsolutePath() + " "
@@ -343,7 +345,7 @@ public class StudioBundleUpdater {
                 System.out.println(" --> running Unix install");
                 Process p = Runtime.getRuntime().exec("nohup "
                         + bundleFolder.getAbsolutePath()
-                        + "/run", null, bundleFolder.getAbsoluteFile());
+                        + "/run -updated", null, bundleFolder.getAbsoluteFile());
 
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
@@ -358,7 +360,7 @@ public class StudioBundleUpdater {
             logger.info(">> osx: " + bundleFolder.getAbsolutePath());
             try {
                 System.out.println(" --> running Mac install");
-                Process p = Runtime.getRuntime().exec("open "
+                Process p = Runtime.getRuntime().exec("open --args -updated"
                         + bundleFolder.getAbsolutePath());
 
             } catch (IOException ex) {
@@ -373,10 +375,10 @@ public class StudioBundleUpdater {
             logger.info(">> windows: " + bundleFolder.getAbsolutePath());
             try {
                 System.out.println(" --> running Windows install");
-                String cmd = "cmd /C start run.bat";
+                String cmd = "cmd /C start run.bat -updated";
                 logger.info(">> windows: " + cmd);
                 Process p = Runtime.getRuntime().exec(
-                        cmd, null, 
+                        cmd, null,
                         bundleFolder.getAbsoluteFile());
 
             } catch (IOException ex) {
