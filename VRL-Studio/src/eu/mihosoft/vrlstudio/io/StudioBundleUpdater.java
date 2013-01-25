@@ -360,8 +360,8 @@ public class StudioBundleUpdater {
             logger.info(">> osx: " + bundleFolder.getAbsolutePath());
             try {
                 System.out.println(" --> running Mac install");
-                Process p = Runtime.getRuntime().exec("open --args -updated"
-                        + bundleFolder.getAbsolutePath());
+                Process p = Runtime.getRuntime().exec("open "
+                        + bundleFolder.getAbsolutePath() + " --args -updated");
 
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
