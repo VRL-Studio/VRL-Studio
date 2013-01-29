@@ -169,11 +169,16 @@ public class StudioBundleUpdater {
 
 //        IOUtil.deleteDirectory(options.getTargetFolder());
 
+        // if update bundle cannot be copied to final bundle location
+        // silently quit
         if (!copyUpdateToFinalBundle()) {
             logger.log(Level.SEVERE, ">> cannot copy update to final bundle");
             return;
         }
 
+        // if running new studio bundle is successful then delete the
+        // updater bundle files
+        // - we keep them otherwise to allow debugging
         if (runNewStudio()) {
 
             // delete contents of updates folder

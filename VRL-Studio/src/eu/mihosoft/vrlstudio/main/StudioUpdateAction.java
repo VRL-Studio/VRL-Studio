@@ -14,13 +14,10 @@ import eu.mihosoft.vrl.system.VRLUpdateActionBase;
 import eu.mihosoft.vrl.system.VRLUpdater;
 import eu.mihosoft.vrl.system.VSysUtil;
 import eu.mihosoft.vrl.visual.CanvasActionListener;
-import eu.mihosoft.vrl.visual.Message;
-import eu.mihosoft.vrl.visual.ProceedRequest;
 import eu.mihosoft.vrl.visual.UpdateNotifierApplet;
 import eu.mihosoft.vrl.visual.VDialog;
 import eu.mihosoft.vrl.visual.VSwingUtil;
 import eu.mihosoft.vrlstudio.io.StudioBundleUpdater;
-import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -154,8 +151,10 @@ class StudioUpdateAction extends VRLUpdateActionBase {
         System.out.println(">> update size: "
                 + updateSize / 1024 / 1024 + " MB");
 
-        // we request 3 times more space than the update size
-        if (freeSpace < 3 * IOUtil.getFileSize(updateFile)) {
+        // we request 5 times more space than the update size
+        // (we temporarily need some space to ensure we can create backup copies
+        //  in case something goes wrong)
+        if (freeSpace < 5 * IOUtil.getFileSize(updateFile)) {
             VDialog.showMessageDialog(getCurrentCanvas(),
                     "VRL-Studio Update Failed",
                     "<html><div align=\"center\">"
@@ -181,6 +180,9 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                         VRL.getPropertyFolderManager().getUpdatesFolder()
                         + "/" + updateFile.getName());
             } else {
+                // if we cannot write to the app folder, we save the update in
+                // the download folder
+                // - the user has to manually install VRL-Studio
                 targetFile =
                         new File(
                         System.getProperty("user.home")
@@ -220,11 +222,6 @@ class StudioUpdateAction extends VRLUpdateActionBase {
 
                 // if we cannot write to the update folder we download the
                 // update and ask the user to manually unpack/start the folder
-
-//            VMessage.info("Update downloaded:",
-//                    ">> VRL-Studio " + update.getVersion()
-//                    + " has been downloaded to: "
-//                    + targetFile.getAbsolutePath());
 
                 VDialog.showMessageDialog(getCurrentCanvas(),
                         "Update Downloaded",
@@ -272,7 +269,6 @@ class StudioUpdateAction extends VRLUpdateActionBase {
             updateApplet.setProgress(0);
             updateApplet.setToolTipText("Download Complete");
         }
-
     }
 
     @Override
