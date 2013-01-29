@@ -22,36 +22,38 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 
 /**
+ * This class is responsible for managing a complete VRL-Studio update.
+ *
+ * Some methods are called from the Studio process. Others must be called from
+ * the updater process (see method documentation for details).
  *
  * @author Michael Hoffer <info@michaelhoffer.de>
  */
 public class StudioBundleUpdater {
 
+    /**
+     * Java Bean for command-line options.
+     */
     private static CmdOptions options;
+    /**
+     * The update logger.
+     */
     private static Logger logger =
             Logger.getLogger(StudioBundleUpdater.class.getName());
+    /**
+     * The process object of the updater
+     */
     private static Process studioUpdaterProcess;
-//    private static File exitFile;
+    /**
+     * Indicates whether the updater process is running, i.e., if this instance
+     * is from the updater process's JVM.
+     */
+    private static boolean runningUpdater;
+    public static final String PREV_VERSION_EXTENSION = "-PREV-VER";
 
-    public boolean isUpdaterProcessRunning() {
-
-        // process is null and hasn't started yet
-        if (studioUpdaterProcess == null) {
-            return false;
-        }
-
-        try {
-            // we try to get exit value
-            // if this is possible we know that the process has been terminated
-            studioUpdaterProcess.exitValue();
-
-            return false;
-        } catch (IllegalThreadStateException ex) {
-            // the process hasn't been terminated. thus, we return true
-            return true;
-        }
-    }
-
+    /**
+     * Initializes the updater logger.
+     */
     private static void initLogger() {
         try {
             FileHandler fileHandler = new FileHandler("VRL-Studio-Updater.log",
@@ -69,7 +71,18 @@ public class StudioBundleUpdater {
         }
     }
 
+    /**
+     * Main method of the update process. It will be delegated from
+     * {@link Studio#main(java.lang.String[])} if it has been called with the
+     * <code>-updater</code> command-line option (must be the first option).
+     *
+     * @param args update arguments (see {@link CmdOptions} for possible
+     * options)
+     */
     public static void main(String[] args) {
+
+        runningUpdater = true;
+
         initLogger();
 
         logger.info(">> updater running:");
@@ -146,8 +159,15 @@ public class StudioBundleUpdater {
 //            }
         }
 
-        // if no delta-update, delete VRL-Studio folder
-        IOUtil.deleteDirectory(options.getTargetFolder());
+        // if no delta-update, move VRL-Studio folder to VRL-Studio-PREV-VER
+        File prevVersion = new File(options.getTargetFolder().getAbsolutePath()
+                + PREV_VERSION_EXTENSION);
+        // delete prevVersion if it already exists
+        IOUtil.deleteDirectory(prevVersion);
+        // move current (old) version to PREV-Version
+        IOUtil.move(options.getTargetFolder(), prevVersion);
+
+//        IOUtil.deleteDirectory(options.getTargetFolder());
 
         if (!copyUpdateToFinalBundle()) {
             logger.log(Level.SEVERE, ">> cannot copy update to final bundle");
@@ -164,7 +184,18 @@ public class StudioBundleUpdater {
         }
     }
 
+    /**
+     * Determines if the parent (Studio) process is still running.
+     *
+     * <p><b>Note:</b> only call this from update process.</p>
+     *
+     * @return <code>true</code> if the Studio process is running;
+     * <code>false</code> otherwise
+     */
     private static boolean parentProcessStillRunning() {
+
+        throwIfNotCallingFromUpdaterProcess();
+
         if (!VSysUtil.isWindows()) {
             return VSysUtil.isRunning(options.getPid());
         } else {
@@ -173,24 +204,62 @@ public class StudioBundleUpdater {
         }
     }
 
-    private static File createUpdateBundle(File input) {
+    /**
+     * @throws IllegalStateException if not running from the updater process
+     */
+    private static void throwIfNotCallingFromUpdaterProcess() {
+        if (!isRunningUpdater()) {
+            throw new IllegalStateException(
+                    "This method must not be called from the Studio process!");
+        }
+    }
+
+    /**
+     * @throws IllegalStateException if not running from the studio process
+     */
+    private static void throwIfNotCallingFromStudioProcess() {
+        if (isRunningUpdater()) {
+            throw new IllegalStateException(
+                    "This method must not be called from the Updater process!");
+        }
+    }
+
+    /**
+     * Creates the update bundle in a temorary folder.
+     *
+     * <p><b>Note:</b> only call this from Studio process.</p>
+     *
+     * @param input the input/source (.zip) file that shall be unzipped
+     * @return the tmp folder containing the updater bundle or <code>null</code>
+     * if the updater bundle cannot be created
+     */
+    private static File createUpdaterBundle(File input) {
+
+        throwIfNotCallingFromStudioProcess();
 
         Studio.logger.info(" --> creating update-bundle-folder");
         File tmpFolder = null;
         try {
-            tmpFolder = IOUtil.createTempDir(VRL.getPropertyFolderManager().getUpdatesFolder());
+            tmpFolder = IOUtil.createTempDir(
+                    VRL.getPropertyFolderManager().getUpdatesFolder());
         } catch (IOException ex) {
-            Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
-            Studio.logger.severe(" --> StudioBundleUpdater: cannot create tmp dir for update bundle");
+            Logger.getLogger(StudioBundleUpdater.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            Studio.logger.severe(
+                    " --> StudioBundleUpdater:"
+                    + " cannot create tmp dir for update bundle");
             return null;
         }
 
         if (!VSysUtil.isWindows()) {
             try {
-                Studio.logger.info(" --> unzip: " + input + " -> " + tmpFolder);
-                IOUtil.copyFile(input, new File(tmpFolder + "/" + input.getName()));
+                Studio.logger.info(
+                        " --> unzip: " + input + " -> " + tmpFolder);
+                IOUtil.copyFile(
+                        input, new File(tmpFolder + "/" + input.getName()));
 
-                Process p = Runtime.getRuntime().exec("unzip " + input.getName(), null, tmpFolder);
+                Process p = Runtime.getRuntime().exec(
+                        "unzip " + input.getName(), null, tmpFolder);
 
                 BufferedReader inputS = new BufferedReader(
                         new InputStreamReader(p.getInputStream()));
@@ -202,18 +271,27 @@ public class StudioBundleUpdater {
                 }
 
             } catch (IOException ex) {
-                Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
-                Studio.logger.severe(" --> StudioBundleUpdater: cannot unpack update bundle");
+                Logger.getLogger(StudioBundleUpdater.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                Studio.logger.severe(
+                        " --> StudioBundleUpdater:"
+                        + " cannot unpack update bundle");
                 return null;
             }
         } else {
             try {
-                Studio.logger.info(" --> unzip: " + input + " -> " + tmpFolder);
-                IOUtil.copyFile(input, new File(tmpFolder + "/" + input.getName()));
+                Studio.logger.info(
+                        " --> unzip: " + input + " -> " + tmpFolder);
+                IOUtil.copyFile(input,
+                        new File(tmpFolder + "/" + input.getName()));
                 IOUtil.unzip(input, tmpFolder);
             } catch (IOException ex) {
-                Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
-                Studio.logger.severe(" --> StudioBundleUpdater: cannot unpack update bundle");
+                Logger.getLogger(
+                        StudioBundleUpdater.class.getName()).
+                        log(Level.SEVERE, null, ex);
+                Studio.logger.severe(
+                        " --> StudioBundleUpdater:"
+                        + " cannot unpack update bundle");
             }
         }
 
@@ -222,19 +300,28 @@ public class StudioBundleUpdater {
         return tmpFolder;
     }
 
-    public static boolean runStudioUpdate(File source) {
+    /**
+     * Runs the updater process that updates the studio.
+     *
+     * <p><b>Note:</b> only call this from Studio process.</p>
+     *
+     * @return <code>true</code> if the updater process could be executed;
+     * <code>false</code> otherwise
+     */
+    public static boolean runStudioUpdater(File source) {
+
+        throwIfNotCallingFromStudioProcess();
 
         Studio.logger.info(">> running studio update");
 
         File target = Studio.APP_FOLDER;
 
-        File bundleFolder = createUpdateBundle(source);
+        File bundleFolder = createUpdaterBundle(source);
 
         if (bundleFolder == null) {
             Studio.logger.severe(" --> no update-bundle");
             return false;
         }
-
 
         if (!VSysUtil.isWindows()) {
 
@@ -254,23 +341,16 @@ public class StudioBundleUpdater {
                     + "-i " + bundleFolder + inPath + " "
                     + "-o " + target.getAbsolutePath() + " "
                     + "-pid " + VSysUtil.getPID() + " "
-                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
-                    + "-property-folder " + VRL.getPropertyFolderManager().getPropertyFolder();
+                    + "-update-folder "
+                    + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
+                    + "-property-folder "
+                    + VRL.getPropertyFolderManager().getPropertyFolder();
 
             Studio.logger.info(">> final command: " + command);
 
             try {
                 System.out.println(" --> running Unix install");
                 studioUpdaterProcess = Runtime.getRuntime().exec(command);
-
-//                BufferedReader input = new BufferedReader(
-//                        new InputStreamReader(p.getErrorStream()));
-//
-//                String line = null;
-//
-//                while ((line = input.readLine()) != null) {
-//                    System.err.println(" --> updater: " + line);
-//                }
 
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
@@ -280,20 +360,11 @@ public class StudioBundleUpdater {
                 return false;
             }
         } else {
-//            String runPath = "\\VRL-Studio\\.application\\updater\\run-update.bat";
             String runPath = "updater\\run-update.bat";
             String inPath = "\\VRL-Studio";
 
             Studio.logger.info(">> updater run path: " + runPath);
             Studio.logger.info(">> updater in path: " + inPath);
-
-//            String command = "cmd /C start "
-//                    + bundleFolder.getAbsolutePath() + runPath + " "
-//                    + "-i " + bundleFolder + inPath + " "
-//                    + "-o " + target.getAbsolutePath() + " "
-//                    + "-pid " + VSysUtil.getPID() + " "
-//                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
-//                    + "-property-folder " + VRL.getPropertyFolderManager().getPropertyFolder();
 
             String command = "cmd /C start "
                     + runPath + " "
@@ -311,15 +382,6 @@ public class StudioBundleUpdater {
                         command, null, new File(bundleFolder,
                         "VRL-Studio\\.application"));
 
-//                BufferedReader input = new BufferedReader(
-//                        new InputStreamReader(p.getErrorStream()));
-//
-//                String line = null;
-//
-//                while ((line = input.readLine()) != null) {
-//                    System.err.println(" --> updater: " + line);
-//                }
-
             } catch (IOException ex) {
 
                 Studio.logger.severe(">> cannot run update-bundle: "
@@ -333,7 +395,17 @@ public class StudioBundleUpdater {
         return true;
     }
 
+    /**
+     * Runs the updates Studio process.
+     *
+     * <p><b>Note:</b> only call this from update process.</p>
+     *
+     * @return <code>true</code> if the Studio process could be executed;
+     * <code>false</code> otherwise
+     */
     private static boolean runNewStudio() {
+
+        throwIfNotCallingFromUpdaterProcess();
 
         logger.info(">> running new studio");
 
@@ -394,32 +466,45 @@ public class StudioBundleUpdater {
         return true;
     }
 
+    /**
+     * Prints a usage message if the updater process has been started with wrong
+     * options.
+     *
+     * @param parser parser used for argument parsing
+     */
     private static void printUsage(CmdLineParser parser) {
         System.err.println("Don't call this programm manually!");
         parser.printUsage(System.err);
     }
 
+    /**
+     * Copies the update to the final Studio bundle location.
+     *
+     * <p><b>Note:</b> only call this from update process.</p>
+     *
+     * @return <code>true</code> if successful; <code>false</code> otherwise
+     */
     private static boolean copyUpdateToFinalBundle() {
-        //        try {
-        //            IOUtil.copyDirectory(options.getSourceFolder(), options.getTargetFolder());
-        //        } catch (IOException ex) {
-        //            Logger.getLogger(StudioBundleUpdater.class.getName()).
-        //                    log(Level.SEVERE, null, ex);
-        //            System.err.println(" --> cannot copy directory: " + options.getSourceFolder());
-        //            return;
-        //        }
+
+        throwIfNotCallingFromUpdaterProcess();
 
         if (!VSysUtil.isWindows()) {
             try {
-                logger.info(" --> cp: " + options.getSourceFolder() + " -> " + options.getTargetFolder());
+                logger.info(" --> cp: "
+                        + options.getSourceFolder()
+                        + " -> " + options.getTargetFolder());
 
                 Process p = Runtime.getRuntime().exec(
                         "cp -rv " + options.getSourceFolder().getAbsolutePath()
-                        + " " + options.getTargetFolder().getAbsoluteFile().getParentFile().getAbsolutePath() + "");
+                        + " " + options.getTargetFolder().getAbsoluteFile().
+                        getParentFile().getAbsolutePath() + "");
+
+                // TODO why does waitFor() hang? (29.01.2013)
 //                try {
 //                    p.waitFor();
 //                } catch (InterruptedException ex) {
-//                    Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
+//                    Logger.getLogger(StudioBundleUpdater.class.getName()).
+//                log(Level.SEVERE, null, ex);
 //                }
 
                 BufferedReader input = new BufferedReader(
@@ -433,7 +518,8 @@ public class StudioBundleUpdater {
 
 
             } catch (IOException ex) {
-                Logger.getLogger(StudioBundleUpdater.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(StudioBundleUpdater.class.getName()).
+                        log(Level.SEVERE, null, ex);
                 logger.severe("cannot copy update bundle");
                 return false;
             }
@@ -446,8 +532,19 @@ public class StudioBundleUpdater {
             }
         }
 
-        logger.info(" --> cp: " + options.getSourceFolder() + " -> " + options.getTargetFolder());
+        logger.info(
+                " --> cp: "
+                + options.getSourceFolder()
+                + " -> " + options.getTargetFolder());
 
         return true;
+    }
+
+    /**
+     * @return <code>true</code> if this instance of StudioBundleUpdater belongs
+     * to the updater process; <code>false</code> otherwise
+     */
+    public static boolean isRunningUpdater() {
+        return runningUpdater;
     }
 }

@@ -96,11 +96,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultEditorKit;
 
+
 /**
  *
  * @author Michael Hoffer <info@michaelhoffer.de>
  */
 public class Studio extends javax.swing.JFrame {
+
+    /**
+     * @return the currentlyUpdating
+     */
+    public static boolean isCurrentlyUpdating() {
+        return currentlyUpdating;
+    }
 
     private boolean backgroundGrid = true;
     private boolean enableShadow = true;
@@ -128,7 +136,14 @@ public class Studio extends javax.swing.JFrame {
     private ConfigurationFile studioConfig;
     private VRLUpdater updater;
     private StudioUpdateAction updateStudioAction;
+    /**
+     * indicates whether the studio has been updated.
+     */
     private static boolean updated;
+    /**
+     * indicates whether an update is currently running.
+     */
+    private static boolean currentlyUpdating;
     public static File APP_FOLDER;
     public static Logger logger;
     public static Handler fileHandler;
@@ -486,6 +501,14 @@ public class Studio extends javax.swing.JFrame {
         VDialog.showMessageDialog(getCurrentCanvas(),
                 "VRL-Studio Updated!",
                 "VRL-Studio has been successfully updated!");
+        
+        if (VDialog.YES == VDialog.showConfirmDialog(getCurrentCanvas(),
+                "Remove previous Version?",
+                "Shall the previous version be removed?", VDialog.DialogType.YES_NO)) {
+            IOUtil.deleteDirectory(
+                    new File(APP_FOLDER.getAbsolutePath()
+                    + StudioBundleUpdater.PREV_VERSION_EXTENSION));
+        }
     }
 
     public final void initCanvas(VisualCanvas canvas) {
@@ -2283,6 +2306,8 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
             }
 
             if ("-updater".equals(args[0])) {
+                
+                currentlyUpdating = true;
 
                 // filter args
                 List<String> updateArgsList = new ArrayList<String>();
@@ -2994,7 +3019,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         debugMenu.setVisible(true);
     }
 }
-
 class LoadCanvasConfigurator implements CanvasConfigurator {
 
     private Studio studio;

@@ -213,7 +213,7 @@ class StudioUpdateAction extends VRLUpdateActionBase {
                             getCurrentCanvas().getEffectPane().startSpin();
                         }
                     });
-                    StudioBundleUpdater.runStudioUpdate(targetFile);
+                    StudioBundleUpdater.runStudioUpdater(targetFile);
                     VRL.exit(0);
                 }
             } else {
