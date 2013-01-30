@@ -272,7 +272,7 @@ public class StudioBundleUpdater {
                 String line = null;
 
                 while ((line = inputS.readLine()) != null) {
-                    //System.err.println(" --> unzip: " + line);
+                    System.out.println(" --> unzip: " + line);
                 }
 
             } catch (IOException ex) {
