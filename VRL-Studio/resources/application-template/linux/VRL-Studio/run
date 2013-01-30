@@ -115,6 +115,10 @@ then
     FILE="$CALL_PATH/$2"
     CONF=$CONF" -file"
   fi
+elif [ "$1" == "-updated" ]
+then
+  # echo ">> successfully updated!"
+  CONF=$CONF" -updated"
 elif [ "$1" == "" ]
 then
   echo ">> starting with no param"
