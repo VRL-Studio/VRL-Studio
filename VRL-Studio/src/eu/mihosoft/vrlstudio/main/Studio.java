@@ -1276,6 +1276,8 @@ public class Studio extends javax.swing.JFrame {
 
         updater = new VRLUpdater(identifier);
         updater.setVerificationEnabled(true);
+        
+        // TODO read custom update URL from properties if available (310.01.2013)
 
 //        try {
 //            updater.setUpdateURL(new URL("http://localhost:80/linux/repository.xml"));
@@ -2898,18 +2900,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     }
 
     void quitApplication() {
-
-//        if (projectController.getProject() != null
-//                && projectController.getCurrentCanvas() != null
-//                && VDialog.showConfirmDialog(getCurrentCanvas(),
-//                "Quit VRL-Studio:",
-//                "<html><div align=Center>"
-//                + "<p>Do you really want to quit?<p>"
-//                + "<p><b>Unsaved changes will be lost!</b></p>"
-//                + "</div></html>",
-//                VDialog.DialogType.YES_NO) != VDialog.YES) {
-//            return;
-//        }
 
         if (projectController.getProject() != null
                 && projectController.getCurrentCanvas() != null
