@@ -1,0 +1,27 @@
+-----------------------------------------------
+Version:	v0.4.4.3
+Date:		Tue, 4 Dec 2012 10:45:59 +0100
+-----------------------------------------------
+
+- compatible to VRL-0.4.2.7
+- new help content added
+new debugging/shell documentation added
+
+-----------------------------------------------
+Version:	v0.4.4.2
+Date:		Mon, 19 Nov 2012 20:11:00 +0100
+-----------------------------------------------
+
+Version 0.4.4.2:
+- new auto-bundle support (integrated with build.xml script)
+
+added additional deployment options for zipping bundles
+
+-----------------------------------------------
+Version:	v0.4.4.1
+Date:		Mon, 5 Nov 2012 18:17:06 +0100
+-----------------------------------------------
+
+compatibility releae for VRL-0.4.2.5
+Update README.md
+

@@ -1,0 +1,57 @@
+#!/bin/bash
+
+######### EDIT IF NECESSARY #########
+
+PROPERTY_SUFFIX=numerics-studio
+
+CONF="-updater $@"
+
+
+######### DO NOT EDIT #########
+
+OS=$(uname -a)
+
+CALL_PATH=$(pwd)
+
+# APPDIR="$(dirname "$0")/.application"
+APPDIR="$(dirname "$0")/../" # .application folder
+cd "$APPDIR"
+APPDIR="$(pwd)"
+
+LIBDIR32="lib/linux/x86:custom-lib/linux/x86"
+LIBDIR64="lib/linux/x64:custom-lib/linux/x64"
+LIBDIROSX="lib/osx:custom-lib/osx"
+
+if [[ $OS == *x86_64* ]]
+then
+  echo ">> detected x86 (64 bit) os"
+  LIBDIR="$LIBDIR64:$LIBDIROSX"
+  JAVAEXE="jre/x64/bin/java"
+elif [[ $OS == *86* ]]
+then
+  echo ">> detected x86 (32 bit) os"
+  LIBDIR="$LIBDIR32:$LIBDIROSX"
+  JAVAEXE="jre/x86/bin/java"
+else
+  echo ">> unsupported architecture!"
+  echo " --> executing installed java version"
+  JAVAEXE="java"
+fi
+
+if [ ! -e $JAVAEXE ]
+then
+  echo ">> integrated jre not found!"
+  echo " --> executing installed java version"
+  JAVAEXE="java"
+fi
+
+
+# optimized for jre 7 (19.04.2012)
+$JAVAEXE -Xms64m -Xmx128m -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
+
+# 2011
+#java -Xms64m -Xmx1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
+
+# experimental
+#java -Xms256m -Xmx1g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=4 -XX:ConcGCThreads=4 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSConcurrentMTEnabled -XX:CMSWaitDuration=200 -XX:+UseParNewGC -XX:MaxPermSize=256m -XX:GCTimeRatio=10 -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
+

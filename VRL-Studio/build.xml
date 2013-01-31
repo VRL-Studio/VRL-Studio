@@ -72,20 +72,34 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+     <property file="build.properties"/>
 
 
-<!--    <target name="-pre-compile">
+    <target name="-pre-compile">
         
-        <taskdef name="timestamp"
+<!--        <taskdef name="timestamp"
                  classname="eu.mihosoft.vrl.lang.SetTimeStampTask"
                  classpath="${javac.classpath}"
                  />
         
         <timestamp location="${basedir}/${src.dir}">
             <fileset dir="${src.dir}" includes="**/*.java"/>
-        </timestamp>
+        </timestamp>-->
         
-    </target>
+        
+        <taskdef name="create-changelog"
+                 classname="eu.mihosoft.vrl.lang.CreateChangelogTask"
+                 classpath="${javac.classpath}"
+                 />
+        
+        <create-changelog 
+            location="${basedir}/${src.dir}" 
+            destination="eu/mihosoft/vrlstudio/resources/changelog/changelog.txt"
+            enabled="${changelogupdate.enabled}">
+        </create-changelog>
+        
+    </target><!--
     
     <target name="-post-jar">
         
@@ -115,7 +129,6 @@
         </fileset>
     </path>
     
-    <property file="build.properties"/>
     
     <!-- COPY TASK -->
     <taskdef name="copyWithPerms" classname="com.atlassian.ant.tasks.CopyWithPerms" classpathref="custom.ant.classpath"/>
@@ -135,6 +148,7 @@
                 <include name="**/*"/>
                 <!--exclude runscripts (done later, preserving permissions)-->
                 <exclude name="VRL-Studio/run*"/>
+                <exclude name="VRL-Studio/.application/updater/run*"/>
             </fileset>
         </copy>
         
@@ -142,6 +156,7 @@
         <copyWithPerms todir="dist-final/linux/VRL-Studio">
             <fileset dir="resources/application-template/linux/VRL-Studio/">
                 <include name="run*"/>
+                <include name=".application/updater/run*"/>
             </fileset>
         </copyWithPerms>
         
@@ -193,6 +208,7 @@
                 <include name="**/*"/>
                 <!--exclude runscripts (done later, preserving permissions)-->
                 <exclude name="VRL-Studio.app/Contents/MacOS/*"/>
+                <exclude name="VRL-Studio.app/Contents/Resources/.application/updater/run-update"/>
             </fileset>
         </copy>
         
@@ -215,6 +231,12 @@
                 <include name="**/*"/>
             </fileset>
         </copy>
+
+        <copyWithPerms todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/updater">
+            <fileset dir="resources/application-template/osx/VRL-Studio.app/Contents/Resources/.application/updater">
+                <include name="**/*"/>
+            </fileset>
+        </copyWithPerms>
         
         <!-- APPLICATIONSTUB COMPATIBLE JAR/LIB LOCATION -->
         
