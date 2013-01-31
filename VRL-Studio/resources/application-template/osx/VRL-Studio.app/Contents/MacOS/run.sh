@@ -3,7 +3,7 @@
 ######### EDIT IF NECESSARY #########
 
 VRL_VERSION=0.4.2
-PROPERTY_SUFFIX=numerics-studio
+PROPERTY_SUFFIX=default
 
 
 CONF="-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix $PROPERTY_SUFFIX -plugin-checksum-test no"

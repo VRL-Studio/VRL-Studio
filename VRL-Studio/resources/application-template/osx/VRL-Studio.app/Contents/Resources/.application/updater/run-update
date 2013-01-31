@@ -2,7 +2,7 @@
 
 ######### EDIT IF NECESSARY #########
 
-PROPERTY_SUFFIX=numerics-studio
+PROPERTY_SUFFIX=default
 
 CONF="-updater $@"
 
