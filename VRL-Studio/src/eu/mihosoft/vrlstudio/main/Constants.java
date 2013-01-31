@@ -59,7 +59,7 @@ public class Constants {
 
     public static String APP_NAME = "VRL-Studio";
     // version number
-    public static final String VERSION_BASE = "0.4.4.3";
+    public static final String VERSION_BASE = "0.4.5";
     // "HEAD" or "unstable" etc.
     public static final String VERSION_SUFFIX = "";
     // final version string: 
