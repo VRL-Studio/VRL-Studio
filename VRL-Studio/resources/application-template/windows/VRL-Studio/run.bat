@@ -1,5 +1,5 @@
 @echo off
-set CONF=-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix numerics-studio -plugin-checksum-test no
+set CONF=-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix default -plugin-checksum-test no
 
 set APPDIR="%CD%\.application"
 
