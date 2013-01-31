@@ -9,6 +9,8 @@ import eu.mihosoft.vrl.io.SynchronizedFileAccess;
 import eu.mihosoft.vrl.io.TextSaver;
 import eu.mihosoft.vrl.system.VRL;
 import eu.mihosoft.vrl.system.VSysUtil;
+import eu.mihosoft.vrl.visual.ProceedRequest;
+import eu.mihosoft.vrl.visual.VSwingUtil;
 import eu.mihosoft.vrlstudio.main.Studio;
 import java.io.BufferedReader;
 import java.io.File;
@@ -272,7 +274,7 @@ public class StudioBundleUpdater {
                 String line = null;
 
                 while ((line = inputS.readLine()) != null) {
-                    //System.err.println(" --> unzip: " + line);
+                    System.out.println(" --> unzip: " + line);
                 }
 
             } catch (IOException ex) {
@@ -356,6 +358,29 @@ public class StudioBundleUpdater {
             try {
                 System.out.println(" --> running Unix install");
                 studioUpdaterProcess = Runtime.getRuntime().exec(command);
+                
+                final long timeStamp = System.currentTimeMillis();
+                
+                // Date: 30.01.2013
+                // TODO we need to check whether waiting til nohup process has
+                // started is sufficient
+                // Reason: on Linux update process did not always start
+                VSwingUtil.newWaitController().requestWait(new ProceedRequest() {
+
+                    @Override
+                    public boolean proceed() {
+                        return System.currentTimeMillis() - timeStamp >3000;
+                    }
+                });
+                
+//                BufferedReader inputS = new BufferedReader(
+//                        new InputStreamReader(studioUpdaterProcess.getInputStream()));
+//
+//                String line = null;
+//
+//                while ((line = inputS.readLine()) != null) {
+//                    System.out.println(" --> run-update: " + line);
+//                }
 
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
