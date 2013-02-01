@@ -51,6 +51,7 @@
  */
 package eu.mihosoft.vrlstudio.main;
 
+import eu.mihosoft.vrl.dialogs.FileDialogManager;
 import eu.mihosoft.vrl.visual.LoggingController;
 import eu.mihosoft.vrl.io.ConfigurationFile;
 import eu.mihosoft.vrl.io.IOUtil;
@@ -60,6 +61,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -74,6 +77,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
     static final String RESTORE_WIN_POS_KEY = "Window:restore-pos";
     static final String DIALOG_ON_START_KEY = "Studio:dialog-on-start";
     static final String CHECK_FOR_UPDATES_ON_STARTUP_KEY = "Window:check-for-updates";
+    static final String UPDATE_URL_KEY = "Window:update-url";
+    static final String UPDATE_KEY_KEY = "Window:update-key";
     private Studio studio;
 
     /**
@@ -117,11 +122,21 @@ public class PreferenceWindow extends javax.swing.JFrame {
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPanel15 = new javax.swing.JPanel();
         checkForUpdatesOnStartupItem = new javax.swing.JCheckBox();
-        jPanel17 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         checkForUpdatesBtn = new javax.swing.JButton();
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jPanel17 = new javax.swing.JPanel();
+        updateSourceURLLabel = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        setURLBtn = new javax.swing.JButton();
+        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        updateSourceLogPanel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        updateSourceKeyLabel = new javax.swing.JTextField();
+        chooseUpdateKyFileBtn = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         enableInvokationVisualization = new javax.swing.JCheckBox();
@@ -286,7 +301,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(enableAdvancedOptionsCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+                .addComponent(enableAdvancedOptionsCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -296,7 +311,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(enableAdvancedOptionsCheckBox)
                 .addContainerGap())
         );
@@ -311,7 +326,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel14.add(filler7);
         jPanel14.add(filler8);
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Auto-Update"));
+        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Check for Updates"));
 
         checkForUpdatesOnStartupItem.setSelected(true);
         checkForUpdatesOnStartupItem.setText("Check for updates on startup");
@@ -322,30 +337,11 @@ public class PreferenceWindow extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkForUpdatesOnStartupItem)
-                .addContainerGap(418, Short.MAX_VALUE))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkForUpdatesOnStartupItem)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-
-        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Manual Update"));
-
         jPanel16.setOpaque(false);
         jPanel16.setLayout(new javax.swing.BoxLayout(jPanel16, javax.swing.BoxLayout.LINE_AXIS));
         jPanel16.add(filler9);
 
-        checkForUpdatesBtn.setText("Check for Updates");
+        checkForUpdatesBtn.setText("Check for Updates Now");
         checkForUpdatesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkForUpdatesBtnActionPerformed(evt);
@@ -354,20 +350,115 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel16.add(checkForUpdatesBtn);
         jPanel16.add(filler10);
 
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(checkForUpdatesOnStartupItem)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(checkForUpdatesOnStartupItem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Update Source"));
+
+        updateSourceURLLabel.setText("http://vrl-studio.mihosoft.eu/updates/");
+        updateSourceURLLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateSourceURLLabelActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("URL:");
+
+        jPanel18.setOpaque(false);
+        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel18.add(filler11);
+
+        setURLBtn.setText("Set URL");
+        setURLBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setURLBtnActionPerformed(evt);
+            }
+        });
+        jPanel18.add(setURLBtn);
+        jPanel18.add(filler12);
+
+        javax.swing.GroupLayout updateSourceLogPanelLayout = new javax.swing.GroupLayout(updateSourceLogPanel);
+        updateSourceLogPanel.setLayout(updateSourceLogPanelLayout);
+        updateSourceLogPanelLayout.setHorizontalGroup(
+            updateSourceLogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        updateSourceLogPanelLayout.setVerticalGroup(
+            updateSourceLogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 132, Short.MAX_VALUE)
+        );
+
+        jLabel6.setText("Public Key:");
+
+        updateSourceKeyLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateSourceKeyLabelActionPerformed(evt);
+            }
+        });
+
+        chooseUpdateKyFileBtn.setText("...");
+        chooseUpdateKyFileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseUpdateKyFileBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel17Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updateSourceLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel17Layout.createSequentialGroup()
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel17Layout.createSequentialGroup()
+                                .addComponent(updateSourceKeyLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(chooseUpdateKyFileBtn))
+                            .addComponent(updateSourceURLLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel17Layout.createSequentialGroup()
-                .addContainerGap(43, Short.MAX_VALUE)
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateSourceURLLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateSourceKeyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(chooseUpdateKyFileBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(updateSourceLogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -375,7 +466,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,9 +478,9 @@ public class PreferenceWindow extends javax.swing.JFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -446,7 +537,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(enableInvokationVisualization)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
                         .addComponent(visualizeParamEvaluationCheckBox))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -522,7 +613,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addComponent(showOutCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(showErrCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -566,8 +657,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -575,7 +666,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -603,15 +694,15 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -648,14 +739,14 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)))
+                        .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -667,7 +758,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 301, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -681,7 +772,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -779,6 +870,18 @@ public class PreferenceWindow extends javax.swing.JFrame {
             Boolean b = Boolean.parseBoolean(
                     config.getProperty(CHECK_FOR_UPDATES_ON_STARTUP_KEY));
             checkForUpdatesOnStartupItem.setSelected(b);
+        }
+
+        if (config.containsProperty(UPDATE_URL_KEY)) {
+            String url =
+                    config.getProperty(UPDATE_URL_KEY);
+            updateSourceURLLabel.setText(url);
+        }
+
+        if (config.containsProperty(UPDATE_KEY_KEY)) {
+            String key =
+                    config.getProperty(UPDATE_KEY_KEY);
+            updateSourceKeyLabel.setText(key);
         }
     }
 
@@ -991,6 +1094,74 @@ public class PreferenceWindow extends javax.swing.JFrame {
         close();
     }//GEN-LAST:event_checkForUpdatesBtnActionPerformed
 
+    private void updateSourceKeyLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSourceKeyLabelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateSourceKeyLabelActionPerformed
+
+    private void setURLBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setURLBtnActionPerformed
+        //
+        // validate URL
+        URL url = null;
+        boolean validURL = true;
+        try {
+            url = new URL(updateSourceURLLabel.getText());
+        } catch (MalformedURLException ex) {
+            validURL = false;
+        }
+
+        if (!validURL) {
+            JOptionPane.showMessageDialog(this, "Specified URL is invalid!");
+            return;
+        }
+
+        // validate Key Path
+        File keyPath = null;
+
+        if (!updateSourceKeyLabel.getText().trim().isEmpty()) {
+            keyPath = new File(updateSourceKeyLabel.getText());
+
+            boolean validKeyPath = keyPath.isFile();
+
+            if (!validKeyPath) {
+                JOptionPane.showMessageDialog(this, "Specified Key Path is invalid!");
+                return;
+            }
+        }
+
+        config.setProperty(
+                UPDATE_URL_KEY, updateSourceURLLabel.getText());
+        config.setProperty(
+                UPDATE_KEY_KEY, updateSourceKeyLabel.getText());
+        config.save();
+
+        CanvasConfig canvasConfig =
+                new CanvasConfig(studio.getCurrentCanvas());
+        canvasConfig.configChanged(UPDATE_URL_KEY,
+                updateSourceURLLabel.getText());
+        canvasConfig.configChanged(UPDATE_KEY_KEY,
+                updateSourceKeyLabel.getText());
+
+        studio.setUpateSource(url);
+        studio.setUpdateKeyPath(keyPath);
+        studio.checkForUpdates();
+        
+        close();
+    }//GEN-LAST:event_setURLBtnActionPerformed
+
+    private void updateSourceURLLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSourceURLLabelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateSourceURLLabelActionPerformed
+
+    private void chooseUpdateKyFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseUpdateKyFileBtnActionPerformed
+        //
+        FileDialogManager fdM = new FileDialogManager();
+        File keyPath = fdM.getLoadFile(this, null);
+
+        if (keyPath != null) {
+            updateSourceKeyLabel.setText(keyPath.getAbsolutePath());
+        }
+    }//GEN-LAST:event_chooseUpdateKyFileBtnActionPerformed
+
     public void close() {
         setVisible(false);
         studio.window = null;
@@ -1041,6 +1212,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkForUpdatesBtn;
     private javax.swing.JCheckBox checkForUpdatesOnStartupItem;
+    private javax.swing.JButton chooseUpdateKyFileBtn;
     private javax.swing.JCheckBox compileOnDemandCheckBox;
     private javax.swing.JCheckBox createVersionOnSaveCheckBox;
     private javax.swing.JLabel delayLabel;
@@ -1048,6 +1220,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox enableInvokationVisualization;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
+    private javax.swing.Box.Filler filler11;
+    private javax.swing.Box.Filler filler12;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
@@ -1067,6 +1241,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1076,6 +1252,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1087,10 +1264,14 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField preferenceFolderLocation;
     private javax.swing.JCheckBox restoreWinPosOnStartCheckBox;
+    private javax.swing.JButton setURLBtn;
     private javax.swing.JCheckBox showDebugMenu;
     private javax.swing.JCheckBox showDialogOnStartCheckBox;
     private javax.swing.JCheckBox showErrCheckBox;
     private javax.swing.JCheckBox showOutCheckBox;
+    private javax.swing.JTextField updateSourceKeyLabel;
+    private javax.swing.JPanel updateSourceLogPanel;
+    private javax.swing.JTextField updateSourceURLLabel;
     private javax.swing.JCheckBox visualizeParamEvaluationCheckBox;
     // End of variables declaration//GEN-END:variables
 

@@ -83,8 +83,10 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -95,7 +97,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultEditorKit;
-
 
 /**
  *
@@ -109,7 +110,6 @@ public class Studio extends javax.swing.JFrame {
     public static boolean isCurrentlyUpdating() {
         return currentlyUpdating;
     }
-
     private boolean backgroundGrid = true;
     private boolean enableShadow = true;
     private String defaultSessionName;
@@ -394,9 +394,6 @@ public class Studio extends javax.swing.JFrame {
 
         // we need to restrict access to versions due to plagiarism
         deleteAllVersionsMenuItem.setVisible(false);
-
-
-        initUpdater();
     }
 
     private static void initLogger() {
@@ -501,7 +498,7 @@ public class Studio extends javax.swing.JFrame {
         VDialog.showMessageDialog(getCurrentCanvas(),
                 "VRL-Studio Updated!",
                 "VRL-Studio has been successfully updated!");
-        
+
         if (VDialog.YES == VDialog.showConfirmDialog(getCurrentCanvas(),
                 "Remove previous Version?",
                 "Shall the previous version be removed?", VDialog.DialogType.YES_NO)) {
@@ -1276,8 +1273,26 @@ public class Studio extends javax.swing.JFrame {
 
         updater = new VRLUpdater(identifier);
         updater.setVerificationEnabled(true);
-        
-        // TODO read custom update URL from properties if available (310.01.2013)
+
+        if (studioConfig.containsProperty(PreferenceWindow.UPDATE_URL_KEY)) {
+            try {
+                setUpateSource(
+                        new URL(studioConfig.
+                        getProperty(PreferenceWindow.UPDATE_URL_KEY)));
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(Studio.class.getName()).
+                        log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (studioConfig.containsProperty(PreferenceWindow.UPDATE_KEY_KEY)) {
+            String keyPathString = studioConfig.
+                    getProperty(PreferenceWindow.UPDATE_KEY_KEY);
+            if (!keyPathString.trim().isEmpty()) {
+                setUpdateKeyPath(
+                        new File(keyPathString));
+            }
+        }
 
 //        try {
 //            updater.setUpdateURL(new URL("http://localhost:80/linux/repository.xml"));
@@ -2308,7 +2323,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
             }
 
             if ("-updater".equals(args[0])) {
-                
+
                 currentlyUpdating = true;
 
                 // filter args
@@ -2391,123 +2406,124 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         VSwingUtil.invokeLater(
                 new Runnable() {
-                    @Override
-                    public void run() {
+            @Override
+            public void run() {
 
-                        // load frame position and bounds
-                        ConfigurationFile config = IOUtil.newConfigurationFile(
-                                new File(VRL.getPropertyFolderManager().getEtcFolder(),
-                                STUDIO_CONFIG));
+                // load frame position and bounds
+                ConfigurationFile config = IOUtil.newConfigurationFile(
+                        new File(VRL.getPropertyFolderManager().getEtcFolder(),
+                        STUDIO_CONFIG));
 
-                        boolean loaded = config.load();
+                boolean loaded = config.load();
 
-                        // check whether to show start-dialog
-                        if (config.containsProperty(
-                                PreferenceWindow.DIALOG_ON_START_KEY)) {
-                            showStartDialog =
-                                    Boolean.parseBoolean(config.getProperty(
-                                    PreferenceWindow.DIALOG_ON_START_KEY));
-                        }
+                // check whether to show start-dialog
+                if (config.containsProperty(
+                        PreferenceWindow.DIALOG_ON_START_KEY)) {
+                    showStartDialog =
+                            Boolean.parseBoolean(config.getProperty(
+                            PreferenceWindow.DIALOG_ON_START_KEY));
+                }
 
-                        Studio frame = new Studio();
-                        frame.studioConfig = config;
+                Studio frame = new Studio();
+                frame.studioConfig = config;
+                frame.initUpdater();
 
-                        // if on linux or windows, set icon
-                        if (!VSysUtil.isMacOSX()) {
-                            try {
-                                Image img = Toolkit.getDefaultToolkit().createImage(
-                                        "resources/mime/vrl-app-icon.png");
-                                frame.setIconImage(img);
-                            } catch (Exception ex) {
-                                System.out.println(
-                                        ">> cannot set image for application window.");
-                            }
-                        }
-
-                        frame.arguments = args;
-
-                        ArgumentEvaluator evaluator =
-                                new ArgumentEvaluator(frame, frame.getInitialCanvas());
-
-                        evaluator.setDebugOptions(args);
-
-                        frame.setVisible(true);
-
-                        // check whether to restore position
-                        boolean restore = config.containsProperty(
-                                PreferenceWindow.RESTORE_WIN_POS_KEY);
-
-                        if (restore) {
-                            restore = Boolean.parseBoolean(config.getProperty(
-                                    PreferenceWindow.RESTORE_WIN_POS_KEY));
-                        }
-
-                        if (!loaded || !restore) {
-                            // sets the window size (3/4w,3/4h)
-                            // and displays the window at the center
-                            Dimension screenDim = VGraphicsUtil.getScreenDimension(0);
-                            Dimension winDim = new Dimension(
-                                    screenDim.width - screenDim.width / 4,
-                                    screenDim.height - screenDim.height / 4);
-                            frame.setSize(winDim);
-
-                            VGraphicsUtil.centerOnScreen(frame, 0);
-                        } else {
-                            WindowBounds windowBounds = new WindowBounds(config);
-                            windowBounds.setWindowBounds(frame);
-                        }
-
-
-                        // resize splitpane
-                        frame.getSplitPane().setDividerLocation(1.0);
-                        frame.getSplitPane().setResizeWeight(1);
-                        frame.setSize(frame.getSize());
-                        frame.splitPane.updateUI();
-                        frame.canvasScrollPane.updateUI();
-                        frame.shellScrollPane.updateUI();
-                        frame.splitPane.setDividerLocation(frame.getHeight());
-
-                        frame.deactivateAllEvents(frame.getCurrentCanvas());
-
-                        // initialize plugins 
-                        VRL.addCanvas(frame.mainCanvas, new ArrayList<PluginDependency>());
-
-                        VRL.registerFileTemplatesMenu(
-                                new MenuAdapter(frame.fileTemplatesMenu));
-                        VRL.registerFileMenu(new MenuAdapter(frame.fileMenu));
-                        VRL.registerEditMenu(new MenuAdapter(frame.editMenu));
-                        VRL.registerViewMenu(new MenuAdapter(frame.viewMenu));
-                        VRL.registerToolMenu(new MenuAdapter(frame.toolMenu));
-                        VRL.registerDebugMenu(new MenuAdapter(frame.debugMenu));
-                        VRL.registerInfoMenu(new MenuAdapter(frame.infoMenu));
-                        VRL.registerStyleMenu(new MenuAdapter(frame.styleMenu));
-                        VRL.registerPluginMenu(new MenuAdapter(frame.pluginMenu),
-                                new MenuAdapter(frame.uninstallPluginMenu));
-
-
-                        if (!VSysUtil.isMacOSX()) {
-                            evaluator.setDefaultFile(args);
-
-                            if (Studio.updated) {
-                                frame.showUpdatedDialog();
-                            }
-
-                            if (!evaluator.loadFile(args) && Studio.showStartDialog) {
-                                frame.showStartDialog(frame.getCurrentCanvas());
-                            }
-
-                            frame.studioInitialized = true;
-
-                            frame.autoUpdate(config);
-                        }
-
-                        frame.activateAllEvents();
-
-                        SplashScreenGenerator.setProgress(100);
-
-
+                // if on linux or windows, set icon
+                if (!VSysUtil.isMacOSX()) {
+                    try {
+                        Image img = Toolkit.getDefaultToolkit().createImage(
+                                "resources/mime/vrl-app-icon.png");
+                        frame.setIconImage(img);
+                    } catch (Exception ex) {
+                        System.out.println(
+                                ">> cannot set image for application window.");
                     }
-                });
+                }
+
+                frame.arguments = args;
+
+                ArgumentEvaluator evaluator =
+                        new ArgumentEvaluator(frame, frame.getInitialCanvas());
+
+                evaluator.setDebugOptions(args);
+
+                frame.setVisible(true);
+
+                // check whether to restore position
+                boolean restore = config.containsProperty(
+                        PreferenceWindow.RESTORE_WIN_POS_KEY);
+
+                if (restore) {
+                    restore = Boolean.parseBoolean(config.getProperty(
+                            PreferenceWindow.RESTORE_WIN_POS_KEY));
+                }
+
+                if (!loaded || !restore) {
+                    // sets the window size (3/4w,3/4h)
+                    // and displays the window at the center
+                    Dimension screenDim = VGraphicsUtil.getScreenDimension(0);
+                    Dimension winDim = new Dimension(
+                            screenDim.width - screenDim.width / 4,
+                            screenDim.height - screenDim.height / 4);
+                    frame.setSize(winDim);
+
+                    VGraphicsUtil.centerOnScreen(frame, 0);
+                } else {
+                    WindowBounds windowBounds = new WindowBounds(config);
+                    windowBounds.setWindowBounds(frame);
+                }
+
+
+                // resize splitpane
+                frame.getSplitPane().setDividerLocation(1.0);
+                frame.getSplitPane().setResizeWeight(1);
+                frame.setSize(frame.getSize());
+                frame.splitPane.updateUI();
+                frame.canvasScrollPane.updateUI();
+                frame.shellScrollPane.updateUI();
+                frame.splitPane.setDividerLocation(frame.getHeight());
+
+                frame.deactivateAllEvents(frame.getCurrentCanvas());
+
+                // initialize plugins 
+                VRL.addCanvas(frame.mainCanvas, new ArrayList<PluginDependency>());
+
+                VRL.registerFileTemplatesMenu(
+                        new MenuAdapter(frame.fileTemplatesMenu));
+                VRL.registerFileMenu(new MenuAdapter(frame.fileMenu));
+                VRL.registerEditMenu(new MenuAdapter(frame.editMenu));
+                VRL.registerViewMenu(new MenuAdapter(frame.viewMenu));
+                VRL.registerToolMenu(new MenuAdapter(frame.toolMenu));
+                VRL.registerDebugMenu(new MenuAdapter(frame.debugMenu));
+                VRL.registerInfoMenu(new MenuAdapter(frame.infoMenu));
+                VRL.registerStyleMenu(new MenuAdapter(frame.styleMenu));
+                VRL.registerPluginMenu(new MenuAdapter(frame.pluginMenu),
+                        new MenuAdapter(frame.uninstallPluginMenu));
+
+
+                if (!VSysUtil.isMacOSX()) {
+                    evaluator.setDefaultFile(args);
+
+                    if (Studio.updated) {
+                        frame.showUpdatedDialog();
+                    }
+
+                    if (!evaluator.loadFile(args) && Studio.showStartDialog) {
+                        frame.showStartDialog(frame.getCurrentCanvas());
+                    }
+
+                    frame.studioInitialized = true;
+
+                    frame.autoUpdate(config);
+                }
+
+                frame.activateAllEvents();
+
+                SplashScreenGenerator.setProgress(100);
+
+
+            }
+        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem DebuggingItem;
@@ -3008,7 +3024,22 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         deleteAllVersionsMenuItem.setVisible(true);
         debugMenu.setVisible(true);
     }
+
+    void setUpateSource(URL url) {
+        try {
+            updater.setUpdateURL(
+                    new URL(url.getProtocol() + "://" + url.getHost() + url.getPath()
+                    + "/" + VSysUtil.getOSName() + "/repository.xml"));
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void setUpdateKeyPath(File keyPath) {
+        updater.setCustomPublicKey(keyPath);
+    }
 }
+
 class LoadCanvasConfigurator implements CanvasConfigurator {
 
     private Studio studio;
