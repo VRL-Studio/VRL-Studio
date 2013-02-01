@@ -1,27 +1,52 @@
 -----------------------------------------------
+Version:	v0.4.5.1
+Date:		Thu, 31 Jan 2013 14:01:15 +0100
+-----------------------------------------------
+
+        minor update to run scripts:
+    - using default suffix as property folder (can be changed for custom bundles)
+
+-----------------------------------------------
+Version:	v0.4.5
+Date:		Thu, 31 Jan 2013 12:08:10 +0100
+-----------------------------------------------
+
+          Maijor Features:
+    
+    - VRL-Studio uses the new VRLUpdater class for updating the whole application
+      - update supports Linux, OSX and Windows
+    
+    - VRL-Studio can export projects that includes all plugins as payload. this is great for
+     deploying VRL based applications
+    
+    Minor Features:
+    
+    - Preferences window now has an "Update" tab where auto-update-checking
+      can be enabled/disabled or manually triggered
+    
+    - includes bouncycastle pgp libs for update verification
+
+-----------------------------------------------
 Version:	v0.4.4.3
 Date:		Tue, 4 Dec 2012 10:45:59 +0100
 -----------------------------------------------
 
-- compatible to VRL-0.4.2.7
-- new help content added
-new debugging/shell documentation added
+        - compatible to VRL-0.4.2.7
+    - new help content added
 
 -----------------------------------------------
 Version:	v0.4.4.2
 Date:		Mon, 19 Nov 2012 20:11:00 +0100
 -----------------------------------------------
 
-Version 0.4.4.2:
-- new auto-bundle support (integrated with build.xml script)
-
-added additional deployment options for zipping bundles
+        Version 0.4.4.2:
+    - new auto-bundle support (integrated with build.xml script)
+    - builds against VRL-0.4.2.6
 
 -----------------------------------------------
 Version:	v0.4.4.1
 Date:		Mon, 5 Nov 2012 18:17:06 +0100
 -----------------------------------------------
 
-compatibility releae for VRL-0.4.2.5
-Update README.md
+        compatibility release for VRL-0.4.2.5
 
