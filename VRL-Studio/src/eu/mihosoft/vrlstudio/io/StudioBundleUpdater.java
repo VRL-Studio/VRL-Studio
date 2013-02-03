@@ -266,7 +266,8 @@ public class StudioBundleUpdater {
                         input, new File(tmpFolder + "/" + input.getName()));
 
                 Process p = Runtime.getRuntime().exec(
-                        "unzip " + input.getName(), null, tmpFolder);
+                        new String[]{"unzip", input.getName()},
+                        null, tmpFolder);
 
                 BufferedReader inputS = new BufferedReader(
                         new InputStreamReader(p.getInputStream()));
@@ -343,36 +344,41 @@ public class StudioBundleUpdater {
             Studio.logger.info(">> updater run path: " + runPath);
             Studio.logger.info(">> updater in path: " + inPath);
 
-            String command = "nohup "
-                    + bundleFolder.getAbsolutePath() + runPath + " "
-                    + "-i " + bundleFolder + inPath + " "
-                    + "-o " + target.getAbsolutePath() + " "
-                    + "-pid " + VSysUtil.getPID() + " "
-                    + "-update-folder "
-                    + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
-                    + "-property-folder "
-                    + VRL.getPropertyFolderManager().getPropertyFolder();
+            String[] command = new String[]{"nohup",
+                bundleFolder.getAbsolutePath() + runPath,
+                "-i", bundleFolder.getAbsolutePath() + inPath,
+                "-o", target.getAbsolutePath(),
+                "-pid", "" + VSysUtil.getPID(),
+                "-update-folder",
+                VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath(),
+                "-property-folder",
+                VRL.getPropertyFolderManager().getPropertyFolder().getAbsolutePath()};
 
-            Studio.logger.info(">> final command: " + command);
+            String finalCommandAsString = "";
+
+            for (String s : command) {
+                finalCommandAsString += s + " ";
+            }
+
+            Studio.logger.info(">> final command: " + finalCommandAsString);
 
             try {
                 System.out.println(" --> running Unix install");
                 studioUpdaterProcess = Runtime.getRuntime().exec(command);
-                
+
                 final long timeStamp = System.currentTimeMillis();
-                
+
                 // Date: 30.01.2013
                 // TODO we need to check whether waiting til nohup process has
                 // started is sufficient
                 // Reason: on Linux update process did not always start
                 VSwingUtil.newWaitController().requestWait(new ProceedRequest() {
-
                     @Override
                     public boolean proceed() {
-                        return System.currentTimeMillis() - timeStamp >3000;
+                        return System.currentTimeMillis() - timeStamp > 3000;
                     }
                 });
-                
+
 //                BufferedReader inputS = new BufferedReader(
 //                        new InputStreamReader(studioUpdaterProcess.getInputStream()));
 //
@@ -396,15 +402,21 @@ public class StudioBundleUpdater {
             Studio.logger.info(">> updater run path: " + runPath);
             Studio.logger.info(">> updater in path: " + inPath);
 
-            String command = "cmd /C start "
-                    + runPath + " "
-                    + "-i " + bundleFolder + inPath + " "
-                    + "-o " + target.getAbsolutePath() + " "
-                    + "-pid " + VSysUtil.getPID() + " "
-                    + "-update-folder " + VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath() + " "
-                    + "-property-folder " + VRL.getPropertyFolderManager().getPropertyFolder();
+            String[] command = new String[]{"cmd", "/C", "start",
+                runPath,
+                "-i", bundleFolder + inPath,
+                "-o", target.getAbsolutePath(),
+                "-pid", "" + VSysUtil.getPID(),
+                "-update-folder", VRL.getPropertyFolderManager().getUpdatesFolder().getAbsolutePath(),
+                "-property-folder", VRL.getPropertyFolderManager().getPropertyFolder().getAbsolutePath()};
 
-            Studio.logger.info(">> final command: " + command);
+            String finalCommandAsString = "";
+
+            for (String s : command) {
+                finalCommandAsString += s + " ";
+            }
+
+            Studio.logger.info(">> final command: " + finalCommandAsString);
 
             try {
                 System.out.println(" --> running Unix install");
@@ -445,9 +457,9 @@ public class StudioBundleUpdater {
 
             try {
                 System.out.println(" --> running Unix install");
-                Process p = Runtime.getRuntime().exec("nohup "
-                        + bundleFolder.getAbsolutePath()
-                        + "/run -updated", null, bundleFolder.getAbsoluteFile());
+                Process p = Runtime.getRuntime().exec(new String[]{"nohup",
+                            bundleFolder.getAbsolutePath()
+                            + "/run", "-updated"}, null, bundleFolder.getAbsoluteFile());
 
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
@@ -462,8 +474,8 @@ public class StudioBundleUpdater {
             logger.info(">> osx: " + bundleFolder.getAbsolutePath());
             try {
                 System.out.println(" --> running Mac install");
-                Process p = Runtime.getRuntime().exec("open "
-                        + bundleFolder.getAbsolutePath() + " --args -updated");
+                Process p = Runtime.getRuntime().exec(new String[]{"open",
+                            bundleFolder.getAbsolutePath(), "--args", "-updated"});
 
             } catch (IOException ex) {
                 Logger.getLogger(StudioBundleUpdater.class.getName()).
@@ -477,8 +489,15 @@ public class StudioBundleUpdater {
             logger.info(">> windows: " + bundleFolder.getAbsolutePath());
             try {
                 System.out.println(" --> running Windows install");
-                String cmd = "cmd /C start run.bat -updated";
-                logger.info(">> windows: " + cmd);
+                String[] cmd = new String[]{"cmd", "/C", "start", "run.bat", "-updated"};
+
+                String finalCommandAsString = "";
+
+                for (String s : cmd) {
+                    finalCommandAsString += s + " ";
+                }
+
+                logger.info(">> windows: " + finalCommandAsString);
                 Process p = Runtime.getRuntime().exec(
                         cmd, null,
                         bundleFolder.getAbsoluteFile());
@@ -524,10 +543,10 @@ public class StudioBundleUpdater {
                         + options.getSourceFolder()
                         + " -> " + options.getTargetFolder());
 
-                Process p = Runtime.getRuntime().exec(
-                        "cp -rv " + options.getSourceFolder().getAbsolutePath()
-                        + " " + options.getTargetFolder().getAbsoluteFile().
-                        getParentFile().getAbsolutePath() + "");
+                Process p = Runtime.getRuntime().exec(new String[]{
+                        "cp", "-rv", options.getSourceFolder().getAbsolutePath(),
+                        options.getTargetFolder().getAbsoluteFile().
+                        getParentFile().getAbsolutePath()});
 
                 // TODO why does waitFor() hang? (29.01.2013)
 //                try {
