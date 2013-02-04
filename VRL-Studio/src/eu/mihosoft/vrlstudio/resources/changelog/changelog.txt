@@ -1,4 +1,19 @@
 -----------------------------------------------
+Version:	v0.4.5.2
+Date:		Fri, 1 Feb 2013 16:13:43 +0100
+-----------------------------------------------
+
+        Features:
+    
+    - preferences allow the specification of
+      custom update sources
+    
+    Fixes:
+    
+    - Error messages are not shown multiple
+      times when trying to update
+
+-----------------------------------------------
 Version:	v0.4.5.1
 Date:		Thu, 31 Jan 2013 14:01:15 +0100
 -----------------------------------------------
