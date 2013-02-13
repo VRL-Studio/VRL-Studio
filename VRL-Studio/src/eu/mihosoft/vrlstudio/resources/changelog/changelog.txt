@@ -1,6 +1,15 @@
 -----------------------------------------------
+Version:	v0.4.5.3
+Date:		Tue, 5 Feb 2013 11:07:32 +0100
+-----------------------------------------------
+
+        Fixes:
+    
+    - Windows Updater works with paths that contain spaces and ()
+
+-----------------------------------------------
 Version:	v0.4.5.2
-Date:		Fri, 1 Feb 2013 16:13:43 +0100
+Date:		Mon, 4 Feb 2013 13:43:54 +0100
 -----------------------------------------------
 
         Features:
@@ -12,6 +21,7 @@ Date:		Fri, 1 Feb 2013 16:13:43 +0100
     
     - Error messages are not shown multiple
       times when trying to update
+    - Unix-Updater works with paths thatcontain spaces and ()
 
 -----------------------------------------------
 Version:	v0.4.5.1
