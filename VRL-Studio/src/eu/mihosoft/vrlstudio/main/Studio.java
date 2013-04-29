@@ -1368,6 +1368,9 @@ public class Studio extends javax.swing.JFrame {
 
             directory = projectController.getProject().getFile().
                     getAbsoluteFile().getParentFile();
+        } else {
+            directory = projectController.getRecentProjectsManager().
+                    getLastUsedDir();
         }
 
         LoadProjectDialog.showDialog(
