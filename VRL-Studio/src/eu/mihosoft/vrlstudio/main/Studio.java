@@ -1725,7 +1725,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private void installPluginMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_installPluginMenuItemActionPerformed
         //
 
-        final JFileChooser fc = new JFileChooser();
+        final JFileChooser fc = new JFileChooser(FileDialogManager.getDefaultDir());
 
         fc.setFileFilter(new FileFilter() {
             @Override

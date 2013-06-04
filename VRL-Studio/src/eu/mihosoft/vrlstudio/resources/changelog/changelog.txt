@@ -1,4 +1,13 @@
 -----------------------------------------------
+Version:	v0.4.5.4
+Date:		Mon, 29 Apr 2013 19:45:46 +0200
+-----------------------------------------------
+
+        bugfix release, using vrl-0.4.2.8.4 which fixes:
+    - file dialog handling (use last chosen dir)
+    - file[][] type representations
+
+-----------------------------------------------
 Version:	v0.4.5.3
 Date:		Tue, 5 Feb 2013 11:07:32 +0100
 -----------------------------------------------
