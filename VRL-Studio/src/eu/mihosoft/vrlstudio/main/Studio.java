@@ -607,6 +607,7 @@ public class Studio extends javax.swing.JFrame {
         projectMenu = new javax.swing.JMenu();
         addPluginConfiguratorMenuItem = new javax.swing.JMenuItem();
         exportProjectasLibraryMenuItem = new javax.swing.JMenuItem();
+        exportProjectAsConsoleAppItem = new javax.swing.JMenuItem();
         manageLibrariesMenuItem = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
         compileProjectMenuItem = new javax.swing.JMenuItem();
@@ -804,6 +805,14 @@ public class Studio extends javax.swing.JFrame {
             }
         });
         projectMenu.add(exportProjectasLibraryMenuItem);
+
+        exportProjectAsConsoleAppItem.setText("Export Project as Console App");
+        exportProjectAsConsoleAppItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportProjectAsConsoleAppItemActionPerformed(evt);
+            }
+        });
+        projectMenu.add(exportProjectAsConsoleAppItem);
 
         manageLibrariesMenuItem.setText("Manage Libraries");
         manageLibrariesMenuItem.setEnabled(false);
@@ -2295,6 +2304,88 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         ChangelogDialog.showDialog();
     }//GEN-LAST:event_showStudioChangelogItemActionPerformed
 
+    private void exportProjectAsConsoleAppItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportProjectAsConsoleAppItemActionPerformed
+        //
+
+        if (!projectController.isProjectOpened()) {
+            VDialog.showMessageDialog(getCurrentCanvas(), "No Project opened",
+                    "Open a project to export it.");
+            return;
+        }
+
+        boolean export = VDialog.showConfirmDialog(getCurrentCanvas(),
+                "Export Project?",
+                "<html>"
+                + "<div align=\"center\">"
+                + "Shall the current project be exported?<br><br>"
+                + "All plugins that are used by the project will be included.<br><br>"
+                + "<b>Note:</b><br><vr>"
+                + "Please make sure that the plugin licenses allow the distribution of plugins.<br>"
+                + "If you are unsure please contact the plugin developers!"
+                + "</div>"
+                + "</html>",
+                VDialog.DialogType.YES_NO) == VDialog.AnswerType.YES;
+
+        if (!export) {
+            return;
+        }
+
+        try {
+            projectController.saveProject(false);
+        } catch (IOException ex) {
+            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        FileDialogManager manager = new FileDialogManager();
+
+        class DummySaveAs implements FileSaver {
+
+            public File dest;
+
+            @Override
+            public void saveFile(Object o, File file, String ext)
+                    throws IOException {
+                // we won't save anything
+                dest = file;
+            }
+
+            @Override
+            public String getDefaultExtension() {
+                return "zip";
+            }
+        }
+
+        final DummySaveAs saver = new DummySaveAs();
+
+        manager.saveFile(this, projectController, saver,
+                new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                return f.isDirectory()
+                        || f.getName().toLowerCase().endsWith(".zip");
+            }
+
+            @Override
+            public String getDescription() {
+                return "Zip Archive (*.zip)";
+            }
+        });
+
+        if (saver.dest != null) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        projectController.exportAsRunnableConsoleApplication(saver.dest, true);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }).start();
+        }
+
+    }//GEN-LAST:event_exportProjectAsConsoleAppItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2544,6 +2635,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenuItem deleteAllVersionsMenuItem;
     private javax.swing.JMenu editMenu;
     private javax.swing.JCheckBoxMenuItem enableShadowItem;
+    private javax.swing.JMenuItem exportProjectAsConsoleAppItem;
     private javax.swing.JMenuItem exportProjectItem;
     private javax.swing.JMenuItem exportProjectasLibraryMenuItem;
     private javax.swing.JMenuItem exportSessionItem;
