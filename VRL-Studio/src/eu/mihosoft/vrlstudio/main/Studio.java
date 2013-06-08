@@ -2312,8 +2312,24 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                     "Open a project to export it.");
             return;
         }
-
+        
+        
         boolean export = VDialog.showConfirmDialog(getCurrentCanvas(),
+                "Export Project?",
+                "<html>"
+                + "<div align=\"center\">"
+                + "Shall the current project be exported?<br><br>"
+                + "<b>Warning:</b> experimental feature!"
+                + "</div>"
+                + "</html>",
+                VDialog.DialogType.YES_NO) == VDialog.AnswerType.YES;
+
+        if (!export) {
+            return;
+        }
+        
+
+        export = VDialog.showConfirmDialog(getCurrentCanvas(),
                 "Export Project?",
                 "<html>"
                 + "<div align=\"center\">"
