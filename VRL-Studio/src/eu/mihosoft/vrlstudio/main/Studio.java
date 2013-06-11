@@ -2346,11 +2346,11 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
             return;
         }
 
-        try {
-            projectController.saveProject(false);
-        } catch (IOException ex) {
-            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            projectController.saveProject(false);
+//        } catch (IOException ex) {
+//            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         FileDialogManager manager = new FileDialogManager();
 
@@ -2388,16 +2388,12 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         });
 
         if (saver.dest != null) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        projectController.exportAsRunnableConsoleApplication(saver.dest, true);
-                    } catch (IOException ex) {
-                        Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }).start();
+            try {
+                projectController.exportAsRunnableConsoleApplication(saver.dest, true);
+            } catch (IOException ex) {
+                Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
 
     }//GEN-LAST:event_exportProjectAsConsoleAppItemActionPerformed
