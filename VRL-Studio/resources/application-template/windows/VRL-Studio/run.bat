@@ -22,7 +22,8 @@ if defined ProgramW6432 (
   set MAXHEAP=512
 )
 
-if not exist %JAVAEXE% set JAVAEXE=java
+REM 14.06.2013 does not work???
+REM if not exist %JAVAEXE% set JAVAEXE=java
 
 REM version of 2011
 REM start /min /realtime %JAVAEXE% -Xms64m -Xmx512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled -XX:MaxPermSize=256m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF%
