@@ -153,6 +153,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportProjectasLibraryMenuItemActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="exportProjectAsConsoleAppItem">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Export Project as Console App"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportProjectAsConsoleAppItemActionPerformed"/>
+                  </Events>
+                </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="manageLibrariesMenuItem">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Manage Libraries"/>

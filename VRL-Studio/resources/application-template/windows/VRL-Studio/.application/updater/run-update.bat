@@ -7,8 +7,8 @@ for %%x in (%*) do (
   Set /A argC+=1
 )
 
-if not argC==5 (
-  echo "Wrong number of arguments. (expected 5, got %argC%)"
+if not argC==10 (
+  echo "Wrong number of arguments. (expected 10, got %argC%)"
 )
 
 REM set APPDIR="%CD%\.application"
