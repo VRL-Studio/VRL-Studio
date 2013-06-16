@@ -1,10 +1,20 @@
 ;This file will be executed next to the application bundle image
 ;I.e. current directory will contain folder VRL-Studio with application files
+
+; Name of the application
+#define AppName "VRL-Studio"
+; Version of the application
+#define AppVersion "0.4.5.5"
+; Menu group of the application
+#define AppGroupName "VRL-Studio"
+; Name of the folder that contains the application
+#define AppFolderName "VRL-Studio"
+
 [Setup]
 AppId={{eu.mihosoft.VRL-Studio}}
-AppName=VRL-Studio
-AppVersion=0.4.5.5
-AppVerName=VRL-Studio 0.4.5.5
+AppName={#AppName}
+AppVersion={#AppVersion}
+AppVerName={#AppName} {#AppVersion}
 AppPublisher=mihosoft (Michael Hoffer)
 AppComments=VRL-Studio
 AppCopyright=
@@ -12,38 +22,39 @@ AppPublisherURL=http://vrl-studio.mihosoft.eu
 ;AppSupportURL=http://java.com/
 ;AppUpdatesURL=http://java.com/
 ChangesAssociations=yes
-DefaultDirName={localappdata}\VRL-Studio
+DefaultDirName={localappdata}\{#AppName}
 DisableStartupPrompt=Yes
 DisableDirPage=Yes
 DisableProgramGroupPage=Yes
 DisableReadyPage=Yes
 DisableFinishedPage=Yes
-DisableWelcomePage=Yes
-DefaultGroupName=VRL-Studio
+DisableWelcomePage=No
+DefaultGroupName={#AppGroupName}
 ;Optional License
-LicenseFile=VRL-Studio\LICENSE.txt
+LicenseFile={#AppFolderName}\LICENSE.txt
 ;WinXP or above
 MinVersion=0,5.1 
-OutputBaseFilename=VRL-Studio-0.4.5.5-Setup
+OutputBaseFilename={#AppName}-{#AppVersion}-Setup
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=lowest
-SetupIconFile=VRL-Studio\.application\resources\mime\vrl-app-icon.ico
+SetupIconFile={#AppFolderName}\.application\resources\mime\vrl-app-icon.ico
 UninstallDisplayIcon={app}\.application\resources\mime\vrl-app-icon.ico
-UninstallDisplayName=VRL-Studio
+UninstallDisplayName={#AppName}
 WizardImageStretch=No
-;WizardSmallImageFile=VRL-Studio-setup-icon.bmp   
+WizardSmallImageFile={#AppFolderName}\.application\resources\mime\vrl-installer-img-55x55.bmp
+WizardImageFile={#AppFolderName}\.application\resources\mime\vrl-installer-side-img-164x314.bmp   
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "VRL-Studio\run.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "VRL-Studio\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#AppFolderName}\run.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppFolderName}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\VRL-Studio"; Filename: "{app}\run.bat"; IconFilename: "{app}\.application\resources\mime\vrl-app-icon.ico"; Check: returnTrue()
-Name: "{commondesktop}\VRL-Studio"; Filename: "{app}\run.bat";  IconFilename: "{app}\.application\resources\mime\vrl-app-icon.ico"; Check: returnFalse()
+Name: "{group}\{#AppName}"; Filename: "{app}\run.bat"; IconFilename: "{app}\.application\resources\mime\vrl-app-icon.ico"; Check: returnTrue()
+Name: "{userdesktop}\{#AppName}"; Filename: "{app}\run.bat";  IconFilename: "{app}\.application\resources\mime\vrl-app-icon.ico"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\run.bat"; Description: "{cm:LaunchProgram,VRL-Studio}"; Flags: nowait postinstall skipifsilent
@@ -73,3 +84,6 @@ Root: HKCU; Subkey: "Software\Classes\.vrlp"; ValueType: string; ValueName: ""; 
 Root: HKCU; Subkey: "Software\Classes\vrlstudioprojectfile"; ValueType: string; ValueName: ""; ValueData: "VRL-Studio Project"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\Classes\vrlstudioprojectfile\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\.application\resources\mime\vrl-file-icon.ico,0"
 Root: HKCU; Subkey: "Software\Classes\vrlstudioprojectfile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\run.bat"" ""-file"" ""%1"""
+
+[Tasks]
+Name: desktopicon; Description: Create Desktop Icon.;
