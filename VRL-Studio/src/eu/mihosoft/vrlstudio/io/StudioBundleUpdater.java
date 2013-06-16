@@ -167,11 +167,12 @@ public class StudioBundleUpdater {
         // delete prevVersion if it already exists
         IOUtil.deleteDirectory(prevVersion);
         // move current (old) version to PREV-Version
-        if (VSysUtil.isWindows()) {
-            IOUtil.copyDirectory(options.getTargetFolder(), prevVersion);
-        } else {
-            IOUtil.move(options.getTargetFolder(), prevVersion);
-        }
+        IOUtil.move(options.getTargetFolder(), prevVersion);
+        //if (VSysUtil.isWindows()) {
+        //    IOUtil.copyDirectory(options.getTargetFolder(), prevVersion);
+        //} else {
+        //    IOUtil.move(options.getTargetFolder(), prevVersion);
+        //}
 
 //        IOUtil.deleteDirectory(options.getTargetFolder());
 
