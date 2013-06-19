@@ -232,7 +232,7 @@ public class StudioBundleUpdater {
     }
 
     /**
-     * Creates the update bundle in a temorary folder.
+     * Creates the update bundle in a temporary folder.
      *
      * <p><b>Note:</b> only call this from Studio process.</p>
      *
