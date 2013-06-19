@@ -438,7 +438,7 @@ public class StudioBundleUpdater {
     }
 
     /**
-     * Runs the updates Studio process.
+     * Runs the updated Studio process.
      *
      * <p><b>Note:</b> only call this from update process.</p>
      *
