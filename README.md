@@ -3,6 +3,8 @@ VRL-Studio
 
 Webpage: http://vrl-studio.mihosoft.eu
 
+Join the [Developer Group](https://groups.google.com/forum/#!forum/vrl-developers) if you'd like to contribute.
+
 Innovative IDE based on VRL (Visual Reflection Library)
 
 VRL-Studio is an innovative Integrated Development Environment (IDE) based on the Java Platform that combines both
