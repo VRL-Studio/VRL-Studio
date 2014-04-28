@@ -42,7 +42,9 @@ if [ ! -e $JAVAEXE ]
 then
   echo ">> integrated jre not found!"
   echo " --> executing installed java version"
-  JAVAEXE="java"
+  
+  # we force Java 6 on OS X (28.04.2014)
+  JAVAEXE="/System/Library/Frameworks/JavaVM.framework/Home/bin/java"
 fi
 
 
