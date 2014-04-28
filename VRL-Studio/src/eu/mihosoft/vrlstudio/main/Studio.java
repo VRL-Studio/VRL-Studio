@@ -2454,6 +2454,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         final SplashScreenGenerator generator = new SplashScreenGenerator();
         generator.setCopyrightText(Constants.COPYRIGHT_SIMPLE);
+        generator.setAppNameAndVersion(Constants.APP_NAME+" "+Constants.VERSION);
         generator.initGlobalSplashScreen();
 
         Thread thread = new Thread() {
