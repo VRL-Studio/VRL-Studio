@@ -3122,6 +3122,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
             updater.setUpdateURL(
                     new URL(url.getProtocol() + "://" + url.getHost() + url.getPath()
                             + "/" + VSysUtil.getOSName() + "/repository.xml"));
+            
         } catch (MalformedURLException ex) {
             Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
         }
