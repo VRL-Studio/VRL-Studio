@@ -1,4 +1,16 @@
 -----------------------------------------------
+Version:	v0.4.5.6
+Date:		Tue, 29 Apr 2014 11:40:27 +0200
+-----------------------------------------------
+
+        Features:
+    
+    - Groovy 2.2.2
+    - Uses new plugin features from VRL-0.4.2.8.6
+    - Updater can optionally update plugins (see Issue #4)
+    - Console applications uses full plugin system (including singleton support)
+
+-----------------------------------------------
 Version:	v0.4.5.5
 Date:		Fri, 14 Jun 2013 14:50:29 +0200
 -----------------------------------------------
