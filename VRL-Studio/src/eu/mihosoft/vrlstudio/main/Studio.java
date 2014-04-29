@@ -169,7 +169,7 @@ public class Studio extends javax.swing.JFrame {
 
         versionManagementMenuItem.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_V,
-                KeyEvent.CTRL_DOWN_MASK | KeyEvent.ALT_DOWN_MASK));
+                        KeyEvent.CTRL_DOWN_MASK | KeyEvent.ALT_DOWN_MASK));
 
         newComponentMenuItem.setAccelerator(KeyStroke.getKeyStroke(
                 KeyEvent.VK_N,
@@ -199,11 +199,10 @@ public class Studio extends javax.swing.JFrame {
 
         preferenceMenuItem.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_COMMA,
-                Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+                        Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
         canvasScrollPane.getVerticalScrollBar().setUnitIncrement(18);
         canvasScrollPane.getHorizontalScrollBar().setUnitIncrement(18);
-
 
         // remove ugly borders
         canvasScrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -279,26 +278,24 @@ public class Studio extends javax.swing.JFrame {
 //                }
 //            }
 //        };
-
 //        VSwingUtil.registerShortCutAction(searchDialogAction);
-
         VShortCutAction mouseLocationAction = new VShortCutAction(
                 new VShortCut("Mouse-Location",
-                new VKey(KeyEvent.VK_CONTROL),
-                new VKey(KeyEvent.VK_ALT),
-                new VKey(KeyEvent.VK_M))) {
-            @Override
-            public void performAction() {
+                        new VKey(KeyEvent.VK_CONTROL),
+                        new VKey(KeyEvent.VK_ALT),
+                        new VKey(KeyEvent.VK_M))) {
+                    @Override
+                    public void performAction() {
 
-                if (!projectController.getCurrentCanvas().
+                        if (!projectController.getCurrentCanvas().
                         isIgnoreInput()) {
 
-                    getCurrentCanvas().getEffectPane().
+                            getCurrentCanvas().getEffectPane().
                             toggleMouseLocationIndicatorEnableState();
 
-                }
-            }
-        };
+                        }
+                    }
+                };
 
         VSwingUtil.registerShortCutAction(mouseLocationAction);
 
@@ -318,8 +315,6 @@ public class Studio extends javax.swing.JFrame {
 //        };
 //
 //        VSwingUtil.registerShortCutAction(keyVisualizerAction);
-
-
         mainCanvas.getEffectPane().startSpot();
         mainCanvas.setIgnoreInput(true);
 
@@ -331,7 +326,7 @@ public class Studio extends javax.swing.JFrame {
 
         ConfigurationFile config = IOUtil.newConfigurationFile(
                 new File(VRL.getPropertyFolderManager().getEtcFolder(),
-                Studio.STUDIO_CONFIG));
+                        Studio.STUDIO_CONFIG));
 
         loggingController = new LoggingController(logView, config);
 
@@ -377,7 +372,6 @@ public class Studio extends javax.swing.JFrame {
             KeyStroke keyA = KeyStroke.getKeyStroke(KeyEvent.VK_A,
                     Toolkit.getDefaultToolkit().getMenuShortcutKeyMask());
 
-
             keyMap.put(keyC, DefaultEditorKit.copyAction);
             keyMap.put(keyV, DefaultEditorKit.pasteAction);
             keyMap.put(keyX, DefaultEditorKit.cutAction);
@@ -390,7 +384,6 @@ public class Studio extends javax.swing.JFrame {
         } else {
             VSwingUtil.forceNimbusLAF(this);
         }
-
 
         // we need to restrict access to versions due to plagiarism
         deleteAllVersionsMenuItem.setVisible(false);
@@ -504,14 +497,15 @@ public class Studio extends javax.swing.JFrame {
                 "Shall the previous version be removed?", VDialog.DialogType.YES_NO)) {
             IOUtil.deleteDirectory(
                     new File(APP_FOLDER.getAbsolutePath()
-                    + StudioBundleUpdater.PREV_VERSION_EXTENSION));
+                            + StudioBundleUpdater.PREV_VERSION_EXTENSION));
         }
+        
+        quitApplication();
     }
 
     public final void initCanvas(VisualCanvas canvas) {
 
         // canvas.add(new JButton("old"));
-
         if (presentationView != null) {
             presentationView.dispose(); // important
         }
@@ -1217,8 +1211,8 @@ public class Studio extends javax.swing.JFrame {
         File newFile = null;
 
         FileDialogManager manager = new FileDialogManager();
-        VProjectSessionCreator saver =
-                new VProjectSessionCreator(getDefaultSessionName());
+        VProjectSessionCreator saver
+                = new VProjectSessionCreator(getDefaultSessionName());
         manager.saveFile(this, projectController, saver,
                 new ProjectFileFilter());
 
@@ -1261,7 +1255,6 @@ public class Studio extends javax.swing.JFrame {
         }
 
 //        projectController.setCommitOnSave(isCreateVersionOnSave());
-
         try {
             projectController.saveProject(false);
             VersionManagement.closeDialog(getCurrentCanvas());
@@ -1276,9 +1269,9 @@ public class Studio extends javax.swing.JFrame {
     }
 
     private void initUpdater() {
-        PluginIdentifier identifier =
-                new PluginIdentifier("VRL-Studio",
-                new VersionInfo(Constants.VERSION_BASE));
+        PluginIdentifier identifier
+                = new PluginIdentifier("VRL-Studio",
+                        new VersionInfo(Constants.VERSION_BASE));
 
         updater = new VRLUpdater(identifier);
         updater.setVerificationEnabled(true);
@@ -1287,7 +1280,7 @@ public class Studio extends javax.swing.JFrame {
             try {
                 setUpateSource(
                         new URL(studioConfig.
-                        getProperty(PreferenceWindow.UPDATE_URL_KEY)));
+                                getProperty(PreferenceWindow.UPDATE_URL_KEY)));
             } catch (MalformedURLException ex) {
                 Logger.getLogger(Studio.class.getName()).
                         log(Level.SEVERE, null, ex);
@@ -1308,7 +1301,6 @@ public class Studio extends javax.swing.JFrame {
 //        } catch (MalformedURLException ex) {
 //            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
         updateStudioAction = new StudioUpdateAction();
     }
 
@@ -1350,8 +1342,8 @@ public class Studio extends javax.swing.JFrame {
     public boolean loadSession(String fileName) {
 
         try {
-            VProjectSessionLoader sessionLoader =
-                    new VProjectSessionLoader(projectController);
+            VProjectSessionLoader sessionLoader
+                    = new VProjectSessionLoader(projectController);
 
             sessionLoader.loadFile(new File(fileName));
             updateAppTitle();
@@ -1854,7 +1846,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private void exportProjectasLibraryMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportProjectasLibraryMenuItemActionPerformed
         //
 
-
         if (!projectController.isProjectOpened()) {
             VDialog.showMessageDialog(getCurrentCanvas(), "No Project opened",
                     "Open a project to export it.");
@@ -1872,9 +1863,9 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
             File projectFile = projectController.getFile();
 
-            File dest =
-                    new File(projectFile.getAbsolutePath().substring(
-                    0, projectFile.getAbsolutePath().length() - 4) + "jar");
+            File dest
+                    = new File(projectFile.getAbsolutePath().substring(
+                                    0, projectFile.getAbsolutePath().length() - 4) + "jar");
 
             boolean export = true;
 
@@ -1949,13 +1940,11 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private void manageLibrariesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageLibrariesMenuItemActionPerformed
         //
 
-
         if (!projectController.isProjectOpened()) {
             VDialog.showMessageDialog(getCurrentCanvas(), "No Project opened",
                     "Open a project to manage its libraries.");
             return;
         }
-
 
         ProjectLibraryDialog.showDialog(getCurrentCanvas());
     }//GEN-LAST:event_manageLibrariesMenuItemActionPerformed
@@ -2027,7 +2016,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                     "Open a project.");
             return;
         }
-
 
         FileDialogManager manager = new FileDialogManager();
 
@@ -2312,8 +2300,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                     "Open a project to export it.");
             return;
         }
-        
-        
+
         boolean export = VDialog.showConfirmDialog(getCurrentCanvas(),
                 "Export Project?",
                 "<html>"
@@ -2327,7 +2314,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         if (!export) {
             return;
         }
-        
 
         export = VDialog.showConfirmDialog(getCurrentCanvas(),
                 "Export Project?",
@@ -2351,7 +2337,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 //        } catch (IOException ex) {
 //            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
         FileDialogManager manager = new FileDialogManager();
 
         class DummySaveAs implements FileSaver {
@@ -2375,17 +2360,17 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         manager.saveFile(this, projectController, saver,
                 new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                return f.isDirectory()
+                    @Override
+                    public boolean accept(File f) {
+                        return f.isDirectory()
                         || f.getName().toLowerCase().endsWith(".zip");
-            }
+                    }
 
-            @Override
-            public String getDescription() {
-                return "Zip Archive (*.zip)";
-            }
-        });
+                    @Override
+                    public String getDescription() {
+                        return "Zip Archive (*.zip)";
+                    }
+                });
 
         if (saver.dest != null) {
             try {
@@ -2393,7 +2378,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
             } catch (IOException ex) {
                 Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
 
     }//GEN-LAST:event_exportProjectAsConsoleAppItemActionPerformed
@@ -2416,7 +2401,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         VSwingUtil.fixSwingBugsInJDK7(); // ensure no comparison bug occures
 
         // updater mode
-
         logger.info("AppFolder: " + APP_FOLDER.getAbsolutePath());
 
         if (args.length > 0) {
@@ -2424,6 +2408,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
             for (String a : args) {
                 if (a.equals("-updated")) {
                     updated = true;
+
                     System.out.println(">> successfully updated!");
                 }
             }
@@ -2451,9 +2436,9 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         }
 
         // normal mode
-
         final SplashScreenGenerator generator = new SplashScreenGenerator();
         generator.setCopyrightText(Constants.COPYRIGHT_SIMPLE);
+        generator.setAppNameAndVersion(Constants.APP_NAME + " " + Constants.VERSION);
         generator.initGlobalSplashScreen();
 
         Thread thread = new Thread() {
@@ -2475,9 +2460,8 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         System.arraycopy(args, 0, newArgs, 0, args.length);
 
         newArgs[args.length] = "-property-folder-template";
-        newArgs[args.length + 1] =
-                Constants.RESOURCES_DIR + "/property-folder-template";
-
+        newArgs[args.length + 1]
+                = Constants.RESOURCES_DIR + "/property-folder-template";
 
 //        if (!VSysUtil.isMacOSX()) {
         VRL.getPropertyFolderManager().setAlreadyRunningTask(new Runnable() {
@@ -2512,124 +2496,128 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         VSwingUtil.invokeLater(
                 new Runnable() {
-            @Override
-            public void run() {
+                    @Override
+                    public void run() {
 
-                // load frame position and bounds
-                ConfigurationFile config = IOUtil.newConfigurationFile(
-                        new File(VRL.getPropertyFolderManager().getEtcFolder(),
-                        STUDIO_CONFIG));
+                        // load frame position and bounds
+                        ConfigurationFile config = IOUtil.newConfigurationFile(
+                                new File(VRL.getPropertyFolderManager().getEtcFolder(),
+                                        STUDIO_CONFIG));
 
-                boolean loaded = config.load();
+                        boolean loaded = config.load();
 
-                // check whether to show start-dialog
-                if (config.containsProperty(
-                        PreferenceWindow.DIALOG_ON_START_KEY)) {
-                    showStartDialog =
-                            Boolean.parseBoolean(config.getProperty(
-                            PreferenceWindow.DIALOG_ON_START_KEY));
-                }
+                        // check whether to show start-dialog
+                        if (config.containsProperty(
+                                PreferenceWindow.DIALOG_ON_START_KEY)) {
+                            showStartDialog
+                            = Boolean.parseBoolean(config.getProperty(
+                                            PreferenceWindow.DIALOG_ON_START_KEY));
+                        }
 
-                Studio frame = new Studio();
-                frame.studioConfig = config;
-                frame.initUpdater();
+                        Studio frame = new Studio();
+                        frame.studioConfig = config;
+                        frame.initUpdater();
 
-                // if on linux or windows, set icon
-                if (!VSysUtil.isMacOSX()) {
-                    try {
-                        Image img = Toolkit.getDefaultToolkit().createImage(
-                                "resources/mime/vrl-app-icon.png");
-                        frame.setIconImage(img);
-                    } catch (Exception ex) {
-                        System.out.println(
-                                ">> cannot set image for application window.");
+                        // if on linux or windows, set icon
+                        if (!VSysUtil.isMacOSX()) {
+                            try {
+                                Image img = Toolkit.getDefaultToolkit().createImage(
+                                        "resources/mime/vrl-app-icon.png");
+                                frame.setIconImage(img);
+                            } catch (Exception ex) {
+                                System.out.println(
+                                        ">> cannot set image for application window.");
+                            }
+                        }
+
+                        frame.arguments = args;
+
+                        ArgumentEvaluator evaluator
+                        = new ArgumentEvaluator(frame, frame.getInitialCanvas());
+
+                        evaluator.setDebugOptions(args);
+
+                        frame.setVisible(true);
+
+                        // check whether to restore position
+                        boolean restore = config.containsProperty(
+                                PreferenceWindow.RESTORE_WIN_POS_KEY);
+
+                        if (restore) {
+                            restore = Boolean.parseBoolean(config.getProperty(
+                                            PreferenceWindow.RESTORE_WIN_POS_KEY));
+                        }
+
+                        if (!loaded || !restore) {
+                            // sets the window size (3/4w,3/4h)
+                            // and displays the window at the center
+                            Dimension screenDim = VGraphicsUtil.getScreenDimension(0);
+                            Dimension winDim = new Dimension(
+                                    screenDim.width - screenDim.width / 4,
+                                    screenDim.height - screenDim.height / 4);
+                            frame.setSize(winDim);
+
+                            VGraphicsUtil.centerOnScreen(frame, 0);
+                        } else {
+                            WindowBounds windowBounds = new WindowBounds(config);
+                            windowBounds.setWindowBounds(frame);
+                        }
+
+                        // resize splitpane
+                        frame.getSplitPane().setDividerLocation(1.0);
+                        frame.getSplitPane().setResizeWeight(1);
+                        frame.setSize(frame.getSize());
+                        frame.splitPane.updateUI();
+                        frame.canvasScrollPane.updateUI();
+                        frame.shellScrollPane.updateUI();
+                        frame.splitPane.setDividerLocation(frame.getHeight());
+
+                        frame.deactivateAllEvents(frame.getCurrentCanvas());
+
+                        // initialize plugins 
+                        VRL.addCanvas(frame.mainCanvas, new ArrayList<PluginDependency>());
+
+                        VRL.registerFileTemplatesMenu(
+                                new MenuAdapter(frame.fileTemplatesMenu));
+                        VRL.registerFileMenu(new MenuAdapter(frame.fileMenu));
+                        VRL.registerEditMenu(new MenuAdapter(frame.editMenu));
+                        VRL.registerViewMenu(new MenuAdapter(frame.viewMenu));
+                        VRL.registerToolMenu(new MenuAdapter(frame.toolMenu));
+                        VRL.registerDebugMenu(new MenuAdapter(frame.debugMenu));
+                        VRL.registerInfoMenu(new MenuAdapter(frame.infoMenu));
+                        VRL.registerStyleMenu(new MenuAdapter(frame.styleMenu));
+                        VRL.registerPluginMenu(new MenuAdapter(frame.pluginMenu),
+                                new MenuAdapter(frame.uninstallPluginMenu));
+
+                        if (!VSysUtil.isMacOSX()) {
+                            evaluator.setDefaultFile(args);
+
+                            if (Studio.updated) {
+
+                                try {
+                                    VRL.getPropertyFolderManager().installBundledSoftwareAndResources();
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                                frame.showUpdatedDialog();
+                            }
+
+                            if (!evaluator.loadFile(args) && Studio.showStartDialog) {
+                                frame.showStartDialog(frame.getCurrentCanvas());
+                            }
+
+                            frame.studioInitialized = true;
+
+                            frame.autoUpdate(config);
+                        }
+
+                        frame.activateAllEvents();
+
+                        SplashScreenGenerator.setProgress(100);
+
                     }
-                }
-
-                frame.arguments = args;
-
-                ArgumentEvaluator evaluator =
-                        new ArgumentEvaluator(frame, frame.getInitialCanvas());
-
-                evaluator.setDebugOptions(args);
-
-                frame.setVisible(true);
-
-                // check whether to restore position
-                boolean restore = config.containsProperty(
-                        PreferenceWindow.RESTORE_WIN_POS_KEY);
-
-                if (restore) {
-                    restore = Boolean.parseBoolean(config.getProperty(
-                            PreferenceWindow.RESTORE_WIN_POS_KEY));
-                }
-
-                if (!loaded || !restore) {
-                    // sets the window size (3/4w,3/4h)
-                    // and displays the window at the center
-                    Dimension screenDim = VGraphicsUtil.getScreenDimension(0);
-                    Dimension winDim = new Dimension(
-                            screenDim.width - screenDim.width / 4,
-                            screenDim.height - screenDim.height / 4);
-                    frame.setSize(winDim);
-
-                    VGraphicsUtil.centerOnScreen(frame, 0);
-                } else {
-                    WindowBounds windowBounds = new WindowBounds(config);
-                    windowBounds.setWindowBounds(frame);
-                }
-
-
-                // resize splitpane
-                frame.getSplitPane().setDividerLocation(1.0);
-                frame.getSplitPane().setResizeWeight(1);
-                frame.setSize(frame.getSize());
-                frame.splitPane.updateUI();
-                frame.canvasScrollPane.updateUI();
-                frame.shellScrollPane.updateUI();
-                frame.splitPane.setDividerLocation(frame.getHeight());
-
-                frame.deactivateAllEvents(frame.getCurrentCanvas());
-
-                // initialize plugins 
-                VRL.addCanvas(frame.mainCanvas, new ArrayList<PluginDependency>());
-
-                VRL.registerFileTemplatesMenu(
-                        new MenuAdapter(frame.fileTemplatesMenu));
-                VRL.registerFileMenu(new MenuAdapter(frame.fileMenu));
-                VRL.registerEditMenu(new MenuAdapter(frame.editMenu));
-                VRL.registerViewMenu(new MenuAdapter(frame.viewMenu));
-                VRL.registerToolMenu(new MenuAdapter(frame.toolMenu));
-                VRL.registerDebugMenu(new MenuAdapter(frame.debugMenu));
-                VRL.registerInfoMenu(new MenuAdapter(frame.infoMenu));
-                VRL.registerStyleMenu(new MenuAdapter(frame.styleMenu));
-                VRL.registerPluginMenu(new MenuAdapter(frame.pluginMenu),
-                        new MenuAdapter(frame.uninstallPluginMenu));
-
-
-                if (!VSysUtil.isMacOSX()) {
-                    evaluator.setDefaultFile(args);
-
-                    if (Studio.updated) {
-                        frame.showUpdatedDialog();
-                    }
-
-                    if (!evaluator.loadFile(args) && Studio.showStartDialog) {
-                        frame.showStartDialog(frame.getCurrentCanvas());
-                    }
-
-                    frame.studioInitialized = true;
-
-                    frame.autoUpdate(config);
-                }
-
-                frame.activateAllEvents();
-
-                SplashScreenGenerator.setProgress(100);
-
-
-            }
-        });
+                });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem DebuggingItem;
@@ -2742,8 +2730,8 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     public void setDefaultSessionName(String defaultSessionName) {
 
         if (!new File(defaultSessionName).isAbsolute()) {
-            this.defaultSessionName =
-                    VRL.getPropertyFolderManager().getProjectTemplatesFolder()
+            this.defaultSessionName
+                    = VRL.getPropertyFolderManager().getProjectTemplatesFolder()
                     + "/" + defaultSessionName;
         } else {
             this.defaultSessionName = defaultSessionName;
@@ -2806,155 +2794,155 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
             // get the application-listener class. here we can set our action to the apple menu
             Class lc = Class.forName("com.apple.eawt.ApplicationListener");
-            Object listener =
-                    Proxy.newProxyInstance(
-                    lc.getClassLoader(), new Class[]{lc}, new InvocationHandler() {
-                @Override
-                public Object invoke(Object proxy, Method method, Object[] args) {
-                    if (method.getName().equals("handleQuit")) {
-                        System.out.println("OS X specific: handleQuit");
-                        // call the general exit-handler from the desktop-application-api
-                        // here we do all the stuff we need when exiting the application
-                        quitApplication();
-                    }
+            Object listener
+                    = Proxy.newProxyInstance(
+                            lc.getClassLoader(), new Class[]{lc}, new InvocationHandler() {
+                                @Override
+                                public Object invoke(Object proxy, Method method, Object[] args) {
+                                    if (method.getName().equals("handleQuit")) {
+                                        System.out.println("OS X specific: handleQuit");
+                                        // call the general exit-handler from the desktop-application-api
+                                        // here we do all the stuff we need when exiting the application
+                                        quitApplication();
+                                    }
 //                    if (method.getName().equals("handlePreferences")) {
 //                        // show settings window
 ////                        settingsWindow();
 //                    }
 
-                    if (method.getName().equals("handleOpenApplication")) {
-                        System.out.println("OS X specific: handleOpenApplication");
+                                    if (method.getName().equals("handleOpenApplication")) {
+                                        System.out.println("OS X specific: handleOpenApplication");
 
-                        if (!studioInitialized) {
+                                        if (!studioInitialized) {
 
-                            ArgumentEvaluator evaluator =
-                                    new ArgumentEvaluator(
-                                    Studio.this, Studio.this.getInitialCanvas());
+                                            ArgumentEvaluator evaluator
+                                            = new ArgumentEvaluator(
+                                                    Studio.this, Studio.this.getInitialCanvas());
 
 //                            evaluator.setPluginOptions(arguments);
-                            evaluator.setDebugOptions(arguments);
+                                            evaluator.setDebugOptions(arguments);
 
-                            evaluator.setDefaultFile(arguments);
+                                            evaluator.setDefaultFile(arguments);
 
 //                            if (evaluator.loadFileFile(arguments)) {
 //                                studioInitialized = true;
 //                            }
-                        }
+                                        }
 
-                        Thread t = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
+                                        Thread t = new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
 
-                                try {
-                                    Thread.sleep(1000);
+                                                try {
+                                                    Thread.sleep(1000);
 
+                                                } catch (InterruptedException ex) {
+                                                    Logger.getLogger(
+                                                            Studio.class.getName()).log(
+                                                            Level.SEVERE, null, ex);
+                                                }
 
-                                } catch (InterruptedException ex) {
-                                    Logger.getLogger(
-                                            Studio.class.getName()).log(
-                                            Level.SEVERE, null, ex);
-                                }
+                                                System.out.println("OS X specific: init done");
 
-                                System.out.println("OS X specific: init done");
+                                                if (Studio.updated) {
 
-                                if (Studio.updated) {
-                                    Studio.this.showUpdatedDialog();
-                                }
+                                                    try {
+                                                        VRL.getPropertyFolderManager().installBundledSoftwareAndResources();
+                                                    } catch (IOException ex) {
+                                                        Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                                    }
 
-                                if (!studioInitialized && Studio.showStartDialog) {
-                                    showStartDialog(getCurrentCanvas());
-                                }
+                                                    Studio.this.showUpdatedDialog();
+                                                }
 
-                                studioInitialized = true;
+                                                if (!studioInitialized && Studio.showStartDialog) {
+                                                    showStartDialog(getCurrentCanvas());
+                                                }
 
-                                Studio.this.autoUpdate(studioConfig);
-                            }
-                        });
+                                                studioInitialized = true;
 
-                        t.start();
+                                                Studio.this.autoUpdate(studioConfig);
+                                            }
+                                        });
 
-                    }
+                                        t.start();
 
-                    if (method.getName().equals("handleOpenFile")) {
-                        System.out.println("OS X specific: handleOpenFile");
+                                    }
 
-                        // we know that this method takes one argument
-                        // see http://developer.apple.com/library/mac/#documentation/Java/Reference/JavaSE6_AppleExtensionsRef/api/com/apple/eawt/ApplicationEvent.html
-                        Object event = args[0];
-                        try {
-                            Method getFileName = event.getClass().getMethod("getFilename", new Class<?>[]{});
-                            final String fileName = (String) getFileName.invoke(event, new Object[]{});
+                                    if (method.getName().equals("handleOpenFile")) {
+                                        System.out.println("OS X specific: handleOpenFile");
 
-                            if (!studioInitialized) {
-                                studioInitialized = true;
-                            }
+                                        // we know that this method takes one argument
+                                        // see http://developer.apple.com/library/mac/#documentation/Java/Reference/JavaSE6_AppleExtensionsRef/api/com/apple/eawt/ApplicationEvent.html
+                                        Object event = args[0];
+                                        try {
+                                            Method getFileName = event.getClass().getMethod("getFilename", new Class<?>[]{});
+                                            final String fileName = (String) getFileName.invoke(event, new Object[]{});
 
-                            VSwingUtil.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    activateAllEvents();
-                                    loadSession(fileName);
+                                            if (!studioInitialized) {
+                                                studioInitialized = true;
+                                            }
+
+                                            VSwingUtil.invokeLater(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    activateAllEvents();
+                                                    loadSession(fileName);
+                                                }
+                                            });
+
+                                        } catch (NoSuchMethodException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (SecurityException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (IllegalAccessException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (IllegalArgumentException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (InvocationTargetException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+
+                                    }
+                                    if (method.getName().equals("handleAbout")) {
+                                        System.out.println("OS X specific: handleAbout");
+                                        // show own aboutbox
+                                        showAboutDialog();
+                                        // set handled to true, so other actions won't take place any more.
+                                        // if we leave this out, a second, system-own aboutbox would be displayed
+                                        Method m;
+
+                                        try {
+                                            m = args[0].getClass().getMethod("setHandled", boolean.class);
+                                            m.invoke(args[0], true);
+
+                                        } catch (NoSuchMethodException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (SecurityException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (IllegalAccessException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (IllegalArgumentException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        } catch (InvocationTargetException ex) {
+                                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    }
+
+                                    return null;
                                 }
                             });
-
-
-
-                        } catch (NoSuchMethodException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (SecurityException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IllegalAccessException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IllegalArgumentException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (InvocationTargetException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-
-
-                    }
-                    if (method.getName().equals("handleAbout")) {
-                        System.out.println("OS X specific: handleAbout");
-                        // show own aboutbox
-                        showAboutDialog();
-                        // set handled to true, so other actions won't take place any more.
-                        // if we leave this out, a second, system-own aboutbox would be displayed
-                        Method m;
-
-
-                        try {
-                            m = args[0].getClass().getMethod("setHandled", boolean.class);
-                            m.invoke(args[0], true);
-
-                        } catch (NoSuchMethodException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (SecurityException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IllegalAccessException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IllegalArgumentException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (InvocationTargetException ex) {
-                            Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-
-                    return null;
-                }
-            });
 
             try {
                 // add application listener that listens to actions on the apple menu items
                 Method m = appc.getMethod("addApplicationListener", lc);
                 m.invoke(app, listener);
 
-
                 // register that we want that Preferences menu. by default, only the about box is shown
                 // but no pref-menu-item
 //                Method enablePreferenceMethod =
 //                        appc.getMethod("setEnabledPreferencesMenu", new Class[] {boolean.class});
 //                enablePreferenceMethod.invoke(app, new Object[] {Boolean.TRUE});
-
             } catch (NoSuchMethodException ex) {
                 ex.printStackTrace();
             } catch (SecurityException ex) {
@@ -2978,14 +2966,12 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
             return;
         }
 
-
 //        AboutDialog aboutDlg = new AboutDialog();
 //        aboutDlg.setApplicationName(Constants.APP_NAME);
 //        aboutDlg.setVersionInfo(Constants.VERSION);
 //        aboutDlg.setCopyrightNotice(Constants.COPYRIGHT);
 //        aboutDlg.centerDialog(this);
 //        aboutDlg.setVisible(true);
-
         VDialog.showMessageDialog(getCurrentCanvas(),
                 "About",
                 "<html><div align=Center>"
@@ -3043,10 +3029,10 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 } catch (IOException ex) {
                     Logger.getLogger(Studio.class.getName()).
                             log(Level.SEVERE, null, ex);
-                    VDialog.AnswerType result =
-                            VDialog.showConfirmDialog(getCurrentCanvas(),
-                            "Error while saving project!",
-                            "Dou you still want to proceed?", VDialog.YES_NO);
+                    VDialog.AnswerType result
+                            = VDialog.showConfirmDialog(getCurrentCanvas(),
+                                    "Error while saving project!",
+                                    "Dou you still want to proceed?", VDialog.YES_NO);
 
                     if (result == VDialog.NO) {
                         return;
@@ -3077,10 +3063,10 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 Logger.getLogger(Studio.class.getName()).
                         log(Level.SEVERE, null, ex);
 
-                VDialog.AnswerType result =
-                        VDialog.showConfirmDialog(getCurrentCanvas(),
-                        "Error while closing project!",
-                        "Dou you still want to proceed?", VDialog.YES_NO);
+                VDialog.AnswerType result
+                        = VDialog.showConfirmDialog(getCurrentCanvas(),
+                                "Error while closing project!",
+                                "Dou you still want to proceed?", VDialog.YES_NO);
                 if (result == VDialog.YES) {
                     System.out.println(">> quit.");
                     VRL.exit(0);
@@ -3099,7 +3085,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
      */
     public javax.swing.JSplitPane getSplitPane() {
         return splitPane;
-
 
     }
 
@@ -3136,7 +3121,8 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         try {
             updater.setUpdateURL(
                     new URL(url.getProtocol() + "://" + url.getHost() + url.getPath()
-                    + "/" + VSysUtil.getOSName() + "/repository.xml"));
+                            + "/" + VSysUtil.getOSName() + "/repository.xml"));
+            
         } catch (MalformedURLException ex) {
             Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -1,4 +1,20 @@
 -----------------------------------------------
+Version:	v0.4.5.5
+Date:		Fri, 14 Jun 2013 14:50:29 +0200
+-----------------------------------------------
+
+        Features:
+    
+    VRL-Studio uses new VRL features to export projects as
+    console applications. All plugins used py the project are
+    included
+    
+    Fixes:
+    
+       - fixed issue #2:https://github.com/miho/VRL-Studio/issues/2
+         "install plugin" dialog now uses  defaultDir from FileDialogManager
+
+-----------------------------------------------
 Version:	v0.4.5.4
 Date:		Mon, 29 Apr 2013 19:45:46 +0200
 -----------------------------------------------

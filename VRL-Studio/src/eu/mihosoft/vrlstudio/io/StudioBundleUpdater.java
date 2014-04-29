@@ -168,6 +168,11 @@ public class StudioBundleUpdater {
         IOUtil.deleteDirectory(prevVersion);
         // move current (old) version to PREV-Version
         IOUtil.move(options.getTargetFolder(), prevVersion);
+        //if (VSysUtil.isWindows()) {
+        //    IOUtil.copyDirectory(options.getTargetFolder(), prevVersion);
+        //} else {
+        //    IOUtil.move(options.getTargetFolder(), prevVersion);
+        //}
 
 //        IOUtil.deleteDirectory(options.getTargetFolder());
 
@@ -232,7 +237,7 @@ public class StudioBundleUpdater {
     }
 
     /**
-     * Creates the update bundle in a temorary folder.
+     * Creates the update bundle in a temporary folder.
      *
      * <p><b>Note:</b> only call this from Studio process.</p>
      *
@@ -438,7 +443,7 @@ public class StudioBundleUpdater {
     }
 
     /**
-     * Runs the updates Studio process.
+     * Runs the updated Studio process.
      *
      * <p><b>Note:</b> only call this from update process.</p>
      *

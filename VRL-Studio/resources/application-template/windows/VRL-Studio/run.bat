@@ -1,10 +1,9 @@
 @echo off
 set CONF=-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix default -plugin-checksum-test no
 
-set APPDIR="%CD%\.application"
+set APPDIR="%~dp0\.application"
 
 cd "%APPDIR%"
-
 
 set LIBDIR32=%pwd%lib\windows\x86;custom-lib\windows\x86
 set LIBDIR64=%pwd%lib\windows\x64;custom-lib\windows\x64
