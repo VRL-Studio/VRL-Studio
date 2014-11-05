@@ -16,7 +16,7 @@ and experimentation.
 
 - Java >= 1.6 
 - NetBeans >= 7.01
-- [VRL](https://github.com/miho/VRL)
+- [VRL](https://github.com/VRL-Studio/VRL)
 
 ## How To Build
 
