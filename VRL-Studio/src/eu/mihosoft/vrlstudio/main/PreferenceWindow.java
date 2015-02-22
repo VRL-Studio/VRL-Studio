@@ -116,6 +116,9 @@ public class PreferenceWindow extends javax.swing.JFrame {
         createVersionOnSaveCheckBox = new javax.swing.JCheckBox();
         flushOnSaveCheckBox = new javax.swing.JCheckBox();
         enableAdvancedOptionsCheckBox = new javax.swing.JCheckBox();
+        jPanel19 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
+        enableAutoScrollCheckBox = new javax.swing.JCheckBox();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
@@ -148,18 +151,19 @@ public class PreferenceWindow extends javax.swing.JFrame {
         showDebugMenu = new javax.swing.JCheckBox();
         showOutCheckBox = new javax.swing.JCheckBox();
         showErrCheckBox = new javax.swing.JCheckBox();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
-        jButton3 = new javax.swing.JButton();
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jPanel25 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jButton2 = new javax.swing.JButton();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jButton3 = new javax.swing.JButton();
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -301,7 +305,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(enableAdvancedOptionsCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+                .addComponent(enableAdvancedOptionsCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -311,12 +315,60 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
                 .addComponent(enableAdvancedOptionsCheckBox)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("General", jPanel9);
+
+        jPanel19.setOpaque(false);
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder("Auto Scroll"));
+
+        enableAutoScrollCheckBox.setSelected(true);
+        enableAutoScrollCheckBox.setText("Enable Auto Scroll (scrollbars follow dragged content)");
+        enableAutoScrollCheckBox.setToolTipText("If enabled, dragging windows to the right or bottom\nborder will cause the scrollbars to follow the drag gesture.");
+        enableAutoScrollCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enableAutoScrollCheckBoxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(enableAutoScrollCheckBox)
+                .addContainerGap(329, Short.MAX_VALUE))
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(enableAutoScrollCheckBox)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        enableAutoScrollCheckBox.getAccessibleContext().setAccessibleName("Enable Auto Scroll");
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 417, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("User Interface", jPanel19);
+        jPanel19.getAccessibleContext().setAccessibleName("User Interface");
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Updates"));
         jPanel13.setOpaque(false);
@@ -401,7 +453,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
         );
         updateSourceLogPanelLayout.setVerticalGroup(
             updateSourceLogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 132, Short.MAX_VALUE)
+            .addGap(0, 178, Short.MAX_VALUE)
         );
 
         jLabel6.setText("Public Key:");
@@ -432,7 +484,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,7 +492,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                                 .addComponent(updateSourceKeyLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chooseUpdateKyFileBtn))
-                            .addComponent(updateSourceURLLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE))
+                            .addComponent(updateSourceURLLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel17Layout.setVerticalGroup(
@@ -613,7 +665,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addComponent(showOutCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(showErrCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -632,6 +684,45 @@ public class PreferenceWindow extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Development", jPanel10);
+
+        jPanel25.setOpaque(false);
+        jPanel25.setLayout(new javax.swing.BoxLayout(jPanel25, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Plugin Cache"));
+        jPanel5.setOpaque(false);
+
+        jLabel2.setText("<html><p><b>Description:</b></p><br><p>The plugin cache contains plugin/library information that can improves startup time. On some systems the cache may cause problems with newly installled plugins. Delete the plugin cache if newly installed plugins are not detected and restart VRL-Studio.</p></html>");
+
+        jPanel6.setOpaque(false);
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel6.add(filler3);
+
+        jButton2.setText("Delete Plugin Cache");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton2);
+        jPanel6.add(filler4);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel25.add(jPanel5);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Bundled Software"));
 
@@ -657,8 +748,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -666,47 +757,12 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("Bundled Software", jPanel4);
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Plugin Cache"));
-        jPanel5.setOpaque(false);
-
-        jLabel2.setText("<html><p><b>Description:</b></p><br><p>The plugin cache contains plugin/library information that can improves startup time. On some systems the cache may cause problems with newly installled plugins. Delete the plugin cache if newly installed plugins are not detected and restart VRL-Studio.</p></html>");
-
-        jPanel6.setOpaque(false);
-        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.LINE_AXIS));
-        jPanel6.add(filler3);
-
-        jButton2.setText("Delete Plugin Cache");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jButton2);
-        jPanel6.add(filler4);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 340, Short.MAX_VALUE)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jTabbedPane1.addTab("Plugin Cache", jPanel5);
+        jPanel25.add(jPanel4);
+        jPanel4.getAccessibleContext().setAccessibleName("Plugins");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Preference Folder"));
         jPanel2.setOpaque(false);
@@ -739,14 +795,14 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)))
+                        .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -758,11 +814,13 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 301, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jTabbedPane1.addTab("Property Folder", jPanel2);
+        jPanel25.add(jPanel2);
+
+        jTabbedPane1.addTab("Plugins", jPanel25);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -796,38 +854,37 @@ public class PreferenceWindow extends javax.swing.JFrame {
         if (config.containsProperty(RESTORE_WIN_POS_KEY)) {
             restoreWinPosOnStartCheckBox.setSelected(
                     Boolean.parseBoolean(
-                    config.getProperty(RESTORE_WIN_POS_KEY)));
+                            config.getProperty(RESTORE_WIN_POS_KEY)));
         }
 
         if (config.containsProperty(LoggingController.SHOW_OUT_LOG_KEY)) {
             showOutCheckBox.setSelected(
                     Boolean.parseBoolean(
-                    config.getProperty(LoggingController.SHOW_OUT_LOG_KEY)));
+                            config.getProperty(LoggingController.SHOW_OUT_LOG_KEY)));
         }
 
         if (config.containsProperty(LoggingController.SHOW_ERR_LOG_KEY)) {
             showErrCheckBox.setSelected(
                     Boolean.parseBoolean(
-                    config.getProperty(LoggingController.SHOW_ERR_LOG_KEY)));
+                            config.getProperty(LoggingController.SHOW_ERR_LOG_KEY)));
         }
 
         if (config.containsProperty(DIALOG_ON_START_KEY)) {
             showDialogOnStartCheckBox.setSelected(
                     Boolean.parseBoolean(
-                    config.getProperty(DIALOG_ON_START_KEY)));
+                            config.getProperty(DIALOG_ON_START_KEY)));
         }
-
 
         if (config.containsProperty(CanvasConfig.SHOW_INVOCATION_KEY)) {
             enableInvokationVisualization.setSelected(
                     Boolean.parseBoolean(
-                    config.getProperty(CanvasConfig.SHOW_INVOCATION_KEY)));
+                            config.getProperty(CanvasConfig.SHOW_INVOCATION_KEY)));
         }
 
         if (config.containsProperty(CanvasConfig.INVOCATION_DELAY_KEY)) {
             invocationSlider.setValue(
                     Integer.parseInt(
-                    config.getProperty(CanvasConfig.INVOCATION_DELAY_KEY)));
+                            config.getProperty(CanvasConfig.INVOCATION_DELAY_KEY)));
             delayLabel.setText(invocationSlider.getValue() + " ms");
         }
 
@@ -853,7 +910,6 @@ public class PreferenceWindow extends javax.swing.JFrame {
         delayLabel.setEnabled(enableInvokationVisualization.isSelected());
         invocationDelayTitle.setEnabled(enableInvokationVisualization.isSelected());
 
-
         if (config.containsProperty(CanvasConfig.CREATE_VERSION_ON_SAVE_KEY)) {
             Boolean b = Boolean.parseBoolean(
                     config.getProperty(CanvasConfig.CREATE_VERSION_ON_SAVE_KEY));
@@ -873,15 +929,22 @@ public class PreferenceWindow extends javax.swing.JFrame {
         }
 
         if (config.containsProperty(UPDATE_URL_KEY)) {
-            String url =
-                    config.getProperty(UPDATE_URL_KEY);
+            String url
+                    = config.getProperty(UPDATE_URL_KEY);
             updateSourceURLLabel.setText(url);
         }
 
         if (config.containsProperty(UPDATE_KEY_KEY)) {
-            String key =
-                    config.getProperty(UPDATE_KEY_KEY);
+            String key
+                    = config.getProperty(UPDATE_KEY_KEY);
             updateSourceKeyLabel.setText(key);
+        }
+
+        // ui
+        if (config.containsProperty(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY)) {
+            Boolean b = Boolean.parseBoolean(
+                    config.getProperty(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY));
+            enableAutoScrollCheckBox.setSelected(b);
         }
     }
 
@@ -1134,8 +1197,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 UPDATE_KEY_KEY, updateSourceKeyLabel.getText());
         config.save();
 
-        CanvasConfig canvasConfig =
-                new CanvasConfig(studio.getCurrentCanvas());
+        CanvasConfig canvasConfig
+                = new CanvasConfig(studio.getCurrentCanvas());
         canvasConfig.configChanged(UPDATE_URL_KEY,
                 updateSourceURLLabel.getText());
         canvasConfig.configChanged(UPDATE_KEY_KEY,
@@ -1144,7 +1207,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
         studio.setUpateSource(url);
         studio.setUpdateKeyPath(keyPath);
         studio.checkForUpdates();
-        
+
         close();
     }//GEN-LAST:event_setURLBtnActionPerformed
 
@@ -1161,6 +1224,16 @@ public class PreferenceWindow extends javax.swing.JFrame {
             updateSourceKeyLabel.setText(keyPath.getAbsolutePath());
         }
     }//GEN-LAST:event_chooseUpdateKyFileBtnActionPerformed
+
+    private void enableAutoScrollCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableAutoScrollCheckBoxActionPerformed
+        config.setProperty(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY, ""
+                + enableAutoScrollCheckBox.isSelected());
+        config.save();
+
+        CanvasConfig canvasConfig = new CanvasConfig(studio.getCurrentCanvas());
+        canvasConfig.configChanged(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY,
+                "" + enableAutoScrollCheckBox.isSelected());
+    }//GEN-LAST:event_enableAutoScrollCheckBoxActionPerformed
 
     public void close() {
         setVisible(false);
@@ -1217,6 +1290,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox createVersionOnSaveCheckBox;
     private javax.swing.JLabel delayLabel;
     private javax.swing.JCheckBox enableAdvancedOptionsCheckBox;
+    private javax.swing.JCheckBox enableAutoScrollCheckBox;
     private javax.swing.JCheckBox enableInvokationVisualization;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
@@ -1253,7 +1327,10 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;

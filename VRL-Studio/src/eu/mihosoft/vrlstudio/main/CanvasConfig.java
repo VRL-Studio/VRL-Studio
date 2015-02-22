@@ -49,7 +49,6 @@
  * A Framework for Declarative GUI Programming on the Java Platform.
  * Computing and Visualization in Science, 2011, in press.
  */
-
 package eu.mihosoft.vrlstudio.main;
 
 import eu.mihosoft.vrl.io.ConfigurationFile;
@@ -68,6 +67,7 @@ public class CanvasConfig {
     static final String VISUAL_SAVE_KEY = "Project:visual-save";
     static final String CREATE_VERSION_ON_SAVE_KEY = "Project:create-version-on-save";
     static final String FLUSH_ON_SAVE_KEY = "Project:flush-on-save";
+    static final String ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY = "Canvas:auto-scroll-with-dragged-content:enable";
     private VisualCanvas canvas;
 
     public CanvasConfig(VisualCanvas canvas) {
@@ -97,6 +97,9 @@ public class CanvasConfig {
         } else if (key.equals(CanvasConfig.FLUSH_ON_SAVE_KEY)) {
             Boolean b = Boolean.parseBoolean(value);
             canvas.getProjectController().setFlushOnSave(b);
+        } else if (key.equals(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY)) {
+            Boolean b = Boolean.parseBoolean(value);
+            canvas.setAutoScrollEnabled(b);
         }
     }
 
@@ -149,6 +152,12 @@ public class CanvasConfig {
             if (canvas.getProjectController() != null) {
                 canvas.getProjectController().setFlushOnSave(b);
             }
+        }
+
+        if (config.containsProperty(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY)) {
+            Boolean b = Boolean.parseBoolean(config.getProperty(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY));
+
+            canvas.setAutoScrollEnabled(b);
         }
     }
 }
