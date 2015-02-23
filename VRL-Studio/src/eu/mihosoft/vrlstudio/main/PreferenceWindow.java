@@ -119,6 +119,9 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel19 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         enableAutoScrollCheckBox = new javax.swing.JCheckBox();
+        sensitiveBorderSizeSlider = new javax.swing.JSlider();
+        sensitiveBorderSizeTitleLabel = new javax.swing.JLabel();
+        sensitiveBorderSizeLabel = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
@@ -335,21 +338,51 @@ public class PreferenceWindow extends javax.swing.JFrame {
             }
         });
 
+        sensitiveBorderSizeSlider.setMajorTickSpacing(10);
+        sensitiveBorderSizeSlider.setMinorTickSpacing(5);
+        sensitiveBorderSizeSlider.setPaintTicks(true);
+        sensitiveBorderSizeSlider.setSnapToTicks(true);
+        sensitiveBorderSizeSlider.setToolTipText("Defines the sensitive border size, i.e., the\nspace between dragged content the border\nthat triggers the autoscroll gesture.");
+        sensitiveBorderSizeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sensitiveBorderSizeSliderStateChanged(evt);
+            }
+        });
+
+        sensitiveBorderSizeTitleLabel.setText("Sensitiv Border Size:");
+
+        sensitiveBorderSizeLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        sensitiveBorderSizeLabel.setText("10 px");
+
         javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(enableAutoScrollCheckBox)
-                .addContainerGap(329, Short.MAX_VALUE))
+                .addGap(0, 335, Short.MAX_VALUE))
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel20Layout.createSequentialGroup()
+                        .addComponent(sensitiveBorderSizeTitleLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sensitiveBorderSizeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sensitiveBorderSizeSlider, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(enableAutoScrollCheckBox)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sensitiveBorderSizeTitleLabel)
+                    .addComponent(sensitiveBorderSizeLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sensitiveBorderSizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         enableAutoScrollCheckBox.getAccessibleContext().setAccessibleName("Enable Auto Scroll");
@@ -364,7 +397,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 417, Short.MAX_VALUE))
+                .addGap(0, 351, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("User Interface", jPanel19);
@@ -557,14 +590,14 @@ public class PreferenceWindow extends javax.swing.JFrame {
         invocationSlider.setSnapToTicks(true);
         invocationSlider.setToolTipText("Delay Invokation of each Method for Debugging Purposes");
         invocationSlider.setValue(0);
-        invocationSlider.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                invocationSliderMouseReleased(evt);
-            }
-        });
         invocationSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 invocationSliderStateChanged(evt);
+            }
+        });
+        invocationSlider.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                invocationSliderMouseReleased(evt);
             }
         });
 
@@ -946,6 +979,18 @@ public class PreferenceWindow extends javax.swing.JFrame {
                     config.getProperty(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY));
             enableAutoScrollCheckBox.setSelected(b);
         }
+        
+        if (config.containsProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY)) {
+            Integer i = Integer.parseInt(
+                    config.getProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY));
+            sensitiveBorderSizeSlider.setValue(i);
+            sensitiveBorderSizeLabel.setText(i + " px");
+        }
+        
+        sensitiveBorderSizeTitleLabel.setEnabled(enableAutoScrollCheckBox.isSelected());
+        sensitiveBorderSizeLabel.setEnabled(enableAutoScrollCheckBox.isSelected());
+        sensitiveBorderSizeSlider.setEnabled(enableAutoScrollCheckBox.isSelected());
+        
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1233,7 +1278,26 @@ public class PreferenceWindow extends javax.swing.JFrame {
         CanvasConfig canvasConfig = new CanvasConfig(studio.getCurrentCanvas());
         canvasConfig.configChanged(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY,
                 "" + enableAutoScrollCheckBox.isSelected());
+        
+        sensitiveBorderSizeTitleLabel.setEnabled(enableAutoScrollCheckBox.isSelected());
+        sensitiveBorderSizeLabel.setEnabled(enableAutoScrollCheckBox.isSelected());
+        sensitiveBorderSizeSlider.setEnabled(enableAutoScrollCheckBox.isSelected());
+        
     }//GEN-LAST:event_enableAutoScrollCheckBoxActionPerformed
+
+    private void sensitiveBorderSizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sensitiveBorderSizeSliderStateChanged
+        int value = sensitiveBorderSizeSlider.getValue();
+        
+        sensitiveBorderSizeLabel.setText(value + " px");
+        
+        config.setProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY, ""
+                + value);
+        config.save();
+
+        CanvasConfig canvasConfig = new CanvasConfig(studio.getCurrentCanvas());
+        canvasConfig.configChanged(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY,
+                "" + value);
+    }//GEN-LAST:event_sensitiveBorderSizeSliderStateChanged
 
     public void close() {
         setVisible(false);
@@ -1341,6 +1405,9 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField preferenceFolderLocation;
     private javax.swing.JCheckBox restoreWinPosOnStartCheckBox;
+    private javax.swing.JLabel sensitiveBorderSizeLabel;
+    private javax.swing.JSlider sensitiveBorderSizeSlider;
+    private javax.swing.JLabel sensitiveBorderSizeTitleLabel;
     private javax.swing.JButton setURLBtn;
     private javax.swing.JCheckBox showDebugMenu;
     private javax.swing.JCheckBox showDialogOnStartCheckBox;

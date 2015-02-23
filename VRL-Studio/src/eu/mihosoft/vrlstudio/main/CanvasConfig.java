@@ -68,6 +68,7 @@ public class CanvasConfig {
     static final String CREATE_VERSION_ON_SAVE_KEY = "Project:create-version-on-save";
     static final String FLUSH_ON_SAVE_KEY = "Project:flush-on-save";
     static final String ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY = "Canvas:auto-scroll-with-dragged-content:enable";
+    static final String AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY = "Canvas:auto-scroll-with-dragged-content:sensitive-border-size";
     private VisualCanvas canvas;
 
     public CanvasConfig(VisualCanvas canvas) {
@@ -100,7 +101,11 @@ public class CanvasConfig {
         } else if (key.equals(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY)) {
             Boolean b = Boolean.parseBoolean(value);
             canvas.setAutoScrollEnabled(b);
+        }  else if (key.equals(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY)) {
+            Integer i = Integer.parseInt(value);
+            canvas.setAutoScrollSensitiveBorderSize(i);
         }
+        
     }
 
     public void init(ConfigurationFile config) {
@@ -158,6 +163,11 @@ public class CanvasConfig {
             Boolean b = Boolean.parseBoolean(config.getProperty(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY));
 
             canvas.setAutoScrollEnabled(b);
+        }
+        
+        if (config.containsProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY)) {
+            Integer i = Integer.parseInt(config.getProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY));
+            canvas.setAutoScrollSensitiveBorderSize(i);
         }
     }
 }
