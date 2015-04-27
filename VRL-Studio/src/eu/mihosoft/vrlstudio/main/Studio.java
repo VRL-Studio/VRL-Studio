@@ -2493,6 +2493,8 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         //
         evaluator.setRenderingOptions(args);
         //
+        
+        
 
         VSwingUtil.invokeLater(
                 new Runnable() {
@@ -2513,6 +2515,22 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                             = Boolean.parseBoolean(config.getProperty(
                                             PreferenceWindow.DIALOG_ON_START_KEY));
                         }
+                        
+                        // 27.04.2015: error while loading resources in JEditorPane can only
+                        // be prevented by manually defining a context classloader
+                        //
+                        // Exception in thread "AWT-EventQueue-0" java.lang.NullPointerException
+                        // at java.util.Hashtable.put(Hashtable.java:459)
+                        // at javax.swing.JEditorPane.registerEditorKitForContentType(JEditorPane.java:1247)
+                        // at javax.swing.JEditorPane.registerEditorKitForContentType(JEditorPane.java:1229)
+                        // at javax.swing.JEditorPane.loadDefaultKitsIfNecessary(JEditorPane.java:1307)
+                        // at javax.swing.JEditorPane.getKitTypeRegistry(JEditorPane.java:1264)
+                        // at javax.swing.JEditorPane.getEditorKitClassNameForContentType(JEditorPane.java:1260)
+                        // at javax.swing.JTextPane.<init>(JTextPane.java:94)
+                        // at eu.mihosoft.vrl.visual.MessageBox.<init>(MessageBox.java:143)
+                        //
+                        // http://lists.apple.com/archives/java-dev/2009/Dec/msg00074.html
+                        Thread.currentThread().setContextClassLoader(Studio.class.getClassLoader());
 
                         Studio frame = new Studio();
                         frame.studioConfig = config;
