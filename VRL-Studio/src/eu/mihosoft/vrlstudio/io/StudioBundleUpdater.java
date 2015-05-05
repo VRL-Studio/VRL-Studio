@@ -553,22 +553,7 @@ public class StudioBundleUpdater {
                         options.getTargetFolder().getAbsoluteFile().
                         getParentFile().getAbsolutePath()});
 
-                // TODO why does waitFor() hang? (29.01.2013)
-//                try {
-//                    p.waitFor();
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(StudioBundleUpdater.class.getName()).
-//                log(Level.SEVERE, null, ex);
-//                }
-
-                BufferedReader input = new BufferedReader(
-                        new InputStreamReader(p.getInputStream()));
-
-                String line = null;
-
-                while ((line = input.readLine()) != null) {
-                    logger.info(" --> updater: " + line);
-                }
+                processOutput(p);
 
 
             } catch (IOException ex) {
@@ -592,6 +577,17 @@ public class StudioBundleUpdater {
                 + " -> " + options.getTargetFolder());
 
         return true;
+    }
+
+    private static void processOutput(Process p) throws IOException {
+        BufferedReader input = new BufferedReader(
+                new InputStreamReader(p.getInputStream()));
+        
+        String line = null;
+        
+        while ((line = input.readLine()) != null) {
+            logger.info(" --> updater: " + line);
+        }
     }
 
     /**
