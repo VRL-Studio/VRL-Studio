@@ -41,6 +41,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>0.3</string>
-	
+
+	<key>NSHighResolutionCapable</key>
+	<string>True</string>
 </dict>
 </plist>

@@ -13,11 +13,9 @@ CONF="-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-
 
 #OSX_CONF="-Xdock:icon=../vrl-icon-osx.icns -Djava.library.path=custom-lib/osx -Xbootclasspath/p:lib/java3d/j3dcore.jar:lib/java3d/j3dutils.jar:lib/osx/jogl.jar:lib/java3d/vecmath.jar:lib/osx/gluegen-rt.jar -Dsun.boot.library.path=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Libraries:lib/osx -Dapple.laf.useScreenMenuBar=true"
 
-#OSX_CONF="-Xdock:icon=../vrl-icon-osx.icns -Dapple.laf.useScreenMenuBar=true -Djava.ext.dirs=lib/ext -cp lib/java3d/jogl-all.jar:lib/java3d/gluegen.jar:lib/java3d/gluegen-rt.jar:lib/java3d/j3dcore.jar:lib/java3d/j3dutils.jar:lib/java3d/vecmath.jar:lib/osx/gluegen-rt-natives-macosx-universal.jar:lib/osx/jogl-all-natives-macosx-universal.jar" 
+#OSX_CONF="-Xdock:icon=../vrl-icon-osx.icns -Dapple.laf.useScreenMenuBar=true -Djava.ext.dirs=lib/ext -cp lib/java3d/jogl-all.jar:lib/java3d/gluegen.jar:lib/java3d/gluegen-rt.jar:lib/java3d/j3dcore.jar:lib/java3d/j3dutils.jar:lib/java3d/vecmath.jar:lib/osx/gluegen-rt-natives-macosx-universal.jar:lib/osx/jogl-all-natives-macosx-universal.jar"
 
-OSX_CONF="-Xdock:icon=../vrl-icon-osx.icns -Dapple.laf.useScreenMenuBar=true  -Djava.ext.dirs=." 
-
-
+OSX_CONF="-Xdock:name=VRL-Studio -Xdock:icon=../vrl-icon-osx.icns -Dapple.laf.useScreenMenuBar=true  -Djava.ext.dirs=."
 
 APPDIR="$(dirname "$0")/../Resources/.application"
 cd "$APPDIR"
@@ -25,9 +23,9 @@ APPDIR="$(pwd)"
 
 if [[ "$(uname)" == "Darwin" ]]
 then
-	cd ../Java
-	
 	echo ">> detected os x: $(pwd)"
+	# drag&drop to the dock icon
+	export CFProcessPath="$0"
 fi
 
 # ugly hack to enable vtk on osx
