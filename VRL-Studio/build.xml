@@ -325,7 +325,7 @@
                         <include name="**/*"/>
                     </fileset>
                 </copy>
-                <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/resources/studio-resources/help">
+                <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/resources/studio-resources/help">
                     <fileset dir="${help.location}">
                         <include name="**/*"/>
                     </fileset>
@@ -349,7 +349,7 @@
                         <include name="**/*"/>
                     </fileset>
                 </copy>
-                <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/resources/studio-resources/property-folder-template">
+                <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/resources/studio-resources/property-folder-template">
                     <fileset dir="${property-folder.location}">
                         <include name="**/*"/>
                     </fileset>
@@ -366,7 +366,7 @@
 
                 <copy overwrite="true" file="${splashscreen.location}" tofile="dist-final/linux/VRL-Studio/.application/resources/studio-resources/splashscreen.png"/>
                 <copy overwrite="true" file="${splashscreen.location}" tofile="dist-final/windows/VRL-Studio/.application/resources/studio-resources/splashscreen.png"/>
-                <copy overwrite="true" file="${splashscreen.location}" tofile="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/resources/studio-resources/splashscreen.png"/>
+                <copy overwrite="true" file="${splashscreen.location}" tofile="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/resources/studio-resources/splashscreen.png"/>
 
             </then>
             <else></else>
