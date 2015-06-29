@@ -237,20 +237,20 @@
                 <include name="**/*"/>
             </fileset>
         </copyWithPerms>
-        
+     
         <!-- APPLICATIONSTUB COMPATIBLE JAR/LIB LOCATION -->
-        
+        <!-- DEACTIVATED 29.06.2015, TODO remove if new version works -->
         <!--Copy studio jar to osx template lib-->
-        <copy file="${dist.jar}" 
-              todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/"/>
+<!--        <copy file="${dist.jar}" 
+              todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/"/>-->
         
         <!--Copy dependencies to osx app destination-->
-        <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/lib">
+<!--        <copy todir="dist-final/osx/VRL-Studio.app/Contents/Resources/Java/lib">
             <fileset dir="${dist.dir}/lib">
                 <include name="**/*"/>
             </fileset>
         </copy>
-        
+        -->
         
         <!-- ******** DEPLOYMENT ******** -->
 
@@ -278,6 +278,19 @@
                 <echo message="JRE for Linux-x64 defined: copy to application-bundle" />
                 <copyWithPerms todir="dist-final/linux/VRL-Studio/.application/jre/x64">
                     <fileset dir="${jre.location.linux.x64}">
+                        <include name="**/*"/>
+                    </fileset>
+                </copyWithPerms>
+            </then>
+            <else></else>
+        </if>
+        
+        <if>
+            <isset property="jre.location.osx"/>
+            <then>
+                <echo message="JRE for OSX defined: copy to application-bundle" />
+                <copyWithPerms todir="dist-final/osx/VRL-Studio.app/Contents/Resources/.application/jre/x64">
+                    <fileset dir="${jre.location.osx}">
                         <include name="**/*"/>
                     </fileset>
                 </copyWithPerms>
