@@ -41,8 +41,12 @@ LIBDIR32="lib/linux/x86:custom-lib/linux/x86"
 LIBDIR64="lib/linux/x64:custom-lib/linux/x64"
 LIBDIROSX=""
 
-
-if [[ $OS == *x86_64* ]]
+if [[ $OS == *Darwin* ]]
+then
+	echo ">> detected x86 (64 bit) os"
+	LIBDIR="$LIBDIR64:$LIBDIROSX"
+	JAVAEXE="jre/x64/bin/java"
+elif [[ $OS == *x86_64* ]]
 then
   echo ">> detected x86 (64 bit) os"
   LIBDIR="$LIBDIR64:$LIBDIROSX"
