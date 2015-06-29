@@ -41,7 +41,7 @@ LIBDIR32="lib/linux/x86:custom-lib/linux/x86"
 LIBDIR64="lib/linux/x64:custom-lib/linux/x64"
 LIBDIROSX=""
 
-if [[ $OS == *Darwin* ]]
+if [[ "$(uname)" == "Darwin" ]]
 then
 	echo ">> detected x86 (64 bit) os"
 	LIBDIR="$LIBDIR64:$LIBDIROSX"
