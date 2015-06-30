@@ -27,7 +27,12 @@ if [[ $OS == *Darwin* ]]
 then
 	echo ">> detected Mac OS X:"
 	# drag&drop to the dock icon
-	export CFProcessPath="$0"
+	if [[ "$1" == "-no-app" ]]
+	then
+		echo " --> disabled d&d and dock events"
+	else
+		export CFProcessPath="$0"
+	fi
 fi
 
 # ugly hack to enable vtk on osx
