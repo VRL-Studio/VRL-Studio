@@ -14,7 +14,7 @@ and experimentation.
 
 ## Dependencies
 
-- Java >= 1.6 
+- Java = 1.8
 - NetBeans >= 7.01
 - [VRL](https://github.com/VRL-Studio/VRL)
 
