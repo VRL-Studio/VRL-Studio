@@ -27,6 +27,9 @@ then
 	else
 		export CFProcessPath="$0"
 	fi
+
+	# find JAVA_HOME on OS X
+	JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
 # ugly hack to enable vtk on osx
