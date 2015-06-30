@@ -14,7 +14,7 @@ and experimentation.
 
 ## Dependencies
 
-- Java >= 1.6 
+- Java = 1.8
 - NetBeans >= 7.01
 - [VRL](https://github.com/VRL-Studio/VRL)
 
@@ -49,13 +49,13 @@ The `build.properties` file in the project folder contains additional configurat
 
 ### Bundled JRE
 
-The following options can be enabled to create bundles that contain a full JRE installation (supported on Linux and
-Windows):
+The following options can be enabled to create bundles that contain a full JRE installation:
 
     jre.location.linux.x86=/path/to/linux/jre/x86/
     jre.location.linux.x64=/path/to/jre/x64/
     jre.location.windows.x86=/path/to/jre/x86/
     jre.location.windows.x64=/path/to/jre/x64/
+    jre.location.osx=/path/to/jre/
 
 ### VRL-Studio Help
 
