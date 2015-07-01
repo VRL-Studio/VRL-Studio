@@ -186,11 +186,10 @@ public class Studio extends javax.swing.JFrame {
                     if (e.getActionCommand().
                             equals(VSwingUtil.EVENT_FILTER_ENABLED_ACTION_CMD)
                             && VDialog.showsDialog()) {
-                        getStudioMenuBar().setEnabled(false);
+                        VSwingUtil.invokeLater(()->getStudioMenuBar().setEnabled(false));
                         eventFilterEnabled = true;
                     } else {
-                        System.out.println("Debug: menu ENABLED");
-                        getStudioMenuBar().setEnabled(true);
+                        VSwingUtil.invokeLater(()->getStudioMenuBar().setEnabled(true));
                         eventFilterEnabled = false;
                     }
                 }
