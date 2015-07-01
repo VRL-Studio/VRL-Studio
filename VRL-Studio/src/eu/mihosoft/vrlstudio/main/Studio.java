@@ -189,6 +189,7 @@ public class Studio extends javax.swing.JFrame {
                         getStudioMenuBar().setEnabled(false);
                         eventFilterEnabled = true;
                     } else {
+                        System.out.println("Debug: menu ENABLED");
                         getStudioMenuBar().setEnabled(true);
                         eventFilterEnabled = false;
                     }
@@ -499,7 +500,7 @@ public class Studio extends javax.swing.JFrame {
                     new File(APP_FOLDER.getAbsolutePath()
                             + StudioBundleUpdater.PREV_VERSION_EXTENSION));
         }
-        
+
         quitApplication();
     }
 
@@ -2493,8 +2494,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         //
         evaluator.setRenderingOptions(args);
         //
-        
-        
 
         VSwingUtil.invokeLater(
                 new Runnable() {
@@ -2515,7 +2514,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                             = Boolean.parseBoolean(config.getProperty(
                                             PreferenceWindow.DIALOG_ON_START_KEY));
                         }
-                        
+
                         // 27.04.2015: error while loading resources in JEditorPane can only
                         // be prevented by manually defining a context classloader
                         //
@@ -3140,7 +3139,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
             updater.setUpdateURL(
                     new URL(url.getProtocol() + "://" + url.getHost() + url.getPath()
                             + "/" + VSysUtil.getOSName() + "/repository.xml"));
-            
+
         } catch (MalformedURLException ex) {
             Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
         }
