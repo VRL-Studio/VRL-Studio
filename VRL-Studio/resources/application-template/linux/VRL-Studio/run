@@ -10,6 +10,9 @@ CONF="-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-
 
 OS=$(uname -a)
 
+# Fixes JFXPanel crash (see issue #17 : https://github.com/VRL-Studio/VRL-Studio/issues/17)
+export JAVA_TOOL_OPTIONS=""
+
 CALL_PATH=$(pwd)
 
 APPDIR="$(dirname "$0")/.application"
@@ -22,15 +25,15 @@ then
 if [[ $OS == *Linux* ]]
 then
   echo ">> detected linux, installing mime-type"
-  
+
   #xdg-icon-resource install --size 512 resources/mime/vrl-studio.png vrl-studio
   #xdg-icon-resource install --context mimetypes --size 512 resources/mime/vrl-studio.png application-x-vrlp
-  
+
 
   cp resources/mime/vrl-studio-template.desktop resources/mime/vrl-studio.desktop
   cp resources/mime/application-x-vrlp-template.xml resources/mime/application-x-vrlp.xml
 
- 
+
   EXEC=$(echo "$APPDIR/../run"| sed 's/\//\\\//g')
   FILE_ICON=$(echo "$APPDIR/resources/mime/vrl-file-icon-512x512.png"| sed 's/\//\\\//g')
   APP_ICON=$(echo "$APPDIR/resources/mime/vrl-app-icon.png"| sed 's/\//\\\//g')
@@ -84,7 +87,7 @@ cat << EOF
 
 ** Help: **
 
-Basic Usage:	
+Basic Usage:
 
 ./run                      Starts VRL-Studio
 ./run file.vrlp            Starts VRL-Studio and opens the project file.vrlp
@@ -165,4 +168,3 @@ $JAVAEXE -Xms64m -Xmx1024m -XX:MaxPermSize=256m -splash:resources/studio-resourc
 
 # experimental
 #java -Xms256m -Xmx1g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=4 -XX:ConcGCThreads=4 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSConcurrentMTEnabled -XX:CMSWaitDuration=200 -XX:+UseParNewGC -XX:MaxPermSize=256m -XX:GCTimeRatio=10 -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
-
