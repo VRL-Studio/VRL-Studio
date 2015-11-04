@@ -97,6 +97,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultEditorKit;
+import org.jogamp.glg2d.GLG2DCanvas;
 
 /**
  *
@@ -154,7 +155,7 @@ public class Studio extends javax.swing.JFrame {
     public Studio() {
         
         // TODO 03.11.2015 performance testing with GLG2DCanvas
-//      setContentPane(new GLG2DCanvas(new JPanel()).getDrawableComponent());
+      setContentPane(new GLG2DCanvas(new JPanel()).getDrawableComponent());
         
         initComponents();
 
