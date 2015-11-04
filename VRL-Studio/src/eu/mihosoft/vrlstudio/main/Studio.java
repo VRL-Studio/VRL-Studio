@@ -152,6 +152,10 @@ public class Studio extends javax.swing.JFrame {
      * Creates new form Studio
      */
     public Studio() {
+        
+        // TODO 03.11.2015 performance testing with GLG2DCanvas
+//      setContentPane(new GLG2DCanvas(new JPanel()).getDrawableComponent());
+        
         initComponents();
 
         // used for shell and debugging
@@ -169,12 +173,13 @@ public class Studio extends javax.swing.JFrame {
 
         // OS X treats ALT key differently. Therefore, we use the shift
         // key as modifier on OS X.
+        // TODO check whether still necessary with 1.8u66 (04.11.2015)
         int downMask;
-        if (VSysUtil.isMacOSX()) {
-            downMask = KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK;
-        } else {
+//        if (VSysUtil.isMacOSX()) {
+//            downMask = KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK;
+//        } else {
             downMask = KeyEvent.CTRL_DOWN_MASK | KeyEvent.ALT_DOWN_MASK;
-        }
+//        }
 
         versionManagementMenuItem.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_V, downMask));
