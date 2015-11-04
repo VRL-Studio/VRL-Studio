@@ -167,13 +167,20 @@ public class Studio extends javax.swing.JFrame {
         newSessionItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
 
+        // OS X treats ALT key differently. Therefore, we use the shift
+        // key as modifier on OS X.
+        int downMask;
+        if (VSysUtil.isMacOSX()) {
+            downMask = KeyEvent.CTRL_DOWN_MASK | KeyEvent.SHIFT_DOWN_MASK;
+        } else {
+            downMask = KeyEvent.CTRL_DOWN_MASK | KeyEvent.ALT_DOWN_MASK;
+        }
+
         versionManagementMenuItem.setAccelerator(
-                KeyStroke.getKeyStroke(KeyEvent.VK_V,
-                        KeyEvent.CTRL_DOWN_MASK | KeyEvent.ALT_DOWN_MASK));
+                KeyStroke.getKeyStroke(KeyEvent.VK_V, downMask));
 
         newComponentMenuItem.setAccelerator(KeyStroke.getKeyStroke(
-                KeyEvent.VK_N,
-                KeyEvent.CTRL_DOWN_MASK | KeyEvent.ALT_DOWN_MASK));
+                KeyEvent.VK_N, downMask));
 
         if (VSysUtil.isMacOSX()) {
             quitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
@@ -186,10 +193,10 @@ public class Studio extends javax.swing.JFrame {
                     if (e.getActionCommand().
                             equals(VSwingUtil.EVENT_FILTER_ENABLED_ACTION_CMD)
                             && VDialog.showsDialog()) {
-                        VSwingUtil.invokeLater(()->getStudioMenuBar().setEnabled(false));
+                        VSwingUtil.invokeLater(() -> getStudioMenuBar().setEnabled(false));
                         eventFilterEnabled = true;
                     } else {
-                        VSwingUtil.invokeLater(()->getStudioMenuBar().setEnabled(true));
+                        VSwingUtil.invokeLater(() -> getStudioMenuBar().setEnabled(true));
                         eventFilterEnabled = false;
                     }
                 }
@@ -255,35 +262,22 @@ public class Studio extends javax.swing.JFrame {
 
         initCanvas(mainCanvas);
 
-//        VShortCutAction searchDialogAction = new VShortCutAction(
-//                new VShortCut("Search-Dialog",
-//                new VKey(KeyEvent.VK_CONTROL),
-//                new VKey(KeyEvent.VK_SPACE))) {
-//            @Override
-//            public void performAction() {
-//
-//                // leave this code in release mode to find a bug where
-//                // search dialog does not appear
-//                System.out.println(">> ctrl-space pressed");
-//
-//                if (!projectController.getCurrentCanvas().
-//                        isIgnoreInput()) {
-//
-//                    // leave this code in release mode to find a bug where
-//                    // search dialog does not appear
-//                    System.out.println(" --> toggle search-dialog");
-//
-//                    ComponentManagement.toggleSearchDialog(
-//                            projectController.getCurrentCanvas());
-//                }
-//            }
-//        };
-//        VSwingUtil.registerShortCutAction(searchDialogAction);
+        VKey[] keys = {
+            new VKey(KeyEvent.VK_CONTROL),
+            null,
+            new VKey(KeyEvent.VK_M)
+        };
+
+        // OS X treats ALT key differently. Therefore, we use the shift
+        // key as modifier on OS X.
+        if (VSysUtil.isMacOSX()) {
+            keys[1] = new VKey(KeyEvent.VK_SHIFT);
+        } else {
+            keys[1] = new VKey(KeyEvent.VK_ALT);
+        }
+
         VShortCutAction mouseLocationAction = new VShortCutAction(
-                new VShortCut("Mouse-Location",
-                        new VKey(KeyEvent.VK_CONTROL),
-                        new VKey(KeyEvent.VK_ALT),
-                        new VKey(KeyEvent.VK_M))) {
+                new VShortCut("Mouse-Location", keys)) {
                     @Override
                     public void performAction() {
 
@@ -299,22 +293,6 @@ public class Studio extends javax.swing.JFrame {
 
         VSwingUtil.registerShortCutAction(mouseLocationAction);
 
-//        VShortCutAction keyVisualizerAction = new VShortCutAction(
-//                new VShortCut("Key-View",
-//                new VKey(KeyEvent.VK_CONTROL),
-//                new VKey(KeyEvent.VK_ALT),
-//                new VKey(KeyEvent.VK_K))) {
-//
-//            @Override
-//            public void performAction() {
-//
-//                if (!projectController.getCurrentCanvas().
-//                        isIgnoreInput()) {
-//                }
-//            }
-//        };
-//
-//        VSwingUtil.registerShortCutAction(keyVisualizerAction);
         mainCanvas.getEffectPane().startSpot();
         mainCanvas.setIgnoreInput(true);
 
