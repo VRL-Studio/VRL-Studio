@@ -309,6 +309,7 @@ public class HelpPDFViewer extends JFrame {
         list[0] = start;
         start.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (currentFile != null && currentPage != 1) {
                     currentPage = 1;
@@ -339,6 +340,7 @@ public class HelpPDFViewer extends JFrame {
         list[1] = fback;
         fback.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (currentFile != null && currentPage > 10) {
                     currentPage -= 10;
@@ -369,6 +371,7 @@ public class HelpPDFViewer extends JFrame {
         list[2] = back;
         back.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (currentFile != null && currentPage > 1) {
                     currentPage -= 1;
@@ -390,6 +393,7 @@ public class HelpPDFViewer extends JFrame {
         pageCounter2.setEditable(true);
         pageCounter2.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent a) {
 
                 String value = pageCounter2.getText().trim();
@@ -438,6 +442,7 @@ public class HelpPDFViewer extends JFrame {
         list[8] = forward;
         forward.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (currentFile != null && currentPage < pdfDecoder.getPageCount()) {
                     currentPage += 1;
@@ -499,6 +504,7 @@ public class HelpPDFViewer extends JFrame {
         list[10] = end;
         end.addActionListener(new ActionListener() {
 
+            @Override
             public void actionPerformed(ActionEvent e) {
                 if (currentFile != null && currentPage < pdfDecoder.getPageCount()) {
                     currentPage = pdfDecoder.getPageCount();
