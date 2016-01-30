@@ -12,7 +12,7 @@ if defined ProgramW6432 (
   @echo detected 64-bit OS
   set LIBDIR=%LIBDIR64%
   set JAVAEXE=jre/x64/bin/java
-  set MAXHEAP=1024
+  set MAXHEAP=4096
 
 ) else (
   @echo detected 32-bit OS
@@ -29,5 +29,8 @@ REM start /min /realtime %JAVAEXE% -Xms64m -Xmx512m -XX:+UseConcMarkSweepGC -XX:
 
 REM optimized for jre 7 (19.04.2012)
 start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -XX:MaxPermSize=256m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
+
+REM optimized for jre 8 (30.01.2016)
+start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
 
 exit

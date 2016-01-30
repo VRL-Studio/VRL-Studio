@@ -78,7 +78,7 @@ echo ">> ext-dir: $JRE_EXT_DIR"
 
 OSX_CONF="-Xdock:name=VRL-Studio -Xdock:icon=../vrl-icon-osx.icns -Dapple.laf.useScreenMenuBar=true -Djava.ext.dirs=$JRE_EXT_DIR"
 
-$JAVAEXE -Xms64m -Xmx4096m -splash:resources/studio-resources/splashscreen.png $OSX_CONF -jar VRL-Studio.jar $CONF "-file" "$@"
+$JAVAEXE -Xms64m -Xmx4096m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources/studio-resources/splashscreen.png $OSX_CONF -jar VRL-Studio.jar $CONF "-file" "$@"
 
 #PID=$!
 #wait $PID
