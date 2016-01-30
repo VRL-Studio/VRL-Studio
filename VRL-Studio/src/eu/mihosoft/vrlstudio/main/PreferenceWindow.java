@@ -57,6 +57,7 @@ import eu.mihosoft.vrl.io.ConfigurationFile;
 import eu.mihosoft.vrl.io.IOUtil;
 import eu.mihosoft.vrl.system.PluginCacheController;
 import eu.mihosoft.vrl.system.VRL;
+import java.awt.HeadlessException;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -122,6 +123,11 @@ public class PreferenceWindow extends javax.swing.JFrame {
         sensitiveBorderSizeSlider = new javax.swing.JSlider();
         sensitiveBorderSizeTitleLabel = new javax.swing.JLabel();
         sensitiveBorderSizeLabel = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
+        sensitiveBorderSizeTitleLabel1 = new javax.swing.JLabel();
+        graphicsTypeGl2dRb = new javax.swing.JRadioButton();
+        graphicsTypeDefaultRb = new javax.swing.JRadioButton();
+        jLabel7 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
@@ -133,15 +139,19 @@ public class PreferenceWindow extends javax.swing.JFrame {
         checkForUpdatesBtn = new javax.swing.JButton();
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPanel17 = new javax.swing.JPanel();
-        updateSourceURLLabel = new javax.swing.JTextField();
+        updateSourceURLTf = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         setURLBtn = new javax.swing.JButton();
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jPanel22 = new javax.swing.JPanel();
+        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        setDefaultURLBtn = new javax.swing.JButton();
+        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         updateSourceLogPanel = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        updateSourceKeyLabel = new javax.swing.JTextField();
+        updateSourceKeyTf = new javax.swing.JTextField();
         chooseUpdateKyFileBtn = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -382,22 +392,83 @@ public class PreferenceWindow extends javax.swing.JFrame {
                     .addComponent(sensitiveBorderSizeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sensitiveBorderSizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         enableAutoScrollCheckBox.getAccessibleContext().setAccessibleName("Enable Auto Scroll");
+
+        jPanel21.setBorder(javax.swing.BorderFactory.createTitledBorder("Graphics Engine"));
+
+        sensitiveBorderSizeTitleLabel1.setText("Type:");
+
+        graphicsTypeGl2dRb.setText("GL2D (OpenGL based, experimental)");
+        graphicsTypeGl2dRb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphicsTypeGl2dRbActionPerformed(evt);
+            }
+        });
+
+        graphicsTypeDefaultRb.setText("System Default (recommended)");
+        graphicsTypeDefaultRb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphicsTypeDefaultRbActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("<html><p><b>Description:</b></p><br><p>The graphics engine is responsible for rendering the user interface. In most cases the default engine should be used.</p><br><p>The GL2D engine uses native OpenGL for rendering. It should only be used by developers.</p></html>");
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(graphicsTypeDefaultRb)
+                            .addComponent(graphicsTypeGl2dRb)))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(sensitiveBorderSizeTitleLabel1)))
+                .addContainerGap(411, Short.MAX_VALUE))
+            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                    .addContainerGap(317, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(sensitiveBorderSizeTitleLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(graphicsTypeDefaultRb)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(graphicsTypeGl2dRb)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(46, 46, 46)))
+        );
 
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 351, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 135, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("User Interface", jPanel19);
@@ -456,10 +527,10 @@ public class PreferenceWindow extends javax.swing.JFrame {
 
         jPanel17.setBorder(javax.swing.BorderFactory.createTitledBorder("Update Source"));
 
-        updateSourceURLLabel.setText("http://vrl-studio.mihosoft.eu/updates/");
-        updateSourceURLLabel.addActionListener(new java.awt.event.ActionListener() {
+        updateSourceURLTf.setText("http://vrl-studio.mihosoft.eu/updates/");
+        updateSourceURLTf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateSourceURLLabelActionPerformed(evt);
+                updateSourceURLTfActionPerformed(evt);
             }
         });
 
@@ -470,6 +541,9 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel18.add(filler11);
 
         setURLBtn.setText("Set URL");
+        setURLBtn.setMaximumSize(new java.awt.Dimension(128, 29));
+        setURLBtn.setMinimumSize(new java.awt.Dimension(128, 29));
+        setURLBtn.setPreferredSize(new java.awt.Dimension(128, 29));
         setURLBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 setURLBtnActionPerformed(evt);
@@ -478,22 +552,37 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel18.add(setURLBtn);
         jPanel18.add(filler12);
 
+        jPanel22.setOpaque(false);
+        jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel22.add(filler13);
+
+        setDefaultURLBtn.setText("Reset Default");
+        setDefaultURLBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setDefaultURLBtnActionPerformed(evt);
+            }
+        });
+        jPanel22.add(setDefaultURLBtn);
+        jPanel22.add(filler14);
+
+        jPanel18.add(jPanel22);
+
         javax.swing.GroupLayout updateSourceLogPanelLayout = new javax.swing.GroupLayout(updateSourceLogPanel);
         updateSourceLogPanel.setLayout(updateSourceLogPanelLayout);
         updateSourceLogPanelLayout.setHorizontalGroup(
             updateSourceLogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         updateSourceLogPanelLayout.setVerticalGroup(
             updateSourceLogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGap(0, 181, Short.MAX_VALUE)
         );
 
         jLabel6.setText("Public Key:");
 
-        updateSourceKeyLabel.addActionListener(new java.awt.event.ActionListener() {
+        updateSourceKeyTf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateSourceKeyLabelActionPerformed(evt);
+                updateSourceKeyTfActionPerformed(evt);
             }
         });
 
@@ -522,10 +611,10 @@ public class PreferenceWindow extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel17Layout.createSequentialGroup()
-                                .addComponent(updateSourceKeyLabel)
+                                .addComponent(updateSourceKeyTf)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chooseUpdateKyFileBtn))
-                            .addComponent(updateSourceURLLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
+                            .addComponent(updateSourceURLTf, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel17Layout.setVerticalGroup(
@@ -533,11 +622,11 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateSourceURLLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateSourceURLTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateSourceKeyLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateSourceKeyTf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(chooseUpdateKyFileBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -751,7 +840,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -790,7 +879,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -847,7 +936,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -964,13 +1053,13 @@ public class PreferenceWindow extends javax.swing.JFrame {
         if (config.containsProperty(UPDATE_URL_KEY)) {
             String url
                     = config.getProperty(UPDATE_URL_KEY);
-            updateSourceURLLabel.setText(url);
+            updateSourceURLTf.setText(url);
         }
 
         if (config.containsProperty(UPDATE_KEY_KEY)) {
             String key
                     = config.getProperty(UPDATE_KEY_KEY);
-            updateSourceKeyLabel.setText(key);
+            updateSourceKeyTf.setText(key);
         }
 
         // ui
@@ -979,18 +1068,34 @@ public class PreferenceWindow extends javax.swing.JFrame {
                     config.getProperty(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY));
             enableAutoScrollCheckBox.setSelected(b);
         }
-        
+
         if (config.containsProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY)) {
             Integer i = Integer.parseInt(
                     config.getProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY));
             sensitiveBorderSizeSlider.setValue(i);
             sensitiveBorderSizeLabel.setText(i + " px");
         }
-        
+
         sensitiveBorderSizeTitleLabel.setEnabled(enableAutoScrollCheckBox.isSelected());
         sensitiveBorderSizeLabel.setEnabled(enableAutoScrollCheckBox.isSelected());
         sensitiveBorderSizeSlider.setEnabled(enableAutoScrollCheckBox.isSelected());
-        
+
+        if (config.containsProperty(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY)) {
+
+            String type = config.getProperty(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY);
+
+            if (CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_GLG2D.equals(type)) {
+                graphicsTypeDefaultRb.setSelected(false);
+                graphicsTypeGl2dRb.setSelected(true);
+            } else {
+                graphicsTypeDefaultRb.setSelected(true);
+                graphicsTypeGl2dRb.setSelected(false);
+            }
+        } else {
+            graphicsTypeDefaultRb.setSelected(true);
+            graphicsTypeGl2dRb.setSelected(false);
+        }
+
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1202,63 +1307,60 @@ public class PreferenceWindow extends javax.swing.JFrame {
         close();
     }//GEN-LAST:event_checkForUpdatesBtnActionPerformed
 
-    private void updateSourceKeyLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSourceKeyLabelActionPerformed
+    private void updateSourceKeyTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSourceKeyTfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_updateSourceKeyLabelActionPerformed
+    }//GEN-LAST:event_updateSourceKeyTfActionPerformed
 
     private void setURLBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setURLBtnActionPerformed
+        if (setUpdateURL()) return;
+
+        close();
+    }//GEN-LAST:event_setURLBtnActionPerformed
+
+    private boolean setUpdateURL() throws HeadlessException {
         //
         // validate URL
         URL url = null;
         boolean validURL = true;
         try {
-            url = new URL(updateSourceURLLabel.getText());
+            url = new URL(updateSourceURLTf.getText());
         } catch (MalformedURLException ex) {
             validURL = false;
         }
-
         if (!validURL) {
             JOptionPane.showMessageDialog(this, "Specified URL is invalid!");
-            return;
+            return true;
         }
-
         // validate Key Path
         File keyPath = null;
-
-        if (!updateSourceKeyLabel.getText().trim().isEmpty()) {
-            keyPath = new File(updateSourceKeyLabel.getText());
-
+        if (!updateSourceKeyTf.getText().trim().isEmpty()) {
+            keyPath = new File(updateSourceKeyTf.getText());
             boolean validKeyPath = keyPath.isFile();
-
             if (!validKeyPath) {
                 JOptionPane.showMessageDialog(this, "Specified Key Path is invalid!");
-                return;
+                return true;
             }
         }
-
         config.setProperty(
-                UPDATE_URL_KEY, updateSourceURLLabel.getText());
+                UPDATE_URL_KEY, updateSourceURLTf.getText());
         config.setProperty(
-                UPDATE_KEY_KEY, updateSourceKeyLabel.getText());
+                UPDATE_KEY_KEY, updateSourceKeyTf.getText());
         config.save();
-
         CanvasConfig canvasConfig
                 = new CanvasConfig(studio.getCurrentCanvas());
         canvasConfig.configChanged(UPDATE_URL_KEY,
-                updateSourceURLLabel.getText());
+                updateSourceURLTf.getText());
         canvasConfig.configChanged(UPDATE_KEY_KEY,
-                updateSourceKeyLabel.getText());
-
+                updateSourceKeyTf.getText());
         studio.setUpateSource(url);
         studio.setUpdateKeyPath(keyPath);
         studio.checkForUpdates();
+        return false;
+    }
 
-        close();
-    }//GEN-LAST:event_setURLBtnActionPerformed
-
-    private void updateSourceURLLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSourceURLLabelActionPerformed
+    private void updateSourceURLTfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateSourceURLTfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_updateSourceURLLabelActionPerformed
+    }//GEN-LAST:event_updateSourceURLTfActionPerformed
 
     private void chooseUpdateKyFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseUpdateKyFileBtnActionPerformed
         //
@@ -1266,7 +1368,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
         File keyPath = fdM.getLoadFile(this, null);
 
         if (keyPath != null) {
-            updateSourceKeyLabel.setText(keyPath.getAbsolutePath());
+            updateSourceKeyTf.setText(keyPath.getAbsolutePath());
         }
     }//GEN-LAST:event_chooseUpdateKyFileBtnActionPerformed
 
@@ -1278,18 +1380,18 @@ public class PreferenceWindow extends javax.swing.JFrame {
         CanvasConfig canvasConfig = new CanvasConfig(studio.getCurrentCanvas());
         canvasConfig.configChanged(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY,
                 "" + enableAutoScrollCheckBox.isSelected());
-        
+
         sensitiveBorderSizeTitleLabel.setEnabled(enableAutoScrollCheckBox.isSelected());
         sensitiveBorderSizeLabel.setEnabled(enableAutoScrollCheckBox.isSelected());
         sensitiveBorderSizeSlider.setEnabled(enableAutoScrollCheckBox.isSelected());
-        
+
     }//GEN-LAST:event_enableAutoScrollCheckBoxActionPerformed
 
     private void sensitiveBorderSizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sensitiveBorderSizeSliderStateChanged
         int value = sensitiveBorderSizeSlider.getValue();
-        
+
         sensitiveBorderSizeLabel.setText(value + " px");
-        
+
         config.setProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY, ""
                 + value);
         config.save();
@@ -1298,6 +1400,42 @@ public class PreferenceWindow extends javax.swing.JFrame {
         canvasConfig.configChanged(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY,
                 "" + value);
     }//GEN-LAST:event_sensitiveBorderSizeSliderStateChanged
+
+    private void graphicsTypeGl2dRbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicsTypeGl2dRbActionPerformed
+        //
+        if (graphicsTypeGl2dRb.isSelected()) {
+            graphicsTypeDefaultRb.setSelected(false);
+            config.setProperty(
+                    CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY,
+                    CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_GLG2D);
+            CanvasConfig canvasConfig = new CanvasConfig(studio.getCurrentCanvas());
+            canvasConfig.configChanged(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY,
+                    CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_GLG2D);
+            config.save();
+        }
+    }//GEN-LAST:event_graphicsTypeGl2dRbActionPerformed
+
+    private void graphicsTypeDefaultRbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicsTypeDefaultRbActionPerformed
+        //
+        if (graphicsTypeDefaultRb.isSelected()) {
+            graphicsTypeGl2dRb.setSelected(false);
+            config.setProperty(
+                    CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY,
+                    CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_DEFAULT);
+            CanvasConfig canvasConfig = new CanvasConfig(studio.getCurrentCanvas());
+            canvasConfig.configChanged(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY,
+                    CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_DEFAULT);
+            config.save();
+        }
+    }//GEN-LAST:event_graphicsTypeDefaultRbActionPerformed
+
+    private void setDefaultURLBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setDefaultURLBtnActionPerformed
+        //
+        updateSourceURLTf.setText("http://vrl-studio.mihosoft.eu/updates/");
+        updateSourceKeyTf.setText("");
+
+        setUpdateURL();
+    }//GEN-LAST:event_setDefaultURLBtnActionPerformed
 
     public void close() {
         setVisible(false);
@@ -1360,6 +1498,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler12;
+    private javax.swing.Box.Filler filler13;
+    private javax.swing.Box.Filler filler14;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
@@ -1369,6 +1509,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
     private javax.swing.JCheckBox flushOnSaveCheckBox;
+    private javax.swing.JRadioButton graphicsTypeDefaultRb;
+    private javax.swing.JRadioButton graphicsTypeGl2dRb;
     private javax.swing.JCheckBox indicateSaveCheckbox;
     private javax.swing.JLabel invocationDelayTitle;
     private javax.swing.JSlider invocationSlider;
@@ -1381,6 +1523,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1394,6 +1537,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1408,14 +1553,16 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JLabel sensitiveBorderSizeLabel;
     private javax.swing.JSlider sensitiveBorderSizeSlider;
     private javax.swing.JLabel sensitiveBorderSizeTitleLabel;
+    private javax.swing.JLabel sensitiveBorderSizeTitleLabel1;
+    private javax.swing.JButton setDefaultURLBtn;
     private javax.swing.JButton setURLBtn;
     private javax.swing.JCheckBox showDebugMenu;
     private javax.swing.JCheckBox showDialogOnStartCheckBox;
     private javax.swing.JCheckBox showErrCheckBox;
     private javax.swing.JCheckBox showOutCheckBox;
-    private javax.swing.JTextField updateSourceKeyLabel;
+    private javax.swing.JTextField updateSourceKeyTf;
     private javax.swing.JPanel updateSourceLogPanel;
-    private javax.swing.JTextField updateSourceURLLabel;
+    private javax.swing.JTextField updateSourceURLTf;
     private javax.swing.JCheckBox visualizeParamEvaluationCheckBox;
     // End of variables declaration//GEN-END:variables
 

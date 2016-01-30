@@ -53,6 +53,7 @@ package eu.mihosoft.vrlstudio.main;
 
 import eu.mihosoft.vrl.io.ConfigurationFile;
 import eu.mihosoft.vrl.reflection.VisualCanvas;
+import eu.mihosoft.vrl.system.VMessage;
 import eu.mihosoft.vrl.visual.MessageType;
 
 /**
@@ -69,6 +70,9 @@ public class CanvasConfig {
     static final String FLUSH_ON_SAVE_KEY = "Project:flush-on-save";
     static final String ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY = "Canvas:auto-scroll-with-dragged-content:enable";
     static final String AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY = "Canvas:auto-scroll-with-dragged-content:sensitive-border-size";
+    static final String CANVAS_GRAPHICS_ENGINE_TYPE_KEY="Canvas:graphics-engine:type";
+    static final String CANVAS_GRAPHICS_ENGINE_TYPE_DEFAULT="default";
+    static final String CANVAS_GRAPHICS_ENGINE_TYPE_GLG2D="glg2d";
     private VisualCanvas canvas;
 
     public CanvasConfig(VisualCanvas canvas) {
@@ -104,6 +108,9 @@ public class CanvasConfig {
         }  else if (key.equals(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY)) {
             Integer i = Integer.parseInt(value);
             canvas.setAutoScrollSensitiveBorderSize(i);
+        } else if (key.equals(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY)) {
+            VMessage.info("Graphics Engine Changed", 
+                    "Changes are applied after restarting VRL-Studio.");
         }
         
     }
