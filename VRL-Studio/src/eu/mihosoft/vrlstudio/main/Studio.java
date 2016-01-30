@@ -646,8 +646,10 @@ public class Studio extends javax.swing.JFrame {
         showRepaintAreasMenuItem = new javax.swing.JCheckBoxMenuItem();
         helpMenu = new javax.swing.JMenu();
         whatIsVRLStudio = new javax.swing.JMenuItem();
+        usefulShortcuts = new javax.swing.JMenuItem();
         creatingYourFirstProject = new javax.swing.JMenuItem();
         definingAWorkflow = new javax.swing.JMenuItem();
+        introductiontoTypeRepresentations = new javax.swing.JMenuItem();
         versionManagement = new javax.swing.JMenuItem();
         usingTheShellItem = new javax.swing.JMenuItem();
         DebuggingItem = new javax.swing.JMenuItem();
@@ -1084,6 +1086,14 @@ public class Studio extends javax.swing.JFrame {
         });
         helpMenu.add(whatIsVRLStudio);
 
+        usefulShortcuts.setText("Useful Shortcuts");
+        usefulShortcuts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usefulShortcutsActionPerformed(evt);
+            }
+        });
+        helpMenu.add(usefulShortcuts);
+
         creatingYourFirstProject.setText("Creating Your First Project");
         creatingYourFirstProject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1099,6 +1109,14 @@ public class Studio extends javax.swing.JFrame {
             }
         });
         helpMenu.add(definingAWorkflow);
+
+        introductiontoTypeRepresentations.setText("Introduction To Type Representations");
+        introductiontoTypeRepresentations.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                introductiontoTypeRepresentationsActionPerformed(evt);
+            }
+        });
+        helpMenu.add(introductiontoTypeRepresentations);
 
         versionManagement.setText("Version Management");
         versionManagement.addActionListener(new java.awt.event.ActionListener() {
@@ -2379,6 +2397,18 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
     }//GEN-LAST:event_exportProjectAsConsoleAppItemActionPerformed
 
+    private void usefulShortcutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usefulShortcutsActionPerformed
+        //
+               VSysUtil.openURI(new File(
+                "resources/studio-resources/help/useful-shortcuts.html").toURI());
+    }//GEN-LAST:event_usefulShortcutsActionPerformed
+
+    private void introductiontoTypeRepresentationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_introductiontoTypeRepresentationsActionPerformed
+        //
+               VSysUtil.openURI(new File(
+                "resources/studio-resources/help/introduction-to-type-representations.html").toURI());
+    }//GEN-LAST:event_introductiontoTypeRepresentationsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2659,6 +2689,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenuItem importSessionItem;
     private javax.swing.JMenu infoMenu;
     private javax.swing.JMenuItem installPluginMenuItem;
+    private javax.swing.JMenuItem introductiontoTypeRepresentations;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -2717,6 +2748,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private javax.swing.JMenuItem systemGCMenuItem;
     private javax.swing.JMenu toolMenu;
     private javax.swing.JMenu uninstallPluginMenu;
+    private javax.swing.JMenuItem usefulShortcuts;
     private javax.swing.JMenuItem usingTheShellItem;
     private javax.swing.JMenuItem versionManagement;
     private javax.swing.JMenuItem versionManagementMenuItem;
