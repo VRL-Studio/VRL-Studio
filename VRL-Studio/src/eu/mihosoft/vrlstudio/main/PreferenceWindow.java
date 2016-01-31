@@ -52,6 +52,7 @@
 package eu.mihosoft.vrlstudio.main;
 
 import eu.mihosoft.vrl.dialogs.FileDialogManager;
+import eu.mihosoft.vrl.dialogs.VFileChooser;
 import eu.mihosoft.vrl.visual.LoggingController;
 import eu.mihosoft.vrl.io.ConfigurationFile;
 import eu.mihosoft.vrl.io.IOUtil;
@@ -128,6 +129,9 @@ public class PreferenceWindow extends javax.swing.JFrame {
         graphicsTypeGl2dRb = new javax.swing.JRadioButton();
         graphicsTypeDefaultRb = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
+        jPanel23 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        nativeFileDialogsCB = new javax.swing.JCheckBox();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
@@ -318,7 +322,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(enableAdvancedOptionsCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                .addComponent(enableAdvancedOptionsCheckBox, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -328,7 +332,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
                 .addComponent(enableAdvancedOptionsCheckBox)
                 .addContainerGap())
         );
@@ -370,7 +374,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addComponent(enableAutoScrollCheckBox)
-                .addGap(0, 335, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -392,7 +396,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                     .addComponent(sensitiveBorderSizeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sensitiveBorderSizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         enableAutoScrollCheckBox.getAccessibleContext().setAccessibleName("Enable Auto Scroll");
@@ -431,7 +435,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(sensitiveBorderSizeTitleLabel1)))
-                .addContainerGap(411, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
                     .addContainerGap(317, Short.MAX_VALUE)
@@ -455,12 +459,45 @@ public class PreferenceWindow extends javax.swing.JFrame {
                     .addGap(46, 46, 46)))
         );
 
+        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder("File Dialogs"));
+
+        jLabel8.setText("<html><p><b>Description:</b></p><br><p>Native file dialogs are provided by the operating system and usually provide a better user experience. They integrate native features, such as Spotlight on OS X.</p><br><p>However, in some situations it is preferrable and necessary to use the file dialogs that are built into VRL-Studio since the native dialogs do not provide all configuration options (e.g. restricted file system views).</p></html>");
+
+        nativeFileDialogsCB.setText("Use native file dialogs if possible (experimental)");
+        nativeFileDialogsCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nativeFileDialogsCBActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
+        jPanel23.setLayout(jPanel23Layout);
+        jPanel23Layout.setHorizontalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addComponent(nativeFileDialogsCB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel23Layout.setVerticalGroup(
+            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(nativeFileDialogsCB)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel23Layout.createSequentialGroup()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 18, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,7 +505,9 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 135, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("User Interface", jPanel19);
@@ -571,11 +610,11 @@ public class PreferenceWindow extends javax.swing.JFrame {
         updateSourceLogPanel.setLayout(updateSourceLogPanelLayout);
         updateSourceLogPanelLayout.setHorizontalGroup(
             updateSourceLogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGap(0, 705, Short.MAX_VALUE)
         );
         updateSourceLogPanelLayout.setVerticalGroup(
             updateSourceLogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 181, Short.MAX_VALUE)
+            .addGap(0, 209, Short.MAX_VALUE)
         );
 
         jLabel6.setText("Public Key:");
@@ -614,7 +653,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                                 .addComponent(updateSourceKeyTf)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(chooseUpdateKyFileBtn))
-                            .addComponent(updateSourceURLTf, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
+                            .addComponent(updateSourceURLTf, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel17Layout.setVerticalGroup(
@@ -711,7 +750,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(enableInvokationVisualization)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 242, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE)
                         .addComponent(visualizeParamEvaluationCheckBox))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -787,7 +826,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
                 .addComponent(showOutCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(showErrCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
@@ -832,7 +871,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
@@ -870,8 +909,8 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -879,7 +918,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -917,14 +956,14 @@ public class PreferenceWindow extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 705, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)))
+                        .addComponent(preferenceFolderLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1094,6 +1133,16 @@ public class PreferenceWindow extends javax.swing.JFrame {
         } else {
             graphicsTypeDefaultRb.setSelected(true);
             graphicsTypeGl2dRb.setSelected(false);
+        }
+
+        if (config.containsProperty(CanvasConfig.NATIVE_FILE_CHOOSER_KEY)) {
+            Boolean value = 
+                    Boolean.parseBoolean(config.getProperty(
+                            CanvasConfig.NATIVE_FILE_CHOOSER_KEY));
+            
+            VFileChooser.setNativeDialogsEnabled(value);
+            
+            nativeFileDialogsCB.setSelected(value);
         }
 
     }
@@ -1312,7 +1361,9 @@ public class PreferenceWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_updateSourceKeyTfActionPerformed
 
     private void setURLBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setURLBtnActionPerformed
-        if (setUpdateURL()) return;
+        if (setUpdateURL()) {
+            return;
+        }
 
         close();
     }//GEN-LAST:event_setURLBtnActionPerformed
@@ -1437,6 +1488,22 @@ public class PreferenceWindow extends javax.swing.JFrame {
         setUpdateURL();
     }//GEN-LAST:event_setDefaultURLBtnActionPerformed
 
+    private void nativeFileDialogsCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nativeFileDialogsCBActionPerformed
+        //
+        String value = "" + nativeFileDialogsCB.isSelected();
+        config.setProperty(CanvasConfig.NATIVE_FILE_CHOOSER_KEY,
+                value);
+        CanvasConfig canvasConfig = new CanvasConfig(studio.getCurrentCanvas());
+        canvasConfig.configChanged(CanvasConfig.NATIVE_FILE_CHOOSER_KEY, value);
+        config.save();
+
+        if (config.containsProperty(CanvasConfig.NATIVE_FILE_CHOOSER_KEY)) {
+            VFileChooser.setNativeDialogsEnabled(
+                    Boolean.parseBoolean(config.getProperty(
+                            CanvasConfig.NATIVE_FILE_CHOOSER_KEY)));
+        }
+    }//GEN-LAST:event_nativeFileDialogsCBActionPerformed
+
     public void close() {
         setVisible(false);
         studio.window = null;
@@ -1524,6 +1591,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1539,6 +1607,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
+    private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1548,6 +1617,7 @@ public class PreferenceWindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JCheckBox nativeFileDialogsCB;
     private javax.swing.JTextField preferenceFolderLocation;
     private javax.swing.JCheckBox restoreWinPosOnStartCheckBox;
     private javax.swing.JLabel sensitiveBorderSizeLabel;

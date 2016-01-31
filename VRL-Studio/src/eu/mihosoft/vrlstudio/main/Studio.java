@@ -1741,7 +1741,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private void installPluginMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_installPluginMenuItemActionPerformed
         //
 
-        final JFileChooser fc = new VNativeFileChooser(FileDialogManager.getDefaultDir());
+        final JFileChooser fc = new VFileChooser(FileDialogManager.getDefaultDir());
 
         fc.setFileFilter(new FileNameExtensionFilter("VRL-Plugins (*.jar)", ".jar") );
 

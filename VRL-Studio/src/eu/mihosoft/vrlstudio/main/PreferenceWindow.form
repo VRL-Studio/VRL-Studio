@@ -63,7 +63,7 @@
                   <Component id="jPanel7" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="enableAdvancedOptionsCheckBox" pref="679" max="32767" attributes="0"/>
+                      <Component id="enableAdvancedOptionsCheckBox" pref="709" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -75,7 +75,7 @@
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="198" max="32767" attributes="0"/>
+                      <EmptySpace pref="226" max="32767" attributes="0"/>
                       <Component id="enableAdvancedOptionsCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -260,6 +260,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel20" max="32767" attributes="0"/>
                   <Component id="jPanel21" max="32767" attributes="0"/>
+                  <Component id="jPanel23" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -268,7 +269,9 @@
                       <Component id="jPanel20" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel21" min="-2" pref="174" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="135" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel23" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -288,7 +291,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="enableAutoScrollCheckBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="335" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
@@ -316,7 +319,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="sensitiveBorderSizeSlider" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="57" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -386,7 +389,7 @@
                                   <Component id="sensitiveBorderSizeTitleLabel1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="411" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
@@ -444,6 +447,56 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt;&lt;/p&gt;&lt;br&gt;&lt;p&gt;The graphics engine is responsible for rendering the user interface. In most cases the default engine should be used.&lt;/p&gt;&lt;br&gt;&lt;p&gt;The GL2D engine uses native OpenGL for rendering. It should only be used by developers.&lt;/p&gt;&lt;/html&gt;"/>
                   </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel23">
+              <Properties>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder title="File Dialogs"/>
+                  </Border>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="nativeFileDialogsCB" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabel8" min="-2" pref="382" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="nativeFileDialogsCB" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="jLabel8">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="&lt;html&gt;&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt;&lt;/p&gt;&lt;br&gt;&lt;p&gt;Native file dialogs are provided by the operating system and usually provide a better user experience. They integrate native features, such as Spotlight on OS X.&lt;/p&gt;&lt;br&gt;&lt;p&gt;However, in some situations it is preferrable and necessary to use the file dialogs that are built into VRL-Studio since the native dialogs do not provide all configuration options (e.g. restricted file system views).&lt;/p&gt;&lt;/html&gt;"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JCheckBox" name="nativeFileDialogsCB">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Use native file dialogs if possible (experimental)"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nativeFileDialogsCBActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -635,7 +688,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="chooseUpdateKyFileBtn" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="updateSourceURLTf" pref="591" max="32767" attributes="0"/>
+                                      <Component id="updateSourceURLTf" pref="621" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -768,12 +821,12 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="675" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="705" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="181" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="209" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
@@ -844,7 +897,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="enableInvokationVisualization" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="242" max="32767" attributes="0"/>
+                                  <EmptySpace pref="272" max="32767" attributes="0"/>
                                   <Component id="visualizeParamEvaluationCheckBox" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -964,7 +1017,7 @@
                           <Component id="showOutCheckBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="showErrCheckBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="202" max="32767" attributes="0"/>
+                          <EmptySpace pref="230" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1030,7 +1083,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel6" alignment="0" pref="705" max="32767" attributes="0"/>
+                      <Component id="jPanel6" alignment="0" pref="735" max="32767" attributes="0"/>
                       <Component id="jLabel2" alignment="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
@@ -1108,8 +1161,8 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel4" pref="693" max="32767" attributes="0"/>
-                              <Component id="jPanel8" pref="693" max="32767" attributes="0"/>
+                              <Component id="jLabel4" pref="723" max="32767" attributes="0"/>
+                              <Component id="jPanel8" pref="723" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1120,7 +1173,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="30" max="32767" attributes="0"/>
+                          <EmptySpace pref="67" max="32767" attributes="0"/>
                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1184,14 +1237,14 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel3" alignment="0" pref="705" max="32767" attributes="0"/>
+                      <Component id="jPanel3" alignment="0" pref="735" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" alignment="0" pref="699" max="32767" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" pref="729" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel3" min="-2" pref="58" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="preferenceFolderLocation" pref="635" max="32767" attributes="0"/>
+                                  <Component id="preferenceFolderLocation" pref="665" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>

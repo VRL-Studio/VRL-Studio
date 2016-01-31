@@ -1,4 +1,18 @@
 -----------------------------------------------
+Version:	v0.4.5.7
+Date:		Thu, 5 Nov 2015 13:18:43 +0100
+-----------------------------------------------
+
+        Major Update:
+    
+    - full JDK 8 support (see VRL changelog for details)
+    - JavaFX UI support
+    - Groovy 2.4.5 (+indy)
+    - Java3d updated to 1.6
+    - JavaFX integration
+    - ...
+
+-----------------------------------------------
 Version:	v0.4.5.5
 Date:		Fri, 14 Jun 2013 14:50:29 +0200
 -----------------------------------------------
@@ -34,7 +48,7 @@ Date:		Tue, 5 Feb 2013 11:07:32 +0100
 
 -----------------------------------------------
 Version:	v0.4.5.2
-Date:		Mon, 4 Feb 2013 13:43:54 +0100
+Date:		Fri, 1 Feb 2013 16:13:43 +0100
 -----------------------------------------------
 
         Features:
@@ -46,7 +60,6 @@ Date:		Mon, 4 Feb 2013 13:43:54 +0100
     
     - Error messages are not shown multiple
       times when trying to update
-    - Unix-Updater works with paths thatcontain spaces and ()
 
 -----------------------------------------------
 Version:	v0.4.5.1

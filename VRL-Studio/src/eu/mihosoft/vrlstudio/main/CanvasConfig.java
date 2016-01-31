@@ -51,6 +51,7 @@
  */
 package eu.mihosoft.vrlstudio.main;
 
+import eu.mihosoft.vrl.dialogs.VFileChooser;
 import eu.mihosoft.vrl.io.ConfigurationFile;
 import eu.mihosoft.vrl.reflection.VisualCanvas;
 import eu.mihosoft.vrl.system.VMessage;
@@ -70,9 +71,10 @@ public class CanvasConfig {
     static final String FLUSH_ON_SAVE_KEY = "Project:flush-on-save";
     static final String ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY = "Canvas:auto-scroll-with-dragged-content:enable";
     static final String AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY = "Canvas:auto-scroll-with-dragged-content:sensitive-border-size";
-    static final String CANVAS_GRAPHICS_ENGINE_TYPE_KEY="Canvas:graphics-engine:type";
-    static final String CANVAS_GRAPHICS_ENGINE_TYPE_DEFAULT="default";
-    static final String CANVAS_GRAPHICS_ENGINE_TYPE_GLG2D="glg2d";
+    static final String CANVAS_GRAPHICS_ENGINE_TYPE_KEY = "Canvas:graphics-engine:type";
+    static final String CANVAS_GRAPHICS_ENGINE_TYPE_DEFAULT = "default";
+    static final String CANVAS_GRAPHICS_ENGINE_TYPE_GLG2D = "glg2d";
+    static final String NATIVE_FILE_CHOOSER_KEY = "FileChooser:native";
     private VisualCanvas canvas;
 
     public CanvasConfig(VisualCanvas canvas) {
@@ -105,14 +107,16 @@ public class CanvasConfig {
         } else if (key.equals(CanvasConfig.ENABLE_AUTO_SCROLL_WITH_DRAGGED_CONTENT_KEY)) {
             Boolean b = Boolean.parseBoolean(value);
             canvas.setAutoScrollEnabled(b);
-        }  else if (key.equals(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY)) {
+        } else if (key.equals(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY)) {
             Integer i = Integer.parseInt(value);
             canvas.setAutoScrollSensitiveBorderSize(i);
         } else if (key.equals(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY)) {
-            VMessage.info("Graphics Engine Changed", 
+            VMessage.info("Graphics Engine Changed",
                     "Changes are applied after restarting VRL-Studio.");
+        } else if (key.equals(CanvasConfig.NATIVE_FILE_CHOOSER_KEY)) {
+            VFileChooser.setNativeDialogsEnabled(Boolean.parseBoolean(value));
         }
-        
+
     }
 
     public void init(ConfigurationFile config) {
@@ -171,10 +175,16 @@ public class CanvasConfig {
 
             canvas.setAutoScrollEnabled(b);
         }
-        
+
         if (config.containsProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY)) {
             Integer i = Integer.parseInt(config.getProperty(CanvasConfig.AUTO_SCROLL_SENSITIVE_BORDER_SIZE_KEY));
             canvas.setAutoScrollSensitiveBorderSize(i);
+        }
+
+        if (config.containsProperty(CanvasConfig.NATIVE_FILE_CHOOSER_KEY)) {
+            VFileChooser.setNativeDialogsEnabled(
+                    Boolean.parseBoolean(config.getProperty(
+                            CanvasConfig.NATIVE_FILE_CHOOSER_KEY)));
         }
     }
 }
