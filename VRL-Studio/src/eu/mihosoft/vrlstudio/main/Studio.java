@@ -96,6 +96,7 @@ import java.util.logging.SimpleFormatter;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.DefaultEditorKit;
 import org.jogamp.glg2d.GLG2DCanvas;
 
@@ -1740,19 +1741,9 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     private void installPluginMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_installPluginMenuItemActionPerformed
         //
 
-        final JFileChooser fc = new JFileChooser(FileDialogManager.getDefaultDir());
+        final JFileChooser fc = new VNativeFileChooser(FileDialogManager.getDefaultDir());
 
-        fc.setFileFilter(new FileFilter() {
-            @Override
-            public boolean accept(File f) {
-                return f.getName().toLowerCase().endsWith(".jar") || f.isDirectory();
-            }
-
-            @Override
-            public String getDescription() {
-                return "VRL Plugins (*.jar)";
-            }
-        });
+        fc.setFileFilter(new FileNameExtensionFilter("VRL-Plugins (*.jar)", ".jar") );
 
         fc.setMultiSelectionEnabled(true);
 
