@@ -155,7 +155,6 @@ public class Studio extends javax.swing.JFrame {
      */
     public Studio(ConfigurationFile config) {
 
-        
         System.out.println(">> Graphics2D config:");
         if (config.containsProperty(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY)) {
             String type = config.getProperty(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY);
@@ -179,6 +178,26 @@ public class Studio extends javax.swing.JFrame {
         THIS = this;
 
         canvasScrollPane.getViewport().add(mainCanvas);
+
+        JMenu[] items = new JMenu[studioMenuBar.getMenuCount()];
+        for (int i = 0; i < items.length; i++) {
+            items[i] = studioMenuBar.getMenu(i);
+        }
+
+//      // file dialog setup
+//        VFileChooser.addPreShowDialogAction(() -> {
+//            for (int i = items.length - 1; i >= 0; i--) {
+//                System.out.println("remove-item: "  + i + " i "+ items[i]);
+//                studioMenuBar.remove(i);
+//            }
+//        });  
+//        
+//        VFileChooser.addPostShowDialogAction(() -> {
+//            for (int i = 0; i < items.length; i++) {
+//                System.out.println("add-item: "  + i + " i "+ items[i]);
+//                studioMenuBar.add(items[i]);
+//            }
+//        });
 
         // Shortcuts for menu
         saveSessionItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
@@ -324,7 +343,6 @@ public class Studio extends javax.swing.JFrame {
 //        ConfigurationFile config = IOUtil.newConfigurationFile(
 //                new File(VRL.getPropertyFolderManager().getEtcFolder(),
 //                        Studio.STUDIO_CONFIG));
-
         loggingController = new LoggingController(logView, config);
 
         // exclude bottompane (log and shell) from event blocking
@@ -1743,7 +1761,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         final JFileChooser fc = new VFileChooser(FileDialogManager.getDefaultDir());
 
-        fc.setFileFilter(new FileNameExtensionFilter("VRL-Plugins (*.jar)", ".jar") );
+        fc.setFileFilter(new FileNameExtensionFilter("VRL-Plugins (*.jar)", ".jar"));
 
         fc.setMultiSelectionEnabled(true);
 
@@ -2390,13 +2408,13 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
     private void usefulShortcutsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usefulShortcutsActionPerformed
         //
-               VSysUtil.openURI(new File(
+        VSysUtil.openURI(new File(
                 "resources/studio-resources/help/useful-shortcuts.html").toURI());
     }//GEN-LAST:event_usefulShortcutsActionPerformed
 
     private void introductiontoTypeRepresentationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_introductiontoTypeRepresentationsActionPerformed
         //
-               VSysUtil.openURI(new File(
+        VSysUtil.openURI(new File(
                 "resources/studio-resources/help/introduction-to-type-representations.html").toURI());
     }//GEN-LAST:event_introductiontoTypeRepresentationsActionPerformed
 
