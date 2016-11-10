@@ -1,4 +1,17 @@
 -----------------------------------------------
+Version:	v0.4.6.0
+Date:		Wed, 9 Nov 2016 22:46:07 +0100
+-----------------------------------------------
+
+        - uses new VRL release with improved OpenGL rendering support
+    - improved UI performance
+    - fixed several critical bugs related to project management
+    - experimental native file dialogs
+    - Groovy updated to v2.4.7
+    - Ant updated to v1.9.7
+    - ...
+
+-----------------------------------------------
 Version:	v0.4.5.7
 Date:		Thu, 5 Nov 2015 13:18:43 +0100
 -----------------------------------------------
