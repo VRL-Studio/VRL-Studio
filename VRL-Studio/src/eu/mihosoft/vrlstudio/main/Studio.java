@@ -1761,7 +1761,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         final JFileChooser fc = new VFileChooser(FileDialogManager.getDefaultDir());
 
-        fc.setFileFilter(new FileNameExtensionFilter("VRL-Plugins (*.jar)", ".jar"));
+        fc.setFileFilter(new FileNameExtensionFilter("VRL-Plugins (*.jar)", "jar"));
 
         fc.setMultiSelectionEnabled(true);
 
