@@ -23,7 +23,7 @@ and experimentation.
 - Open the *VRL* project with NetBeans and build it
 - Open the *VRL-Studio* project with NetBeans and build it
 
-##How To Run
+## How To Run
 
 You can either run VRL-Studio from NetBeans (see 1.) or run the application bundle manually (see 2.)
 
