@@ -154,6 +154,12 @@ public class Studio extends javax.swing.JFrame {
      * Creates new form Studio
      */
     public Studio(ConfigurationFile config) {
+        
+        if(VSysUtil.isWindows()) {
+            System.out.println(">> setting AppUserModelID 'eu.mihosoft.VRL-Studio'"
+                    + " to allow taskbar pinning on Windows >= 7.");
+            setCurrentProcessExplicitAppUserModelID("eu.mihosoft.VRL-Studio");
+        }
 
         System.out.println(">> Graphics2D config:");
         if (config.containsProperty(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY)) {
@@ -198,7 +204,6 @@ public class Studio extends javax.swing.JFrame {
 //                studioMenuBar.add(items[i]);
 //            }
 //        });
-
         // Shortcuts for menu
         saveSessionItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -1272,7 +1277,7 @@ public class Studio extends javax.swing.JFrame {
         if (projectController.getProject() != null) {
             setTitle(Constants.APP_NAME + ": "
                     + projectController.getProject().
-                    getFile().getAbsolutePath() + ", Component: "
+                            getFile().getAbsolutePath() + ", Component: "
                     + projectController.getCurrentSession());
         } else {
             setTitle(Constants.APP_NAME);
@@ -1398,7 +1403,7 @@ public class Studio extends javax.swing.JFrame {
 
         if (projectController.getProject() != null
                 && !projectController.getProject().getFile().getAbsolutePath().
-                equals(defaultSessionName)) {
+                        equals(defaultSessionName)) {
 
             directory = projectController.getProject().getFile().
                     getAbsoluteFile().getParentFile();
@@ -2892,7 +2897,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                         } catch (InterruptedException ex) {
                                             Logger.getLogger(
                                                     Studio.class.getName()).log(
-                                                            Level.SEVERE, null, ex);
+                                                    Level.SEVERE, null, ex);
                                         }
 
                                         System.out.println("OS X specific: init done");
@@ -3184,6 +3189,30 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     void setUpdateKeyPath(File keyPath) {
         updater.setCustomPublicKey(keyPath);
     }
+
+    // adds windows AppUserModelID support
+    public static void setCurrentProcessExplicitAppUserModelID(String appUserModelID) {
+
+        final Map<String, Object> WIN32API_OPTIONS = new HashMap<String, Object>() {
+            {
+                put(com.sun.jna.Library.OPTION_FUNCTION_MAPPER, com.sun.jna.win32.W32APIFunctionMapper.UNICODE);
+                put(com.sun.jna.Library.OPTION_TYPE_MAPPER, com.sun.jna.win32.W32APITypeMapper.UNICODE);
+            }
+        };
+        Shell32 shell32 = (Shell32) com.sun.jna.Native.loadLibrary("shell32", Shell32.class,
+                WIN32API_OPTIONS);
+        com.sun.jna.WString wAppId = new com.sun.jna.WString(appUserModelID);
+        shell32.SetCurrentProcessExplicitAppUserModelID(wAppId);
+
+    }
+
+} // end Studio.java
+
+// adds windows AppUserModelID support
+interface Shell32 extends com.sun.jna.win32.StdCallLibrary {
+
+    int SetCurrentProcessExplicitAppUserModelID(com.sun.jna.WString appID);
+
 }
 
 class LoadCanvasConfigurator implements CanvasConfigurator {
