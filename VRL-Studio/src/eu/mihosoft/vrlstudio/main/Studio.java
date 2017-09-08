@@ -3190,7 +3190,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
         updater.setCustomPublicKey(keyPath);
     }
 
-    // adds windows AppUserModelID support
+    // adds windows AppUserModelID support for taskbar pinning
     public static void setCurrentProcessExplicitAppUserModelID(String appUserModelID) {
 
         final Map<String, Object> WIN32API_OPTIONS = new HashMap<String, Object>() {
