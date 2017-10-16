@@ -5,7 +5,7 @@
   <jar>C:\Users\miho\Documents\GitHub\VRL-Studio\VRL-Studio\dist-final\windows\VRL-Studio\.application\VRL-Studio.jar</jar>
   <outfile>C:\Users\miho\Documents\GitHub\VRL-Studio\VRL-Studio\dist-final\windows\VRL-Studio\VRL-Studio.exe</outfile>
   <errTitle></errTitle>
-  <cmdLine></cmdLine>
+  <cmdLine>-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix default -plugin-checksum-test no</cmdLine>
   <chdir>.application</chdir>
   <priority>normal</priority>
   <downloadUrl>http://java.com/download</downloadUrl>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon></icon>
+  <icon>C:\Users\miho\Documents\GitHub\VRL-Studio\VRL-Studio\dist-final\windows\VRL-Studio\.application\resources\mime\vrl-app-icon.ico</icon>
   <classPath>
     <mainClass>eu.mihosoft.vrlstudio.main.Studio</mainClass>
     <cp>lib/jpedal_lgpl.jar</cp>
@@ -46,6 +46,6 @@
     <runtimeBits>64/32</runtimeBits>
     <initialHeapPercent>10</initialHeapPercent>
     <maxHeapPercent>70</maxHeapPercent>
-    <opt>-Xss16m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png</opt>
+    <opt>-Xss64m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png</opt>
   </jre>
 </launch4jConfig>
