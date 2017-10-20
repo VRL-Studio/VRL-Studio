@@ -3,8 +3,8 @@
  * 
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2009–2012 Steinbeis Forschungszentrum (STZ Ölbronn),
- * Copyright (c) 2007–2012 by Michael Hoffer
+ * Copyright (c) 2009–2015 Steinbeis Forschungszentrum (STZ Ölbronn),
+ * Copyright (c) 2007–2017 by Michael Hoffer
  * 
  * This file is part of VRL-Studio.
  *
@@ -45,9 +45,10 @@
  *
  * Publications:
  *
- * M. Hoffer, C.Poliwoda, G.Wittum. Visual Reflection Library -
- * A Framework for Declarative GUI Programming on the Java Platform.
- * Computing and Visualization in Science, 2011, in press.
+ * M. Hoffer, C. Poliwoda, & G. Wittum. (2013). Visual reflection library:
+ * a framework for declarative GUI programming on the Java platform.
+ * Computing and Visualization in Science, 2013, 16(4),
+ * 181–192. http://doi.org/10.1007/s00791-014-0230-y
  */
 
 package eu.mihosoft.vrlstudio.io;

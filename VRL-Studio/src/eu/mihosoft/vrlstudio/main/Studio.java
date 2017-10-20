@@ -45,9 +45,10 @@
  *
  * Publications:
  *
- * M. Hoffer, C.Poliwoda, G.Wittum. Visual Reflection Library -
- * A Framework for Declarative GUI Programming on the Java Platform.
- * Computing and Visualization in Science, 2011, in press.
+ * M. Hoffer, C. Poliwoda, & G. Wittum. (2013). Visual reflection library:
+ * a framework for declarative GUI programming on the Java platform.
+ * Computing and Visualization in Science, 2013, 16(4),
+ * 181–192. http://doi.org/10.1007/s00791-014-0230-y
  */
 package eu.mihosoft.vrlstudio.main;
 
