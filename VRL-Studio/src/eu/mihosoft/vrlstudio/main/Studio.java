@@ -129,7 +129,7 @@ public class Studio extends javax.swing.JFrame {
     private VisualCanvas mainCanvas = new VisualCanvas();
     static final String STUDIO_CONFIG = "vrl-studio.conf";
     private LoggingController loggingController;
-    private static boolean showStartDialog = true;
+    private static boolean showStartDialog = false;
     /**
      * Indicates whether to automatically create versions on save
      */

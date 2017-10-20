@@ -209,7 +209,6 @@ public class PreferenceWindow extends javax.swing.JFrame {
             }
         });
 
-        showDialogOnStartCheckBox.setSelected(true);
         showDialogOnStartCheckBox.setText("Show Start-Dialog");
         showDialogOnStartCheckBox.setToolTipText("Defines whether to show a start-dialog that allows to create and load projects");
         showDialogOnStartCheckBox.addActionListener(new java.awt.event.ActionListener() {
