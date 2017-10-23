@@ -32,12 +32,14 @@
  * Second, keep the links to "About VRL-Studio" and "About VRL". The
  * copyright notice must remain.
  *
- * Third, add an additional notice, stating that you modified VRL. In addition
- * you must cite the publications listed below. A suitable notice might read
+ * Third, add an additional notice, stating that you modified VRL. A suitable
+ * notice might read
  * "VRL source code modified by YourName 2012".
  * 
  * Note, that these requirements are in full accordance with the LGPL v3
  * (see 7. Additional Terms, b).
+ *
+ * Please cite the publication(s) listed below.
  *
  * Publications:
  *
