@@ -4,7 +4,7 @@
 ; Name of the application
 #define AppName "VRL-Studio"
 ; Version of the application
-#define AppVersion "0.4.7.0"
+#define AppVersion "0.4.7.1"
 ; Menu group of the application
 #define AppGroupName "VRL-Studio"
 ; Name of the folder that contains the application
@@ -88,3 +88,6 @@ Root: HKCU; Subkey: "Software\Classes\vrlstudioprojectfile\shell\open\command"; 
 
 [Tasks]
 Name: desktopicon; Description: Create Desktop Icon.;
+
+[UninstallDelete]
+Type: filesandordirs; Name: "{localappdata}\{#AppFolderName}"
