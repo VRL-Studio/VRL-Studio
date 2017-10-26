@@ -44,5 +44,8 @@
 
 	<key>NSHighResolutionCapable</key>
 	<string>True</string>
+	
+	<key>CFBundleAllowMixedLocalizations</key>
+	<string>false</string>
 </dict>
 </plist>
