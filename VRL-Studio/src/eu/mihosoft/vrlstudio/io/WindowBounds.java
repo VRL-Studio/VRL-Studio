@@ -3,8 +3,8 @@
  * 
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2009–2012 Steinbeis Forschungszentrum (STZ Ölbronn),
- * Copyright (c) 2007–2012 by Michael Hoffer
+ * Copyright (c) 2009–2015 Steinbeis Forschungszentrum (STZ Ölbronn),
+ * Copyright (c) 2007–2017 by Michael Hoffer
  * 
  * This file is part of VRL-Studio.
  *
@@ -36,18 +36,21 @@
  * Second, keep the links to "About VRL-Studio" and "About VRL". The
  * copyright notice must remain.
  *
- * Third, add an additional notice, stating that you modified VRL. In addition
- * you must cite the publications listed below. A suitable notice might read
+ * Third, add an additional notice, stating that you modified VRL. A suitable
+ * notice might read
  * "VRL source code modified by YourName 2012".
  * 
  * Note, that these requirements are in full accordance with the LGPL v3
  * (see 7. Additional Terms, b).
  *
+ * Please cite the publication(s) listed below.
+ *
  * Publications:
  *
- * M. Hoffer, C.Poliwoda, G.Wittum. Visual Reflection Library -
- * A Framework for Declarative GUI Programming on the Java Platform.
- * Computing and Visualization in Science, 2011, in press.
+ * M. Hoffer, C. Poliwoda, & G. Wittum. (2013). Visual reflection library:
+ * a framework for declarative GUI programming on the Java platform.
+ * Computing and Visualization in Science, 2013, 16(4),
+ * 181–192. http://doi.org/10.1007/s00791-014-0230-y
  */
 
 package eu.mihosoft.vrlstudio.io;

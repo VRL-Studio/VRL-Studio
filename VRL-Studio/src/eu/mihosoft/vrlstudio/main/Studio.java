@@ -3,8 +3,8 @@
  * 
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Copyright (c) 2009–2012 Steinbeis Forschungszentrum (STZ Ölbronn),
- * Copyright (c) 2007–2012 by Michael Hoffer
+ * Copyright (c) 2009–2017 Steinbeis Forschungszentrum (STZ Ölbronn),
+ * Copyright (c) 2007–2017 by Michael Hoffer
  * 
  * This file is part of VRL-Studio.
  *
@@ -36,18 +36,21 @@
  * Second, keep the links to "About VRL-Studio" and "About VRL". The
  * copyright notice must remain.
  *
- * Third, add an additional notice, stating that you modified VRL. In addition
- * you must cite the publications listed below. A suitable notice might read
+ * Third, add an additional notice, stating that you modified VRL. A suitable
+ * notice might read
  * "VRL source code modified by YourName 2012".
  * 
  * Note, that these requirements are in full accordance with the LGPL v3
  * (see 7. Additional Terms, b).
  *
+ * Please cite the publication(s) listed below.
+ *
  * Publications:
  *
- * M. Hoffer, C.Poliwoda, G.Wittum. Visual Reflection Library -
- * A Framework for Declarative GUI Programming on the Java Platform.
- * Computing and Visualization in Science, 2011, in press.
+ * M. Hoffer, C. Poliwoda, & G. Wittum. (2013). Visual reflection library:
+ * a framework for declarative GUI programming on the Java platform.
+ * Computing and Visualization in Science, 2013, 16(4),
+ * 181–192. http://doi.org/10.1007/s00791-014-0230-y
  */
 package eu.mihosoft.vrlstudio.main;
 
@@ -129,7 +132,7 @@ public class Studio extends javax.swing.JFrame {
     private VisualCanvas mainCanvas = new VisualCanvas();
     static final String STUDIO_CONFIG = "vrl-studio.conf";
     private LoggingController loggingController;
-    private static boolean showStartDialog = true;
+    private static boolean showStartDialog = false;
     /**
      * Indicates whether to automatically create versions on save
      */
@@ -154,6 +157,12 @@ public class Studio extends javax.swing.JFrame {
      * Creates new form Studio
      */
     public Studio(ConfigurationFile config) {
+        
+        if(VSysUtil.isWindows()) {
+            System.out.println(">> setting AppUserModelID 'eu.mihosoft.VRL-Studio'"
+                    + " to allow taskbar pinning on Windows >= 7.");
+            setCurrentProcessExplicitAppUserModelID("eu.mihosoft.VRL-Studio");
+        }
 
         System.out.println(">> Graphics2D config:");
         if (config.containsProperty(CanvasConfig.CANVAS_GRAPHICS_ENGINE_TYPE_KEY)) {
@@ -198,7 +207,6 @@ public class Studio extends javax.swing.JFrame {
 //                studioMenuBar.add(items[i]);
 //            }
 //        });
-
         // Shortcuts for menu
         saveSessionItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -1272,7 +1280,7 @@ public class Studio extends javax.swing.JFrame {
         if (projectController.getProject() != null) {
             setTitle(Constants.APP_NAME + ": "
                     + projectController.getProject().
-                    getFile().getAbsolutePath() + ", Component: "
+                            getFile().getAbsolutePath() + ", Component: "
                     + projectController.getCurrentSession());
         } else {
             setTitle(Constants.APP_NAME);
@@ -1398,7 +1406,7 @@ public class Studio extends javax.swing.JFrame {
 
         if (projectController.getProject() != null
                 && !projectController.getProject().getFile().getAbsolutePath().
-                equals(defaultSessionName)) {
+                        equals(defaultSessionName)) {
 
             directory = projectController.getProject().getFile().
                     getAbsoluteFile().getParentFile();
@@ -1761,7 +1769,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         final JFileChooser fc = new VFileChooser(FileDialogManager.getDefaultDir());
 
-        fc.setFileFilter(new FileNameExtensionFilter("VRL-Plugins (*.jar)", ".jar"));
+        fc.setFileFilter(new FileNameExtensionFilter("VRL-Plugins (*.jar)", "jar"));
 
         fc.setMultiSelectionEnabled(true);
 
@@ -2892,7 +2900,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                         } catch (InterruptedException ex) {
                                             Logger.getLogger(
                                                     Studio.class.getName()).log(
-                                                            Level.SEVERE, null, ex);
+                                                    Level.SEVERE, null, ex);
                                         }
 
                                         System.out.println("OS X specific: init done");
@@ -3048,15 +3056,17 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                 + "In this case the VRL canvas icon must be removed.<br><br>"
                 + "<b>Second</b>, keep the links to \"About VRL-Studio\" and \"About VRL\".<br>"
                 + "The copyright notice must remain.<br><br>"
-                + "<b>Third</b>, add an additional notice, stating that you modified VRL and/or VRL-Studio. In addition<br>"
-                + "you must cite the publications listed below. A suitable notice might read<br>"
+                + "<b>Third</b>, add an additional notice, stating that you modified VRL and/or VRL-Studio.<br>"
+                + "A suitable notice might read<br>"
                 + "\"VRL source code modified by YourName 2012\".<br><br>"
                 + "<b>Note</b>, that these requirements are in full accordance with the LGPL v3 (see 7. Additional Terms, b).<br><br>"
+                + "Please cite the publication(s) listed below.<br><br>"
                 + "<pre>"
                 + "M. Hoffer, C.Poliwoda, G.Wittum.\n"
                 + "Visual Reflection Library -\n"
                 + "A Framework for Declarative GUI Programming on the Java Platform.\n"
-                + "Computing and Visualization in Science, 2011, in press.\n"
+                + "Computing and Visualization in Science, 2013, 16(4),\n"
+                + "181–192. http://doi.org/10.1007/s00791-014-0230-y\n"
                 + "</pre><br>"
                 + "</html>");
     }
@@ -3184,6 +3194,30 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     void setUpdateKeyPath(File keyPath) {
         updater.setCustomPublicKey(keyPath);
     }
+
+    // adds windows AppUserModelID support for taskbar pinning
+    public static void setCurrentProcessExplicitAppUserModelID(String appUserModelID) {
+
+        final Map<String, Object> WIN32API_OPTIONS = new HashMap<String, Object>() {
+            {
+                put(com.sun.jna.Library.OPTION_FUNCTION_MAPPER, com.sun.jna.win32.W32APIFunctionMapper.UNICODE);
+                put(com.sun.jna.Library.OPTION_TYPE_MAPPER, com.sun.jna.win32.W32APITypeMapper.UNICODE);
+            }
+        };
+        Shell32 shell32 = (Shell32) com.sun.jna.Native.loadLibrary("shell32", Shell32.class,
+                WIN32API_OPTIONS);
+        com.sun.jna.WString wAppId = new com.sun.jna.WString(appUserModelID);
+        shell32.SetCurrentProcessExplicitAppUserModelID(wAppId);
+
+    }
+
+} // end Studio.java
+
+// adds windows AppUserModelID support
+interface Shell32 extends com.sun.jna.win32.StdCallLibrary {
+
+    int SetCurrentProcessExplicitAppUserModelID(com.sun.jna.WString appID);
+
 }
 
 class LoadCanvasConfigurator implements CanvasConfigurator {

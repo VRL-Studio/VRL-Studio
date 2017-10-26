@@ -129,7 +129,6 @@
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="showDialogOnStartCheckBox">
                   <Properties>
-                    <Property name="selected" type="boolean" value="true"/>
                     <Property name="text" type="java.lang.String" value="Show Start-Dialog"/>
                     <Property name="toolTipText" type="java.lang.String" value="Defines whether to show a start-dialog that allows to create and load projects"/>
                   </Properties>

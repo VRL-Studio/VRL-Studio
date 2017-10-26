@@ -49,15 +49,15 @@ WizardImageFile={#AppFolderName}\.application\resources\mime\vrl-installer-side-
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "{#AppFolderName}\run.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#AppFolderName}\VRL-Studio.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#AppFolderName}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\{#AppName}"; Filename: "{app}\run.bat"; IconFilename: "{app}\.application\resources\mime\vrl-app-icon.ico"; Check: returnTrue()
-Name: "{userdesktop}\{#AppName}"; Filename: "{app}\run.bat";  IconFilename: "{app}\.application\resources\mime\vrl-app-icon.ico"; Tasks: desktopicon
+Name: "{group}\{#AppName}"; Filename: "{app}\VRL-Studio.exe"; IconFilename: "{app}\.application\resources\mime\vrl-app-icon.ico"; Check: returnTrue(); AppUserModelID: "eu.mihosoft.VRL-Studio"
+Name: "{userdesktop}\{#AppName}"; Filename: "{app}\VRL-Studio.exe";  IconFilename: "{app}\.application\resources\mime\vrl-app-icon.ico"; Tasks: desktopicon; AppUserModelID: "eu.mihosoft.VRL-Studio"
 
 [Run]
-Filename: "{app}\run.bat"; Description: "{cm:LaunchProgram,VRL-Studio}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\VRL-Studio.exe"; Description: "{cm:LaunchProgram,VRL-Studio}"; Flags: nowait postinstall skipifsilent
 
 [Code]
 function returnTrue(): Boolean;
@@ -83,7 +83,7 @@ end;
 Root: HKCU; Subkey: "Software\Classes\.vrlp"; ValueType: string; ValueName: ""; ValueData: "vrlstudioprojectfile"; Flags: uninsdeletevalue
 Root: HKCU; Subkey: "Software\Classes\vrlstudioprojectfile"; ValueType: string; ValueName: ""; ValueData: "VRL-Studio Project"; Flags: uninsdeletekey
 Root: HKCU; Subkey: "Software\Classes\vrlstudioprojectfile\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\.application\resources\mime\vrl-file-icon.ico,0"
-Root: HKCU; Subkey: "Software\Classes\vrlstudioprojectfile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\run.bat"" ""-file"" ""%1"""
+Root: HKCU; Subkey: "Software\Classes\vrlstudioprojectfile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\VRL-Studio.exe"" ""-file"" ""%1"""
 
 [Tasks]
 Name: desktopicon; Description: Create Desktop Icon.;

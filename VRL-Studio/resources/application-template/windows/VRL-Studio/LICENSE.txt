@@ -1,5 +1,5 @@
-﻿Copyright (c) 2009–2013 Steinbeis Forschungszentrum (STZ Ölbronn),
-Copyright (c) 2007–2013 by Michael Hoffer
+﻿Copyright (c) 2009–2017 Steinbeis Forschungszentrum (STZ Ölbronn),
+Copyright (c) 2007–2017 by Michael Hoffer
  
 VRL-Studio is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License version 3
@@ -41,4 +41,6 @@ Publications:
 M. Hoffer, C.Poliwoda, G.Wittum. Visual Reflection Library -
 A Framework for Declarative GUI Programming on the Java Platform.
 Computing and Visualization in Science, 2011, in press.
+UG4 - Unstructured Grids 4
+Copyright 2009-2016 Goethe Center for Scientific Computing, University Frankfurt
 
