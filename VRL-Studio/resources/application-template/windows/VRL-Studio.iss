@@ -4,13 +4,14 @@
 ; Name of the application
 #define AppName "VRL-Studio"
 ; Version of the application
-#define AppVersion "0.4.5.5"
+#define AppVersion "0.4.7.0"
 ; Menu group of the application
 #define AppGroupName "VRL-Studio"
 ; Name of the folder that contains the application
 #define AppFolderName "VRL-Studio"
 
 [Setup]
+SignTool=signtool
 AppId={{eu.mihosoft.VRL-Studio}}
 AppName={#AppName}
 AppVersion={#AppVersion}

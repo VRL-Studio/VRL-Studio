@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch4jConfig>
-  <dontWrapJar>false</dontWrapJar>
+  <dontWrapJar>true</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\miho\Documents\GitHub\VRL-Studio\VRL-Studio\dist-final\windows\VRL-Studio\.application\VRL-Studio.jar</jar>
+  <jar>VRL-Studio.jar</jar>
   <outfile>C:\Users\miho\Documents\GitHub\VRL-Studio\VRL-Studio\dist-final\windows\VRL-Studio\VRL-Studio.exe</outfile>
   <errTitle></errTitle>
   <cmdLine>-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix default -plugin-checksum-test no</cmdLine>
