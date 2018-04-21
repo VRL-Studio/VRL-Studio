@@ -1,5 +1,5 @@
 ﻿Copyright (c) 2009–2015 Steinbeis Forschungszentrum (STZ Ölbronn),
-Copyright (c) 2007–2017 by Michael Hoffer
+Copyright (c) 2007–2018 by Michael Hoffer
  
 VRL-Studio is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License version 3
