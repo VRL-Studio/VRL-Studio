@@ -78,6 +78,7 @@ import eu.mihosoft.vrlstudio.io.StudioBundleUpdater;
 import eu.mihosoft.vrlstudio.io.WindowBounds;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
@@ -346,6 +347,8 @@ public class Studio extends javax.swing.JFrame {
         logView.setBackground(Color.BLACK);
         logView.setForeground(Color.white);
         logView.setEditable(false);
+        Font font = new Font("Monospaced", Font.PLAIN, 14);
+        logView.setFont(font);
         logScrollPane.getViewport().add(logView);
 
 //        ConfigurationFile config = IOUtil.newConfigurationFile(
