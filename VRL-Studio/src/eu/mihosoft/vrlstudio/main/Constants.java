@@ -4,7 +4,7 @@
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2009–2015 Steinbeis Forschungszentrum (STZ Ölbronn),
- * Copyright (c) 2007–2017 by Michael Hoffer
+ * Copyright (c) 2007–2018 by Michael Hoffer
  * 
  * This file is part of VRL-Studio.
  *
@@ -62,19 +62,19 @@ public class Constants {
 
     public static String APP_NAME = "VRL-Studio";
     // version number
-    public static final String VERSION_BASE = "0.4.7.1";
+    public static final String VERSION_BASE = "0.4.7.2";
     // "-HEAD" or "-unstable" etc.
     public static final String VERSION_SUFFIX = "";
     // final version string: 
     public static final String VERSION = VERSION_BASE + VERSION_SUFFIX;
     public static final String COPYRIGHT = "2007-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2017"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/"2018"/*</VRL_COMPILE_DATE_YEAR>*/
             + " by Michael Hoffer"
             + "<br>&<br>2009-"
             + "2015"
             + " Steinbeis Forschungszentrum (STZ Ölbronn)";
     public static final String COPYRIGHT_SIMPLE = "2007-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2017"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/"2018"/*</VRL_COMPILE_DATE_YEAR>*/
             + " by Michael Hoffer";
     public static final String RESOURCES_DIR = "resources/studio-resources/";
 }
