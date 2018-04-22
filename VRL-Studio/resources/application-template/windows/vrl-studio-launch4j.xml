@@ -46,6 +46,6 @@
     <runtimeBits>64/32</runtimeBits>
     <initialHeapPercent>10</initialHeapPercent>
     <maxHeapPercent>70</maxHeapPercent>
-    <opt>-Xss64m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png</opt>
+    <opt>-Dfile.encoding=UTF-8 -Xss64m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png</opt>
   </jre>
 </launch4jConfig>
