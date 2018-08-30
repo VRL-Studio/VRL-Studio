@@ -2907,6 +2907,11 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                         }
 
                                         System.out.println("OS X specific: init done");
+                                        
+                                        ArgumentEvaluator evaluator
+                                            = new ArgumentEvaluator(
+                                                    Studio.this, Studio.this.getInitialCanvas());
+                                        evaluator.loadFile(arguments);
 
                                         if (Studio.updated) {
 
