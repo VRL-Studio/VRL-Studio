@@ -158,8 +158,8 @@ public class Studio extends javax.swing.JFrame {
      * Creates new form Studio
      */
     public Studio(ConfigurationFile config) {
-        
-        if(VSysUtil.isWindows()) {
+
+        if (VSysUtil.isWindows()) {
             System.out.println(">> setting AppUserModelID 'eu.mihosoft.VRL-Studio'"
                     + " to allow taskbar pinning on Windows >= 7.");
             setCurrentProcessExplicitAppUserModelID("eu.mihosoft.VRL-Studio");
@@ -2907,11 +2907,6 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                         }
 
                                         System.out.println("OS X specific: init done");
-                                        
-                                        ArgumentEvaluator evaluator
-                                            = new ArgumentEvaluator(
-                                                    Studio.this, Studio.this.getInitialCanvas());
-                                        evaluator.loadFile(arguments);
 
                                         if (Studio.updated) {
 
@@ -2935,6 +2930,17 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                                 });
 
                                 t.start();
+
+                                try {
+                                    t.join();
+                                } catch (InterruptedException ex) {
+                                    Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+
+                                ArgumentEvaluator evaluator
+                                        = new ArgumentEvaluator(
+                                                Studio.this, Studio.this.getInitialCanvas());
+                                evaluator.loadFile(arguments);
 
                             }
 
