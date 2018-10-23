@@ -141,11 +141,13 @@ then
   echo ">> detected x86 (64 bit) os"
   LIBDIR="$LIBDIR64:$LIBDIROSX"
   JAVAEXE="jre/x64/bin/java"
+  chmod +x $JAVAEXE
 elif [[ $OS == *86* ]]
 then
   echo ">> detected x86 (32 bit) os"
   LIBDIR="$LIBDIR32:$LIBDIROSX"
   JAVAEXE="jre/x86/bin/java"
+  chmod +x $JAVAEXE
 else
   echo ">> unsupported architecture!"
   echo " --> executing installed java version"
@@ -159,16 +161,10 @@ then
   JAVAEXE="java"
 fi
 
-
-# optimized for jre 7 (19.04.2012)
-# $JAVAEXE -Xms64m -Xmx1024m -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF "$FILE"
+echo ">> using java executable from: $JAVAEXE"
 
 # optimized for jre 8 (30.01.2016)
 $JAVAEXE -Xms64m -Xmx4096m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF "$FILE"
-
-
-# 2011
-#java -Xms64m -Xmx1024m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
 
 # experimental
 #java -Xms256m -Xmx1g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=4 -XX:ConcGCThreads=4 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSConcurrentMTEnabled -XX:CMSWaitDuration=200 -XX:+UseParNewGC -XX:MaxPermSize=256m -XX:GCTimeRatio=10 -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF

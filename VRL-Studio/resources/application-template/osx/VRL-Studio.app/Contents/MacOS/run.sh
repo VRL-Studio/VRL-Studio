@@ -46,23 +46,27 @@ then
 	LIBDIR="$LIBDIR64:$LIBDIROSX"
 	JAVAEXE="jre/x64/bin/java"
 	JRE_EXT_DIR="jre/x64/lib/ext"
+	chmod +x $JAVAEXE
 elif [[ $OS == *x86_64* ]]
 then
   echo ">> detected x86 (64 bit) os"
   LIBDIR="$LIBDIR64:$LIBDIROSX"
   JAVAEXE="jre/x64/bin/java"
-	JRE_EXT_DIR="jre/x64/lib/ext"
+  JRE_EXT_DIR="jre/x64/lib/ext"
+  chmod +x $JAVAEXE	
 elif [[ $OS == *86* ]]
 then
   echo ">> detected x86 (32 bit) os"
   LIBDIR="$LIBDIR32:$LIBDIROSX"
   JAVAEXE="jre/x86/bin/java"
-	JRE_EXT_DIR="jre/x86/lib/ext"
+  JRE_EXT_DIR="jre/x86/lib/ext"
+  chmod +x $JAVAEXE
 else
   echo ">> unsupported architecture!"
   echo " --> executing installed java version"
   JAVAEXE="java"
-	JRE_EXT_DIR="$JAVA_HOME/jre/lib/ext"
+  JRE_EXT_DIR="$JAVA_HOME/jre/lib/ext"
+  chmod +x $JAVAEXE
 fi
 
 if [ ! -e $JAVAEXE ]
@@ -70,11 +74,12 @@ then
   echo ">> integrated jre not found!"
   echo " --> executing installed java version"
   JAVAEXE="java"
-	JRE_EXT_DIR="$JAVA_HOME/jre/lib/ext"
+  JRE_EXT_DIR="$JAVA_HOME/jre/lib/ext"
 fi
 
 echo ">> specified parameters: $@"
 echo ">> ext-dir: $JRE_EXT_DIR"
+echo ">> using java executable from: $JAVAEXE"
 
 OSX_CONF="-Xdock:name=VRL-Studio -Xdock:icon=../vrl-icon-osx.icns -Dapple.laf.useScreenMenuBar=true -Djava.ext.dirs=$JRE_EXT_DIR"
 
