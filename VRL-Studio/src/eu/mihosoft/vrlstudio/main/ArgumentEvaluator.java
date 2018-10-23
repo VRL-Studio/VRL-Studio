@@ -111,7 +111,7 @@ public class ArgumentEvaluator {
 
             System.out.println(" --> setting resolution: " + w + "x" + h + ".");
         } else if (!resolution.matches("\\d+x\\d+")) {
-            System.out.println(" --> SYNTAX ERROR: resolution must be specified"
+            System.err.println(" --> SYNTAX ERROR: resolution must be specified"
                     + " as WIDTHxHEIGHT. Example: 640x480.");
         }
 
@@ -138,7 +138,7 @@ public class ArgumentEvaluator {
                         " --> disabling 3D rendering");
                 VGraphicsUtil.disable3DGraphics();
             } else {
-                System.out.println(
+                System.err.println(
                         " --> ERROR: wrong value specified! Valid values:"
                         + " [yes/no]");
             }
@@ -155,7 +155,7 @@ public class ArgumentEvaluator {
         if (fileName != null) {
 
             if (!fileName.toLowerCase().endsWith(".vrlp")) {
-                System.out.println(
+                System.err.println(
                         " --> error: specified file does not end with .vrlp!"
                         + " Using empty project.");
             } else {
@@ -181,9 +181,14 @@ public class ArgumentEvaluator {
             System.out.println(">> Load Project Options:");
 
             if (!fileName.toLowerCase().endsWith(".vrlp")) {
-                System.out.println(
-                        " --> error: specified file does not end with .vrlp!"
-                        + " Not loading file.");
+                if(fileName.isEmpty()) {
+                    System.out.println(
+                            " --> empty file specified.");
+                } else {
+                    System.err.println(
+                            " --> error: specified file does not end with .vrlp!"
+                            + " Not loading file ("+fileName+").");
+                }
             } else {
 //                frame.setDefaultSessionName(fileName);
 
@@ -216,7 +221,7 @@ public class ArgumentEvaluator {
                         " --> disabling debugging");
                 frame.getDebugMenu().setVisible(false);
             } else {
-                System.out.println(
+                System.err.println(
                         " --> ERROR: wrong value specified! Valid values:"
                         + " [yes/no]");
             }

@@ -2893,7 +2893,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 //                            }
                                 }
 
-                                Thread t = new Thread(new Runnable() {
+                                Thread t = new Thread() {
                                     @Override
                                     public void run() {
 
@@ -2925,17 +2925,19 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
                                         studioInitialized = true;
 
-                                        Studio.this.autoUpdate(studioConfig);
                                     }
-                                });
+                                };
 
                                 t.start();
+                                
+                                Studio.this.autoUpdate(studioConfig);
 
                                 try {
                                     t.join();
                                 } catch (InterruptedException ex) {
                                     Logger.getLogger(Studio.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+
 
                                 ArgumentEvaluator evaluator
                                         = new ArgumentEvaluator(
