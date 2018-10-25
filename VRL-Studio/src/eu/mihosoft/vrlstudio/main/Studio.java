@@ -1791,7 +1791,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
                             public boolean overwrite(File src, File dest) {
                                 return VDialog.showConfirmDialog(getCurrentCanvas(),
                                         "Overwrite existing Plugin?",
-                                        "Shall the plugin " + src.getName()
+                                        "Shall the plugin " + dest.getName()
                                         + " be replaced?",
                                         VDialog.DialogType.YES_NO) == VDialog.YES;
                             }
