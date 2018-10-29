@@ -2496,8 +2496,11 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
 
         thread.start();
 
-        ClassPathUpdater.addAllJarsInDirectory(
-                new File(eu.mihosoft.vrl.system.Constants.CUSTOM_LIB_DIR));
+        // 29.10.2018
+        // wen don't support custom lib dir since dynamic classpath changes are not supported on 
+        // newer JDKs
+//        ClassPathUpdater.addAllJarsInDirectory(
+//                new File(eu.mihosoft.vrl.system.Constants.CUSTOM_LIB_DIR));
 
         ArgumentEvaluator evaluator = new ArgumentEvaluator(null, null);
 
