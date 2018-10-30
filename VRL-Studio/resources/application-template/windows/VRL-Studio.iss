@@ -4,14 +4,14 @@
 ; Name of the application
 #define AppName "VRL-Studio"
 ; Version of the application
-#define AppVersion "0.4.7.1"
+#define AppVersion "0.4.8.0"
 ; Menu group of the application
 #define AppGroupName "VRL-Studio"
 ; Name of the folder that contains the application
 #define AppFolderName "VRL-Studio"
 
 [Setup]
-SignTool=signtool
+;SignTool=signtool
 AppId={{eu.mihosoft.VRL-Studio}}
 AppName={#AppName}
 AppVersion={#AppVersion}
@@ -19,7 +19,7 @@ AppVerName={#AppName} {#AppVersion}
 AppPublisher=mihosoft (Michael Hoffer)
 AppComments=VRL-Studio
 AppCopyright=
-AppPublisherURL=http://vrl-studio.mihosoft.eu
+AppPublisherURL=https://vrl-studio.mihosoft.eu
 ;AppSupportURL=http://java.com/
 ;AppUpdatesURL=http://java.com/
 ChangesAssociations=yes
@@ -33,8 +33,8 @@ DisableWelcomePage=No
 DefaultGroupName={#AppGroupName}
 ;Optional License
 LicenseFile={#AppFolderName}\LICENSE.txt
-;WinXP or above
-MinVersion=0,5.1 
+;Win7 or above
+MinVersion=6.1 
 OutputBaseFilename={#AppName}-{#AppVersion}-Setup
 Compression=lzma
 SolidCompression=yes
@@ -42,7 +42,7 @@ PrivilegesRequired=lowest
 SetupIconFile={#AppFolderName}\.application\resources\mime\vrl-app-icon.ico
 UninstallDisplayIcon={app}\.application\resources\mime\vrl-app-icon.ico
 UninstallDisplayName={#AppName}
-WizardImageStretch=No
+WizardImageStretch=Yes
 WizardSmallImageFile={#AppFolderName}\.application\resources\mime\vrl-installer-img-55x55.bmp
 WizardImageFile={#AppFolderName}\.application\resources\mime\vrl-installer-side-img-164x314.bmp   
 
