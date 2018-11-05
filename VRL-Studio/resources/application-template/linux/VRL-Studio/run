@@ -141,13 +141,19 @@ then
   echo ">> detected x86 (64 bit) os"
   LIBDIR="$LIBDIR64:$LIBDIROSX"
   JAVAEXE="jre/x64/bin/java"
-  chmod +x $JAVAEXE
+  if [ -e $JAVAEXE ]
+  then
+    chmod +x $JAVAEXE
+  fi  
 elif [[ $OS == *86* ]]
 then
   echo ">> detected x86 (32 bit) os"
   LIBDIR="$LIBDIR32:$LIBDIROSX"
   JAVAEXE="jre/x86/bin/java"
-  chmod +x $JAVAEXE
+  if [ -e $JAVAEXE ]
+  then
+    chmod +x $JAVAEXE
+  fi  
 else
   echo ">> unsupported architecture!"
   echo " --> executing installed java version"

@@ -46,28 +46,39 @@ then
 	LIBDIR="$LIBDIR64:$LIBDIROSX"
 	JAVAEXE="jre/x64/bin/java"
 	JRE_EXT_DIR="jre/x64/lib/ext"
-	chmod +x $JAVAEXE
-  chmod +x "jre/x64/lib/jspawnhelper"	
+  if [ -e $JAVAEXE ]
+  then
+    chmod +x $JAVAEXE
+  fi  
+  if [ -e $JAVAEXE ]
+  then
+    chmod +x "jre/x64/lib/jspawnhelper"	
+  fi  
 elif [[ $OS == *x86_64* ]]
 then
   echo ">> detected x86 (64 bit) os"
   LIBDIR="$LIBDIR64:$LIBDIROSX"
   JAVAEXE="jre/x64/bin/java"
   JRE_EXT_DIR="jre/x64/lib/ext"
-  chmod +x $JAVAEXE
+  if [ -e $JAVAEXE ]
+  then
+    chmod +x $JAVAEXE
+  fi   
 elif [[ $OS == *86* ]]
 then
   echo ">> detected x86 (32 bit) os"
   LIBDIR="$LIBDIR32:$LIBDIROSX"
   JAVAEXE="jre/x86/bin/java"
   JRE_EXT_DIR="jre/x86/lib/ext"
-  chmod +x $JAVAEXE
+  if [ -e $JAVAEXE ]
+  then
+    chmod +x $JAVAEXE
+  fi    
 else
   echo ">> unsupported architecture!"
   echo " --> executing installed java version"
   JAVAEXE="java"
   JRE_EXT_DIR="$JAVA_HOME/jre/lib/ext"
-  chmod +x $JAVAEXE
 fi
 
 if [ ! -e $JAVAEXE ]

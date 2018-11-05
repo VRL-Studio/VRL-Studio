@@ -27,6 +27,14 @@ then
   echo ">> detected x86 (64 bit) os"
   LIBDIR="$LIBDIR64:$LIBDIROSX"
   JAVAEXE="jre/x64/bin/java"
+  if [ -e $JAVAEXE ]
+  then
+    chmod +x $JAVAEXE
+  fi  
+  if [ -e $JAVAEXE ]
+  then
+    chmod +x "jre/x64/lib/jspawnhelper"	
+  fi  
 elif [[ $OS == *86* ]]
 then
   echo ">> detected x86 (32 bit) os"
@@ -44,7 +52,7 @@ then
   echo " --> executing installed java version"
   
   # we force Java 6 on OS X (28.04.2014)
-  JAVAEXE="/System/Library/Frameworks/JavaVM.framework/Home/bin/java"
+  JAVAEXE="java"
 fi
 
 
