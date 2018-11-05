@@ -2,7 +2,7 @@
 
 ######### EDIT IF NECESSARY #########
 
-VRL_VERSION=0.4.2
+VRL_VERSION=0.4.4
 PROPERTY_SUFFIX=default
 
 
@@ -47,13 +47,14 @@ then
 	JAVAEXE="jre/x64/bin/java"
 	JRE_EXT_DIR="jre/x64/lib/ext"
 	chmod +x $JAVAEXE
+  chmod +x "jre/x64/lib/jspawnhelper"	
 elif [[ $OS == *x86_64* ]]
 then
   echo ">> detected x86 (64 bit) os"
   LIBDIR="$LIBDIR64:$LIBDIROSX"
   JAVAEXE="jre/x64/bin/java"
   JRE_EXT_DIR="jre/x64/lib/ext"
-  chmod +x $JAVAEXE	
+  chmod +x $JAVAEXE
 elif [[ $OS == *86* ]]
 then
   echo ">> detected x86 (32 bit) os"
