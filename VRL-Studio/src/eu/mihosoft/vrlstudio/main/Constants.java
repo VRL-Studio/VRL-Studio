@@ -72,7 +72,7 @@ public class Constants {
             + /*<VRL_COMPILE_DATE_YEAR>*/"2020"/*</VRL_COMPILE_DATE_YEAR>*/
             + " by Michael Hoffer"
             + "<br>&<br>2015-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2020"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/"2018"/*</VRL_COMPILE_DATE_YEAR>*/
             + " G-CSC, Uni Frankfurt"
             + "<br>&<br>2009-"
             + "2015"
