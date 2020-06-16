@@ -33,4 +33,8 @@ REM start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -XX:MaxPermSize=256m -
 REM optimized for jre 8 (30.01.2016)
 start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
 
+REM optimized for jre > 11 (20.06.2020)
+start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
+
+
 exit

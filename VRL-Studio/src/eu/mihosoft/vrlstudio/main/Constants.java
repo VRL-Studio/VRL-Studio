@@ -63,22 +63,22 @@ public class Constants {
 
     public static String APP_NAME = "VRL-Studio";
     // version number
-    public static final String VERSION_BASE = "0.4.8.0";
+    public static final String VERSION_BASE = "0.4.8.1";
     // "-HEAD" or "-unstable" etc.
     public static final String VERSION_SUFFIX = "";
     // final version string: 
     public static final String VERSION = VERSION_BASE + VERSION_SUFFIX;
     public static final String COPYRIGHT = "2007-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2018"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/"2020"/*</VRL_COMPILE_DATE_YEAR>*/
             + " by Michael Hoffer"
             + "<br>&<br>2015-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2018"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/"2020"/*</VRL_COMPILE_DATE_YEAR>*/
             + " G-CSC, Uni Frankfurt"
             + "<br>&<br>2009-"
             + "2015"
             + " Steinbeis Forschungszentrum (STZ Ölbronn)";
     public static final String COPYRIGHT_SIMPLE = "2007-"
-            + /*<VRL_COMPILE_DATE_YEAR>*/"2018"/*</VRL_COMPILE_DATE_YEAR>*/
+            + /*<VRL_COMPILE_DATE_YEAR>*/"2020"/*</VRL_COMPILE_DATE_YEAR>*/
             + " by Michael Hoffer";
     public static final String RESOURCES_DIR = "resources/studio-resources/";
 }

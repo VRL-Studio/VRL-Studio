@@ -170,7 +170,10 @@ fi
 echo ">> using java executable from: $JAVAEXE"
 
 # optimized for jre 8 (30.01.2016)
-$JAVAEXE -Xms64m -Xmx4096m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF "$FILE"
+#$JAVAEXE -Xms64m -Xmx4096m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF "$FILE"
+
+# optimized for jre > 11 (20.06.2020)
+$JAVAEXE -Xms64m -Xmx4096m -Xss16m -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF "$FILE"
 
 # experimental
 #java -Xms256m -Xmx1g -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=4 -XX:ConcGCThreads=4 -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSConcurrentMTEnabled -XX:CMSWaitDuration=200 -XX:+UseParNewGC -XX:MaxPermSize=256m -XX:GCTimeRatio=10 -splash:resources/studio-resources/splashscreen.png -Djava.library.path="$LIBDIR" -jar VRL-Studio.jar $CONF
