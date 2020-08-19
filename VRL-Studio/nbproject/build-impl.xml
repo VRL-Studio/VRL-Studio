@@ -273,6 +273,7 @@ is divided into following sections:
                     </src>
                     <classpath>
                         <path path="@{classpath}"/>
+                        <pathelement path="${vrl.location}"/> 
                     </classpath>
                     <compilerarg line="${endorsed.classpath.cmd.line.arg}"/>
                     <compilerarg line="${javac.compilerargs}"/>
@@ -312,6 +313,7 @@ is divided into following sections:
                     </src>
                     <classpath>
                         <path path="@{classpath}"/>
+                        <pathelement path="${vrl.location}"/> 
                     </classpath>
                     <compilerarg line="${endorsed.classpath.cmd.line.arg}"/>
                     <compilerarg line="${javac.compilerargs}"/>
