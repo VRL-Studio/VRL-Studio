@@ -1,6 +1,12 @@
 VRL-Studio
 ==========
 
+<a href="https://foojay.io/today/works-with-openjdk">
+   <img align="right" 
+        src="https://github.com/foojayio/badges/raw/main/works_with_openjdk/Works-with-OpenJDK.png"   
+        width="100">
+</a>
+
 Webpage: http://vrl-studio.mihosoft.eu
 
 Join the [Developer Group](https://groups.google.com/forum/#!forum/vrl-developers) if you'd like to contribute.
