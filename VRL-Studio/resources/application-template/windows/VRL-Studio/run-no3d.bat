@@ -28,6 +28,11 @@ REM start /realtime %JAVAEXE% -Xms64m -Xmx512m -XX:+UseConcMarkSweepGC -XX:+CMSC
 
 
 REM version of 2012
-start /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -XX:MaxPermSize=256m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
+REM start /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -XX:MaxPermSize=256m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
+
+
+REM optimized for jre 21 (26.06.2024)
+REM start /min /realtime %JAVAEXE% -Xms128m -Xmx%MAXHEAP%m -Xss16m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
+start /min /realtime %JAVAEXE% -Xms128m -Xmx%MAXHEAP%m -Xss16m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" --add-modules javafx.controls,javafx.fxml,javafx.graphics --module-path "%LIBDIR%" --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.desktop/sun.awt=ALL-UNNAMED --add-opens java.base/sun.net.www.protocol.jar=ALL-UNNAMED -jar VRL-Studio.jar %CONF% %*
 
 exit

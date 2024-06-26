@@ -3192,7 +3192,7 @@ private void deleteAllVersionsMenuItemActionPerformed(java.awt.event.ActionEvent
     }
 
     /**
-     * Enables hidden functionality not usefull for the average user.
+     * Enables hidden functionality not useful for the average user.
      */
     public void iAmRoot() {
         deleteAllVersionsMenuItem.setVisible(true);

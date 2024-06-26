@@ -31,10 +31,13 @@ REM optimized for jre 7 (19.04.2012)
 REM start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -XX:MaxPermSize=256m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
 
 REM optimized for jre 8 (30.01.2016)
-start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
+REM start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
 
 REM optimized for jre > 11 (20.06.2020)
-start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
+REM start /min /realtime %JAVAEXE% -Xms64m -Xmx%MAXHEAP%m -Xss16m -XX:+UseConcMarkSweepGC -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
 
+REM optimized for jre 21 (26.06.2024)
+REM start /min /realtime %JAVAEXE% -Xms128m -Xmx%MAXHEAP%m -Xss16m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" -jar VRL-Studio.jar %CONF% %*
+start /min /realtime %JAVAEXE% -Xms128m -Xmx%MAXHEAP%m -Xss16m -splash:resources\studio-resources\splashscreen.png -Djava.library.path="%LIBDIR%" --add-modules javafx.controls,javafx.fxml,javafx.graphics --module-path "%LIBDIR%" --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.desktop/sun.awt=ALL-UNNAMED --add-opens java.base/sun.net.www.protocol.jar=ALL-UNNAMED -jar VRL-Studio.jar %CONF% %*
 
 exit
