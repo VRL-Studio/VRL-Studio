@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>true</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>VRL-Studio.jar</jar>
+  <outfile>C:\Users\miho\Documents\GitHub\VRL-Studio\VRL-Studio\dist-final\windows\VRL-Studio\VRL-Studio.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine>-enable3d yes -resolution 1024x768 -defaultProject default.vrlp -property-folder-suffix default -plugin-checksum-test no</cmdLine>
+  <chdir>.application</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\miho\Documents\GitHub\VRL-Studio\VRL-Studio\dist-final\windows\VRL-Studio\.application\resources\mime\vrl-app-icon.ico</icon>
+  <classPath>
+    <mainClass>eu.mihosoft.vrlstudio.main.Studio</mainClass>
+    <cp>lib/jpedal_lgpl.jar</cp>
+    <cp>lib/VRL.jar</cp>
+    <cp>lib/args4j-2.0.21.jar</cp>
+    <cp>lib/bcpg-jdk15on-147.jar</cp>
+    <cp>lib/bcprov-jdk15on-147.jar</cp>
+    <cp>lib/gluegen-rt-natives-linux-amd64.jar</cp>
+    <cp>lib/gluegen-rt-natives-linux-i586.jar</cp>
+    <cp>lib/gluegen-rt-natives-macosx-universal.jar</cp>
+    <cp>lib/gluegen-rt-natives-windows-amd64.jar</cp>
+    <cp>lib/gluegen-rt-natives-windows-i586.jar</cp>
+    <cp>lib/gluegen-rt.jar</cp>
+    <cp>lib/gluegen.jar</cp>
+    <cp>lib/jogl-all-natives-linux-amd64.jar</cp>
+    <cp>lib/jogl-all-natives-linux-i586.jar</cp>
+    <cp>lib/jogl-all-natives-macosx-universal.jar</cp>
+    <cp>lib/jogl-all-natives-windows-amd64.jar</cp>
+    <cp>lib/jogl-all-natives-windows-i586.jar</cp>
+    <cp>lib/jogl-all.jar</cp>
+    <cp>lib/glg2d-0.5-SNAPSHOT.jar</cp>
+  </classPath>
+  <jre>
+    <path>.application/jre/x64</path>
+    <requiresJdk>true</requiresJdk>
+    <requires64Bit>true</requires64Bit>
+    <minVersion></minVersion>
+    <maxVersion></maxVersion>
+    <initialHeapPercent>10</initialHeapPercent>
+    <maxHeapPercent>70</maxHeapPercent>
+    <opt>-Dfile.encoding=UTF-8 -Xss256m -splash:resources\studio-resources\splashscreen.png --add-modules javafx.controls,javafx.fxml,javafx.graphics --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.desktop/sun.awt=ALL-UNNAMED --add-opens java.base/sun.net.www.protocol.jar=ALL-UNNAMED </opt>
+  </jre>
+</launch4jConfig>

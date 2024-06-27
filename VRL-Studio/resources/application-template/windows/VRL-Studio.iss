@@ -4,7 +4,7 @@
 ; Name of the application
 #define AppName "VRL-Studio"
 ; Version of the application
-#define AppVersion "0.4.8.0"
+#define AppVersion "0.4.9.0"
 ; Menu group of the application
 #define AppGroupName "VRL-Studio"
 ; Name of the folder that contains the application
